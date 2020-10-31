@@ -1,0 +1,41 @@
+.table-presentation {
+  .q-table__top {
+    background-color: $primary;
+    color: $white;
+  }
+
+  tr:hover {
+    td {
+      background-color: $primary;
+      color: white !important;
+    }
+  }
+
+  thead {
+    tr {
+      th {
+        color: $white;
+        font-weight: bold;
+        background-color: $primary;
+        opacity: initial;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        &:first-child {
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+
+        &:nth-child(2) {
+          background-color: $primary;
+          font-weight: bold;
+          color: white;
+        }
+      }
+    }
+  }
+}

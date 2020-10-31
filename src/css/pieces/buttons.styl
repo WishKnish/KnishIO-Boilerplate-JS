@@ -1,0 +1,37 @@
+.q-btn {
+  text-transform: none;
+
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    -webkit-border-radius: inherit;
+    background: inherit;
+    content: "";
+    opacity: 0.3;
+  }
+
+  &:hover {
+    .icon {
+      left: 15px !important;
+      opacity: 1 !important;
+    }
+
+    .text {
+      left: 100%;
+      opacity: 0 !important;
+    }
+
+    &:not(.fa):before {
+      transform: scale(1.5);
+      -webkit-transform: scale(1.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform .5s, opacity .5s, visibility 0s .5s;
+      -webkit-transition: transform .5s, opacity .5s, visibility 0s .5s;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.hover-color
+  transition: all .5s ease /* Animation */
+
+  filter: grayscale(100%); /* Standard CSS */
+  -webkit-filter: grayscale(100%); /* CSS for Webkit Browsers */
+  filter: url(/elements/grayscale.svg#desaturate); /* Firefox 4-34 */
+  filter: gray; /* Internet Explorer IE6-9 */
+  -webkit-filter: grayscale(1); /* Old WebKit Browsers */
+
+  &:hover {
+    filter: grayscale(0%);
+    filter: none;
+    -webkit-filter: grayscale(0); /* Old WebKit */
+  }

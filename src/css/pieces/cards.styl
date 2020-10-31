@@ -1,0 +1,37 @@
+.q-card
+  border-radius: 28px
+
+  .hover-hide, .hover-show, .hover-show-bottom, .hover-hide-bottom, &.hover-inner-zoom .q-img .q-img__image
+    -webkit-transition: all .5s
+    -moz-transition: all .5s
+    -o-transition: all .5s
+    transition: all .5s
+
+  .hover-show
+    top: -50%;
+
+  .hover-show-bottom
+    bottom: -50%;
+
+  &:hover
+    .hover-hide
+      top: -50%
+
+    .hover-hide-bottom
+      bottom: -50%;
+
+    .hover-show
+      top: 0;
+
+    .hover-show-bottom
+      bottom: 0;
+
+  &.hover-inner-zoom
+    &:hover .q-img .q-img__image,
+    &:focus .q-img .q-img__image
+      -ms-transform: scale(1.1)
+      -moz-transform: scale(1.1)
+      -webkit-transform: scale(1.1)
+      -o-transform: scale(1.1)
+      transform: scale(1.1)
+

@@ -1,0 +1,40 @@
+@import "../fonts/montserrat.styl"
+@import "~quasar/src/css/variables"
+
+body
+  color: $grey-9;
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0;
+
+.light {
+  font-weight: 300;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.semibold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.text-underline
+  border-bottom: 1px dotted;
+
+.text-bold
+  font-weight: bold !important;
+
+.q-toolbar a:not(.q-breadcrumbs__el):not(.q-btn):not(.q-item)
+  border-bottom: none;
+
+a:not(.q-breadcrumbs__el):not(.q-btn):not(.q-item)
+  color: $primary;
+  text-decoration: none;
+  border-bottom: 1px dotted $primary;

@@ -1,0 +1,83 @@
+// app global css
+@import "quasar.variables"
+
+@import "pieces/buttons"
+@import "pieces/cards"
+@import "pieces/colors"
+@import "pieces/flip"
+@import "pieces/forms"
+@import "pieces/hover-color"
+@import "pieces/hover-zoom"
+@import "pieces/icons"
+@import "pieces/lists"
+@import "pieces/ribbons"
+@import "pieces/scrollbars"
+@import "pieces/tables"
+@import "pieces/type"
+
+.q-ma-none
+  margin: 0 !important
+
+.q-pa-none
+  padding: 0 !important
+
+.auto-max-width
+  max-width: initial !important
+
+.full-max-width
+  max-width: 100% !important
+  left: 0 !important
+  right: 0 !important
+
+.full-max-height
+  max-height: 100% !important
+
+.inset-shadow-15
+  box-shadow: 0 7px 25px -7px rgba(0, 0, 0, 0.7) inset !important
+
+.hover-spin
+  transform: rotate(0deg)
+  transition: transform 1s ease-in-out
+
+  &:hover
+    transform: rotate(720deg)
+
+.q-item:hover
+  .hover-spin
+    transform: rotate(720deg)
+
+.clip-bottom-container, .clip-top-container
+  position: relative
+
+  &:after
+    display: block
+    width: 100%
+    transform: skewY(-2.34deg)
+    -webkit-backface-visibility: hidden
+    height: 20px
+    position: absolute
+    pointer-events: none
+    content: ''
+
+.clip-bottom-container
+  &:after
+    box-shadow: 0 8px 9px -5px rgba(0, 0, 0, 0.2), 0 15px 22px 2px rgba(0, 0, 0, 0.14), 0 6px 28px 5px rgba(0, 0, 0, 0.12)
+    bottom: 0
+    transform-origin: 0 0
+
+.clip-bottom
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0% 100%)
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0% 100%)
+
+.clip-top-container
+  &:after
+    box-shadow: 0 -8px 9px -5px rgba(0, 0, 0, 0.2), 0 -15px 22px 2px rgba(0, 0, 0, 0.14), 0 -6px 28px 5px rgba(0, 0, 0, 0.12)
+    top: 0
+    transform-origin: 100% 100%
+
+.clip-top
+  clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0% 100%)
+  -webkit-clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0% 100%)
+
+.overflow-hidden-x
+  overflow-x: hidden !important
