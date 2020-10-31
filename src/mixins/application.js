@@ -10,7 +10,7 @@ import {
   TRANSITIONS,
 } from 'src/constants/defaults';
 import { dom, date, scroll, } from 'quasar';
-import { randomString, truncateMiddle, } from 'src/libraries/strings';
+import { truncateMiddle, } from 'src/libraries/strings';
 const { height, } = dom;
 
 export default {
