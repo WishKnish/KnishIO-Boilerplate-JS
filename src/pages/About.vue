@@ -2,7 +2,7 @@
   <section>
     <wk-page-content
       :title="$t( 'pages.about.header.title' )"
-      icon="fal fa-question-circle"
+      icon="fa fa-question-circle"
     >
       <div
         v-html="$t( 'pages.about.content' )"

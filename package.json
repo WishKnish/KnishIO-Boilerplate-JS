@@ -11,7 +11,6 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-pro": "file:./../node_modules/@fortawesome/fontawesome-pro",
     "@quasar/app": "^2.1.0",
     "@quasar/cli": "^1.1.2",
     "@quasar/extras": "^1.8.2",

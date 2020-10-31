@@ -167,7 +167,7 @@
                 avatar
               >
                 <q-icon
-                  name="fal fa-wallet"
+                  name="fa fa-wallet"
                 />
               </q-item-section>
               <q-item-section>
@@ -192,7 +192,7 @@
                     @click="initUser"
                   >
                     <q-icon
-                      name="fal fa-sync"
+                      name="fa fa-sync"
                       color="white"
                     />
                     <q-tooltip>
@@ -210,7 +210,7 @@
                     @click="infoDialogOpen = true"
                   >
                     <q-icon
-                      name="fal fa-info-circle"
+                      name="fa fa-info-circle"
                       color="white"
                     />
                     <q-tooltip>
@@ -289,7 +289,7 @@
                         @click="showQrDialog( wallet )"
                       >
                         <q-icon
-                          name="fal fa-qrcode"
+                          name="fa fa-qrcode"
                           color="white"
                         />
                         <q-tooltip>
@@ -307,7 +307,7 @@
                         @click="showSendDialog( wallet )"
                       >
                         <q-icon
-                          name="fal fa-paper-plane"
+                          name="fa fa-paper-plane"
                           color="white"
                         />
                         <q-tooltip>

@@ -5,7 +5,7 @@
   >
     <q-btn
       fab
-      icon="fal fa-sync"
+      icon="fa fa-sync"
       color="secondary"
       push
       @click="action()"

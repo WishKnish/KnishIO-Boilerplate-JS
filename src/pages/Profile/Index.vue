@@ -112,22 +112,22 @@ export default {
         {
           label: this.$q.screen.gt.xs ? this.$t( 'pages.profile.buttons.dashboard' ) : null,
           value: this.$router.resolve( { name: 'profile', } ).href,
-          icon: 'fal fa-fw fa-tachometer',
+          icon: 'fa fa-fw fa-tachometer',
         },
         {
           label: this.$q.screen.gt.xs ? this.$t( 'pages.profile.buttons.favorites' ) : null,
           value: this.$router.resolve( { name: 'favorites', } ).href,
-          icon: 'fal fa-fw fa-heart',
+          icon: 'fa fa-fw fa-heart',
         },
         {
           label: this.$q.screen.gt.xs ? this.$t( 'pages.profile.buttons.messages' ) : null,
           value: this.$router.resolve( { name: 'messages', } ).href,
-          icon: 'fal fa-fw fa-envelope',
+          icon: 'fa fa-fw fa-envelope',
         },
         {
           label: this.$q.screen.gt.xs ? this.$t( 'pages.profile.buttons.purchases' ) : null,
           value: this.$router.resolve( { name: 'purchases', } ).href,
-          icon: 'fal fa-fw fa-bags-shopping',
+          icon: 'fa fa-fw fa-bags-shopping',
         },
       ];
     },
@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     guardRedirect () {
-      // this.$q.notify( this.notifySetup( 'Please log in first!', 'fal fa-times-circle', 'negative') );
+      // this.$q.notify( this.notifySetup( 'Please log in first!', 'fa fa-times-circle', 'negative') );
       this.$router.push( {
         name: 'login',
         params: {

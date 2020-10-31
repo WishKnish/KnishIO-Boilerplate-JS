@@ -2,7 +2,7 @@
   <wk-dialog
     :bar="$t( 'dialogs.login.bar' )"
     :header="$t( 'dialogs.login.header' )"
-    icon="fal fa-info-circle"
+    icon="fa fa-info-circle"
     no-padding
   >
     <wk-login-form />

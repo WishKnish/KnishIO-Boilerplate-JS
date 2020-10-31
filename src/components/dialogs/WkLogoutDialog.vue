@@ -2,7 +2,7 @@
   <wk-dialog
     :bar="$t( 'dialogs.logout.bar' )"
     :header="$t( 'dialogs.logout.header' )"
-    icon="fal fa-exclamation-triangle"
+    icon="fa fa-exclamation-triangle"
   >
     <q-card-section
       class="q-pl-lg q-pr-lg"
@@ -18,7 +18,7 @@
         <q-btn
           v-close-popup
           color="accent"
-          icon="fal fa-sign-out"
+          icon="fa fa-sign-out"
           size="md"
           rounded
           outline

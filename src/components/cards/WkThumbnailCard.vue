@@ -37,7 +37,7 @@
             <wk-button
               :outline="false"
               :tooltip="$t( 'ux.common.share' )"
-              icon="fal fa-share-alt"
+              icon="fa fa-share-alt"
               color="accent"
               size="sm"
               round
@@ -83,7 +83,7 @@
             size="2em"
           >
             <q-icon
-              name="fal fa-external-link-alt"
+              name="fa fa-external-link-alt"
             />
           </q-avatar>
         </q-item-section>
@@ -157,7 +157,7 @@ export default {
       return this.isFavorite ? 'primary' : 'grey';
     },
     faveIcon () {
-      return this.isFavorite ? 'fas fa-heart' : 'fal fa-heart';
+      return this.isFavorite ? 'fas fa-heart' : 'fa fa-heart';
     },
   },
   methods: {

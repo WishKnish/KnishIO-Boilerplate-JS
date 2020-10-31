@@ -13,7 +13,7 @@
             active-color="white"
           >
             <q-breadcrumbs-el
-              icon="fal fa-home"
+              icon="fa fa-home"
               to="/"
             />
             <q-breadcrumbs-el

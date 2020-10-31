@@ -21,10 +21,10 @@
           :name="1"
           :done="step > 1"
           :title="$t( 'forms.register.stepper.step1' )"
-          icon="fal fa-edit"
-          active-icon="fal fa-edit"
-          done-icon="fal fa-check-circle"
-          error-icon="fal fa-times-circle"
+          icon="fa fa-edit"
+          active-icon="fa fa-edit"
+          done-icon="fa fa-check-circle"
+          error-icon="fa fa-times-circle"
         >
           <div
             class="row q-col-gutter-md"
@@ -64,7 +64,7 @@
                 v-slot:before
               >
                 <q-icon
-                  name="fal fa-envelope"
+                  name="fa fa-envelope"
                 />
               </template>
             </q-input>
@@ -92,7 +92,7 @@
                 v-slot:before
               >
                 <q-icon
-                  name="fal fa-lock"
+                  name="fa fa-lock"
                 />
               </template>
             </q-input>
@@ -115,7 +115,7 @@
               >
                 <q-btn
                   color="accent"
-                  icon="fal fa-sync"
+                  icon="fa fa-sync"
                   size="xs"
                   round
                   @click="generatePublicName"
@@ -130,10 +130,10 @@
           :title="$t( 'forms.register.stepper.step2' )"
           :done="step > 2"
           :error="submitStatus === 'ERROR'"
-          icon="fal fa-dna"
-          active-icon="fal fa-dna"
-          done-icon="fal fa-check-circle"
-          error-icon="fal fa-times-circle"
+          icon="fa fa-dna"
+          active-icon="fa fa-dna"
+          done-icon="fa fa-check-circle"
+          error-icon="fa fa-times-circle"
         >
           <q-inner-loading
             :showing="submitStatus === 'PENDING'"
@@ -158,10 +158,10 @@
           :title="$t( 'forms.register.stepper.step3' )"
           :done="submitStatus === 'SUCCESS'"
           :error="submitStatus === 'ERROR'"
-          icon="fal fa-server"
-          active-icon="fal fa-server"
-          done-icon="fal fa-check-circle"
-          error-icon="fal fa-times-circle"
+          icon="fa fa-server"
+          active-icon="fa fa-server"
+          done-icon="fa fa-check-circle"
+          error-icon="fa fa-times-circle"
         >
           <div
             v-if="submitStatus === 'SUCCESS'"

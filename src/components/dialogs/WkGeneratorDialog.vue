@@ -2,7 +2,7 @@
   <wk-dialog
     :bar="$t( 'dialogs.generator.bar' )"
     :header="`${ wallet.token } ${ $t( 'dialogs.generator.header' ) }`"
-    icon="fal fa-info-circle"
+    icon="fa fa-info-circle"
   >
     <q-card-section>
       <div
@@ -34,7 +34,7 @@
               avatar
             >
               <q-icon
-                name="fal fa-coin"
+                name="fa fa-coin"
               />
             </q-item-section>
             <q-item-section>
@@ -55,7 +55,7 @@
               avatar
             >
               <q-icon
-                name="fal fa-wallet"
+                name="fa fa-wallet"
               />
             </q-item-section>
             <q-item-section>
@@ -80,7 +80,7 @@
               avatar
             >
               <q-icon
-                name="fal fa-copy"
+                name="fa fa-copy"
               />
             </q-item-section>
             <q-item-section>
@@ -106,7 +106,7 @@
               avatar
             >
               <q-icon
-                name="fal fa-copy"
+                name="fa fa-copy"
               />
             </q-item-section>
             <q-item-section>
@@ -132,7 +132,7 @@
               avatar
             >
               <q-icon
-                name="fal fa-copy"
+                name="fa fa-copy"
               />
             </q-item-section>
             <q-item-section>

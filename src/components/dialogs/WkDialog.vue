@@ -18,7 +18,7 @@
         v-close-popup
         dense
         flat
-        icon="fal fa-times-circle"
+        icon="fa fa-times-circle"
       >
         <q-tooltip
           content-class="bg-white text-primary"

@@ -2,7 +2,7 @@
   <wk-dialog
     :bar="$t( 'dialogs.register.bar' )"
     :header="$t( 'dialogs.register.header' )"
-    icon="fal fa-user-plus"
+    icon="fa fa-user-plus"
     no-padding
   >
     <wk-register-form

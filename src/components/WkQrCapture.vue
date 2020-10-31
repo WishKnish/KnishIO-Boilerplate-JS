@@ -27,7 +27,7 @@
             size="100px"
           >
             <q-icon
-              name="fal fa-camera"
+              name="fa fa-camera"
             />
           </q-avatar>
         </q-item-section>
@@ -49,7 +49,7 @@
           text-color="white"
         >
           <q-icon
-            name="fal fa-camera"
+            name="fa fa-camera"
           />
         </q-avatar>
       </div>

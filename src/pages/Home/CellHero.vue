@@ -68,7 +68,7 @@
                   >
                     <q-avatar>
                       <q-icon
-                        name="fal fa-exclamation"
+                        name="fa fa-exclamation"
                       />
                     </q-avatar>
                   </q-item-section>

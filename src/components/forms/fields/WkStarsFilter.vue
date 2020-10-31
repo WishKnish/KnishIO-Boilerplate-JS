@@ -19,7 +19,7 @@
       <q-rating
         :value="filterStars"
         size="1em"
-        icon="fal fa-star"
+        icon="fa fa-star"
         icon-selected="fas fa-star"
         icon-half="fas fa-star-half-alt"
         class="q-col-gutter-xs no-wrap"
@@ -37,7 +37,7 @@
           <q-rating
             :value="scope.opt"
             size="1em"
-            icon="fal fa-star"
+            icon="fa fa-star"
             icon-selected="fas fa-star"
             icon-half="fas fa-star-half-alt"
             class="q-col-gutter-xs no-wrap"

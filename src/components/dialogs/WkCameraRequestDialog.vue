@@ -5,7 +5,7 @@
     <q-card-section>
       <div class="text-h6">
         <q-icon
-          name="fal fa-camera"
+          name="fa fa-camera"
         />
         May we use your camera?
       </div>

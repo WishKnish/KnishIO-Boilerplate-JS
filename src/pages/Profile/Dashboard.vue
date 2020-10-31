@@ -3,7 +3,7 @@
     <wk-page-content
       :title="$t( 'pages.profile.dashboard.header.title' )"
       :subtitle="$t( 'pages.profile.dashboard.header.subtitle' )"
-      icon="fal fa-tachometer"
+      icon="fa fa-tachometer"
     >
       <q-separator />
     </wk-page-content>

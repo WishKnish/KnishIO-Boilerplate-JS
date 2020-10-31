@@ -8,7 +8,7 @@
     <q-toolbar>
       <q-btn
         v-if="$q.screen.lt.md"
-        icon="fal fa-bars"
+        icon="fa fa-bars"
         dense
         flat
         round

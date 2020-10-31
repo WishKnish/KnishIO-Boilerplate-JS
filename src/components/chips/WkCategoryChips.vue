@@ -7,7 +7,7 @@
     />
     <q-icon
       v-if="product.category2"
-      name="fal fa-chevron-right"
+      name="fa fa-chevron-right"
       size="0.5em"
     />
     <q-chip
@@ -18,7 +18,7 @@
     />
     <q-icon
       v-if="product.category3"
-      name="fal fa-chevron-right"
+      name="fa fa-chevron-right"
       size="0.5em"
     />
     <q-chip

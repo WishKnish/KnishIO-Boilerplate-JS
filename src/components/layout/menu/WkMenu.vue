@@ -43,7 +43,7 @@
             color="accent"
           >
             <q-icon
-              name="fal fa-user"
+              name="fa fa-user"
               color="white"
             />
           </q-avatar>
@@ -60,7 +60,7 @@
             size="2em"
           >
             <q-icon
-              name="fal fa-sync fa-spin"
+              name="fa fa-sync fa-spin"
             />
           </q-avatar>
           <span
@@ -71,7 +71,7 @@
         </div>
         <q-icon
           v-if="$q.screen.gt.xs && initialized && !loggedIn"
-          name="fal fa-caret-down"
+          name="fa fa-caret-down"
         />
         <wk-menu-profile
           v-if="initialized && loggedIn"
@@ -87,7 +87,7 @@
         v-ripple
         color="grey"
         size="md"
-        icon-right="fal fa-caret-down"
+        icon-right="fa fa-caret-down"
         flat
       >
         <q-avatar>
@@ -104,7 +104,7 @@
       v-if="vertical"
       :label="$t( 'ux.common.close' )"
       :shrink-label="false"
-      icon="fal fa-times"
+      icon="fa fa-times"
       color="secondary"
       @click="drawerOpen = !drawerOpen"
     />

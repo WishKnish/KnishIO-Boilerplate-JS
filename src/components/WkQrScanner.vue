@@ -13,7 +13,7 @@
           rounded
         >
           <q-icon
-            name="fal fa-question"
+            name="fa fa-question"
           />
         </q-avatar>
       </q-item-section>
@@ -34,7 +34,7 @@
           <span class="platform-ios-hide">
             press
             <q-icon
-              name="fal fa-check-circle"
+              name="fa fa-check-circle"
             />.
           </span>
         </q-item-label>
@@ -83,7 +83,7 @@
           v-slot:avatar
         >
           <q-icon
-            name="fal fa-camera"
+            name="fa fa-camera"
           />
         </template>
         <q-btn

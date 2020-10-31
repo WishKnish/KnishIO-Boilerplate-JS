@@ -76,7 +76,7 @@ export default {
           this.$q.notify( {
             message: 'The active account has been successfully restored.',
             color: 'primary',
-            icon: 'fal fa-check-circle',
+            icon: 'fa fa-check-circle',
             closeBtn: 'Close',
           } );
         }

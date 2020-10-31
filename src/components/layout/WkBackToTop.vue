@@ -6,7 +6,7 @@
   >
     <q-btn
       fab
-      icon="fal fa-chevron-up"
+      icon="fa fa-chevron-up"
       color="primary"
     />
   </q-page-scroller>

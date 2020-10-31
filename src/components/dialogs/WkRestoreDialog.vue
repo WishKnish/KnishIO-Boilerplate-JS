@@ -2,7 +2,7 @@
   <wk-dialog
     :bar="$t( 'dialogs.restore.bar' )"
     :header="$t( 'dialogs.restore.header' )"
-    icon="fal fa-info-circle"
+    icon="fa fa-info-circle"
     no-padding
   >
     <wk-restore-form />

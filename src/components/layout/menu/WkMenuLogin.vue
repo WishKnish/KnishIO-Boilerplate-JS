@@ -22,7 +22,7 @@
         >
           <q-avatar>
             <q-icon
-              name="fal fa-sign-in"
+              name="fa fa-sign-in"
             />
           </q-avatar>
         </q-item-section>

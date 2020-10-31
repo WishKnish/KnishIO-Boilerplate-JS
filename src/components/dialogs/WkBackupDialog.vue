@@ -2,7 +2,7 @@
   <wk-dialog
     :bar="$t( 'dialogs.backup.bar' )"
     :header="$t( 'dialogs.backup.header' )"
-    icon="fal fa-wallet"
+    icon="fa fa-wallet"
   >
     <q-item-section
       class="q-pa-md"

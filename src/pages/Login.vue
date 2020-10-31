@@ -4,7 +4,7 @@
   >
     <wk-page-content
       title="Log In"
-      icon="fal fa-users"
+      icon="fa fa-users"
     >
       <div
         class="row"
@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     guardRedirect () {
-      // this.$q.notify( this.notifySetup( 'You are already logged in!', 'fal fa-times-circle', 'negative' ) );
+      // this.$q.notify( this.notifySetup( 'You are already logged in!', 'fa fa-times-circle', 'negative' ) );
       this.$router.push( {
         name: 'profile',
       } ).catch( err => {
