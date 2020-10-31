@@ -1,110 +1,103 @@
 <template>
-  <section>
-    <div
-      class="row flex-center"
+  <wk-hero-card>
+    <h4
+      class="text-center"
     >
-      <q-card
-        class="col-xs-12 col-sm-8"
+      4. The Auth Token
+    </h4>
+    <div
+      :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
+    >
+      <div
+        :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
       >
-        <div
-          class="col q-pa-md"
+        <VueShowdown
+          markdown="Authorization tokens are temporarily given by Knish.IO nodes and are provided in the `X-Auth-Token` HTTP header. The Knish.IO client will manage these for you automatically."
+        />
+      </div>
+      <div
+        class="text-center"
+      >
+        <wk-button
+          v-if="!authToken"
+          :outline="false"
+          label="Request Authorization Token"
+          @click="requestAuth"
+        />
+        <wk-button
+          v-else
+          :disable="!value || !secret"
+          :outline="false"
+          label="Reset"
+          color="negative"
+          @click="resetAuth"
+        />
+      </div>
+      <sequential-entrance>
+        <VueShowdown
+          v-if="secret"
+          :markdown="example"
+        />
+        <q-item
+          v-if="authToken"
         >
-          <h4
-            class="text-center"
-          >
-            4. The Auth Token
-          </h4>
-          <div
-            :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
-          >
-            <div
-              :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
+          <q-item-section>
+            <q-item-label
+              caption
             >
-              <VueShowdown
-                markdown="Authorization tokens are temporarily given by Knish.IO nodes and are provided in the `X-Auth-Token` HTTP header. The Knish.IO client will manage these for you automatically."
+              <wk-input
+                label="Your authorization token is:"
+                :value="authToken"
+                readonly
               />
-            </div>
-            <div
-              class="text-center"
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-banner
+          v-if="error"
+          class="bg-negative"
+        >
+          <q-item
+            dark
+          >
+            <q-item-section
+              avatar
             >
-              <wk-button
-                v-if="!authToken"
-                :outline="false"
-                label="Request Authorization Token"
-                @click="requestAuth"
-              />
-              <wk-button
-                v-else
-                :disable="!value || !secret"
-                :outline="false"
-                label="Reset"
-                color="negative"
-                @click="resetAuth"
-              />
-            </div>
-            <sequential-entrance>
-              <VueShowdown
-                v-if="secret"
-                :markdown="example"
-              />
-              <q-item
-                v-if="authToken"
+              <q-avatar>
+                <q-icon
+                  name="fa fa-exclamation"
+                />
+              </q-avatar>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>
+                Error requsting an authorization token:
+              </q-item-label>
+              <q-item-label
+                caption
               >
-                <q-item-section>
-                  <q-item-label
-                    caption
-                  >
-                    <wk-input
-                      label="Your authorization token is:"
-                      :value="authToken"
-                      readonly
-                    />
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-banner
-                v-if="error"
-                class="bg-negative"
-              >
-                <q-item
-                  dark
-                >
-                  <q-item-section
-                    avatar
-                  >
-                    <q-avatar>
-                      <q-icon
-                        name="fa fa-exclamation"
-                      />
-                    </q-avatar>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label>
-                      Error requsting an authorization token:
-                    </q-item-label>
-                    <q-item-label
-                      caption
-                    >
-                      {{ error }}
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-banner>
-            </sequential-entrance>
-          </div>
-        </div>
-      </q-card>
+                {{ error }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-banner>
+      </sequential-entrance>
     </div>
-  </section>
+  </wk-hero-card>
 </template>
 
 <script>
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
+import WkHeroCard from 'components/layout/WkHeroCard';
 import { KnishIOClient, } from '@wishknish/knishio-client-js';
 
 export default {
-  components: { WkButton, WkInput, },
+  components: {
+    WkButton,
+    WkInput,
+    WkHeroCard,
+  },
   props: {
     value: {
       type: KnishIOClient,
@@ -126,7 +119,7 @@ export default {
   computed: {
     example () {
       return `\`\`\`javascript
-client.requestAuthToken ( '${ this.secret.substr(0, 16 )}...' );
+client.requestAuthToken ( '${ this.secret.substr( 0, 16 ) }...' );
 \`\`\``;
     },
   },

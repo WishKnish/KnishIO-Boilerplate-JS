@@ -1,107 +1,98 @@
 <template>
-  <section
-    class="relative-position"
-  >
-    <div
-      class="row flex-center"
+  <wk-hero-card>
+    <h4
+      class="text-center"
     >
-      <q-card
-        class="col-xs-12 col-sm-8"
+      1. The Knish.IO Client
+    </h4>
+    <div
+      :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
+    >
+      <div
+        :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
       >
-        <div
-          class="q-pa-md"
+        <VueShowdown
+          markdown="The first step is to instantiate a `KnishIOClient` instance:"
+        />
+      </div>
+      <q-item>
+        <q-item-section>
+          <wk-input
+            v-model="nodeUri"
+            :readonly="!!client"
+            label="Enter your Knish.IO Node URI:"
+            class="fit"
+          />
+        </q-item-section>
+        <q-item-section
+          side
         >
-          <h4
-            class="text-center"
+          <wk-button
+            v-if="!client"
+            :disable="!nodeUri"
+            :outline="false"
+            label="Create"
+            @click="createClient"
+          />
+          <wk-button
+            v-else
+            :outline="false"
+            label="Reset"
+            color="negative"
+            @click="resetClient"
+          />
+        </q-item-section>
+      </q-item>
+      <sequential-entrance>
+        <VueShowdown
+          v-if="nodeUri"
+          :markdown="example"
+        />
+        <q-banner
+          v-if="error"
+          class="bg-negative"
+        >
+          <q-item
+            dark
           >
-            1. The Knish.IO Client
-          </h4>
-          <div
-            :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
-          >
-            <div
-              :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
+            <q-item-section
+              avatar
             >
-              <VueShowdown
-                markdown="The first step is to instantiate a `KnishIOClient` instance:"
-              />
-            </div>
-            <q-item>
-              <q-item-section>
-                <wk-input
-                  v-model="nodeUri"
-                  :readonly="!!client"
-                  label="Enter your Knish.IO Node URI:"
-                  class="fit"
+              <q-avatar>
+                <q-icon
+                  name="fa fa-exclamation"
                 />
-              </q-item-section>
-              <q-item-section
-                side
+              </q-avatar>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>
+                Error creating a KnishIOClient instance:
+              </q-item-label>
+              <q-item-label
+                caption
               >
-                <wk-button
-                  v-if="!client"
-                  :disable="!nodeUri"
-                  :outline="false"
-                  label="Create"
-                  @click="createClient"
-                />
-                <wk-button
-                  v-else
-                  :outline="false"
-                  label="Reset"
-                  color="negative"
-                  @click="resetClient"
-                />
-              </q-item-section>
-            </q-item>
-            <sequential-entrance>
-              <VueShowdown
-                v-if="nodeUri"
-                :markdown="example"
-              />
-              <q-banner
-                v-if="error"
-                class="bg-negative"
-              >
-                <q-item
-                  dark
-                >
-                  <q-item-section
-                    avatar
-                  >
-                    <q-avatar>
-                      <q-icon
-                        name="fa fa-exclamation"
-                      />
-                    </q-avatar>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label>
-                      Error creating a KnishIOClient instance:
-                    </q-item-label>
-                    <q-item-label
-                      caption
-                    >
-                      {{ error }}
-                    </q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-banner>
-            </sequential-entrance>
-          </div>
-        </div>
-      </q-card>
+                {{ error }}
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-banner>
+      </sequential-entrance>
     </div>
-  </section>
+  </wk-hero-card>
 </template>
 
 <script>
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
+import WkHeroCard from 'components/layout/WkHeroCard';
 import { KnishIOClient, } from '@wishknish/knishio-client-js';
 
 export default {
-  components: { WkButton, WkInput, },
+  components: {
+    WkButton,
+    WkInput,
+    WkHeroCard,
+  },
   props: {
     value: {
       type: KnishIOClient,
@@ -117,7 +108,7 @@ export default {
     };
   },
   computed: {
-    example() {
+    example () {
       return `\`\`\`javascript
 import { KnishIOClient } from '@wishknish/knishio-client-js'
 const client = new KnishIOClient( '${ this.nodeUri }' );
@@ -128,22 +119,21 @@ const client = new KnishIOClient( '${ this.nodeUri }' );
     this.client = this.value;
   },
   methods: {
-    createClient() {
+    createClient () {
       try {
         this.error = null;
         this.client = new KnishIOClient( this.nodeUri );
-        this.$emit('input', this.client );
-      }
-      catch (e) {
+        this.$emit( 'input', this.client );
+      } catch ( e ) {
         this.error = e;
-        console.error(e);
+        console.error( e );
       }
     },
-    resetClient() {
+    resetClient () {
       this.client = null;
       this.nodeUri = null;
       this.error = null;
-      this.$emit('input', null );
+      this.$emit( 'input', null );
     },
   },
 };
