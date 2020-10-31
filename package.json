@@ -13,7 +13,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-pro": "file:./../node_modules/@fortawesome/fontawesome-pro",
     "@quasar/app": "^2.1.0",
-    "@quasar/cli": "^1.0.7",
+    "@quasar/cli": "^1.1.2",
     "@quasar/extras": "^1.8.2",
     "@wishknish/knishio-client-js": "^0.3.9",
     "@wishknish/qrcode.vue": "^1.7.0",

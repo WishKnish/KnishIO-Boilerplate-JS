@@ -17,10 +17,9 @@
             maxWidth: '5em',
             maxHeight: '35px',
           }"
-          :show-profile="true"
-          :show-language="false"
+          :show-profile="false"
+          :show-language="true"
           :show-share="false"
-          :show-cart="$router.currentRoute.name !== 'checkout'"
           logo="statics/branding/logo-knishio.svg"
           class="animate-event"
         />

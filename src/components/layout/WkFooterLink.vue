@@ -16,7 +16,7 @@
       >
         <q-img
           :ratio="1"
-          :src="`statics/branding/icon${ whitelabel ? `-${ whitelabel }` : '' }.svg`"
+          src="statics/branding/icon.svg"
           class="full-height"
           contain
         />

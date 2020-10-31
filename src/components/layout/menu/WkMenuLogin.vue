@@ -29,7 +29,7 @@
         <q-item-section>
           <q-item-label
             class="text-h5"
-            v-html="trans( 'ux.menus.login.header' )"
+            v-html="$t( 'ux.menus.login.header' )"
           />
         </q-item-section>
       </q-item>

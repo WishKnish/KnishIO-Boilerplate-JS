@@ -1,5 +1,4 @@
 export const APP_SETTINGS = {
-  whitelabel: process.env.KNISHIO_APP_WHITELABEL,
   appUri: `${ [ true, 'true', ].includes( process.env.KNISHIO_APP_QR_HTTPS ) ? 'https' : 'http' }://${ process.env.KNISHIO_APP_QR_HOST }`,
   appHost: `${ process.env.KNISHIO_APP_QR_HOST }`,
   languages: {
@@ -7,6 +6,7 @@ export const APP_SETTINGS = {
       label: 'English',
       flag: 'us',
     },
+    /*
     'es': {
       label: 'Español',
       flag: 'mx',
@@ -19,6 +19,7 @@ export const APP_SETTINGS = {
       label: 'Русский',
       flag: 'ru',
     },
+     */
   },
 };
 export const TIMESTAMP_FORMAT = 'YYYY-MM-DD HH:mm';

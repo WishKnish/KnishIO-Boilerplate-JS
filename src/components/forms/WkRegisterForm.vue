@@ -127,7 +127,7 @@
 
         <q-step
           :name="2"
-          :title="trans( 'forms.register.stepper.step2' )"
+          :title="$t( 'forms.register.stepper.step2' )"
           :done="step > 2"
           :error="submitStatus === 'ERROR'"
           icon="fal fa-dna"

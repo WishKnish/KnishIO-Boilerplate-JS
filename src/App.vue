@@ -19,7 +19,7 @@ export default {
   },
   meta () {
     return {
-      title: this.trans( 'ux.appTitle' ),
+      title: this.$t( 'ux.appTitle' ),
     };
   },
   async mounted () {

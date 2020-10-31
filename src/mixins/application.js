@@ -23,7 +23,6 @@ export default {
       dateFormat: DATE_FORMAT,
       timestampFormat: TIMESTAMP_FORMAT,
 
-      whitelabel: APP_SETTINGS.whitelabel,
       appUri: APP_SETTINGS.appUri,
       appHost: APP_SETTINGS.appHost,
       languages: APP_SETTINGS.languages,
@@ -37,20 +36,6 @@ export default {
     },
   },
   methods: {
-
-    /**
-     * Translates an i18n key, overridable by whitelabel (if present)
-     *
-     * @param key
-     * @returns {VueI18n.TranslateResult}
-     */
-    trans ( key ) {
-      if ( this.whitelabel && this.$te( `${ key }_${ this.whitelabel }` ) ) {
-        return this.$t( `${ key }_${ this.whitelabel }` );
-      } else {
-        return this.$t( key );
-      }
-    },
 
     /**
      * Forces validation on a list of refs

@@ -24,7 +24,7 @@
               class="text-center"
             >
               <img
-                :title="trans('ux.appTitle' )"
+                :title="$t('ux.appTitle' )"
                 :style="{ maxHeight: '25vh', }"
                 src="statics/branding/icon-white.svg"
               >

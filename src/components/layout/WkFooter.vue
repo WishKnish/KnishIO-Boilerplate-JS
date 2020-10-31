@@ -82,6 +82,7 @@ export default {
   methods: {
     getButtons () {
       return [
+        /*
         {
           title: this.$t( 'ux.footer.privacy' ),
           to: '/privacy',
@@ -90,6 +91,7 @@ export default {
           title: this.$t( 'ux.footer.tos' ),
           to: '/tos',
         },
+         */
       ];
     },
   },

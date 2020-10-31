@@ -102,7 +102,7 @@
 
     <wk-button
       v-if="vertical"
-      :label="trans( 'ux.common.close' )"
+      :label="$t( 'ux.common.close' )"
       :shrink-label="false"
       icon="fal fa-times"
       color="secondary"

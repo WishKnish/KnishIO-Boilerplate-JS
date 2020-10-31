@@ -1,11 +1,11 @@
 <template>
   <section>
     <wk-page-content
-      :title="trans( 'pages.about.header.title' )"
+      :title="$t( 'pages.about.header.title' )"
       icon="fal fa-question-circle"
     >
       <div
-        v-html="trans( 'pages.about.content' )"
+        v-html="$t( 'pages.about.content' )"
       />
     </wk-page-content>
   </section>
@@ -28,7 +28,7 @@ export default {
   props: {},
   data () {
     return {
-      pageTitle: this.trans( 'pages.about.header.title' ),
+      pageTitle: this.$t( 'pages.about.header.title' ),
     };
   },
   computed: {},

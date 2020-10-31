@@ -9,7 +9,7 @@
       <q-input
         ref="username"
         v-model="auth.username"
-        :label="trans( 'forms.login.fields.username.label' )"
+        :label="$t( 'forms.login.fields.username.label' )"
         :rules="[
           val => !!val || 'Username is required.',
           val => !val || val.length > 4 || 'Username is too short.',
