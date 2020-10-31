@@ -1,5 +1,7 @@
 <template>
-  <wk-hero-card>
+  <wk-hero-card
+    :disable="disable"
+  >
     <h4
       class="text-center"
     >
@@ -19,6 +21,7 @@
         <q-item-section>
           <wk-input
             v-model="cellSlug"
+            :disable="cellSlugSet"
             label="Enter your Cell Slug:"
             class="fit"
           />
@@ -43,9 +46,8 @@
         </q-item-section>
       </q-item>
       <sequential-entrance>
-        <VueShowdown
-          v-if="cellSlug"
-          :markdown="example"
+        <WkCodeExample
+          :example="example"
         />
         <q-banner
           v-if="error"
@@ -84,19 +86,24 @@
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
-import { KnishIOClient, } from '@wishknish/knishio-client-js';
+import WkCodeExample from 'components/WkCodeExample';
+import vuex from 'src/mixins/vuex';
 
 export default {
   components: {
+    WkCodeExample,
     WkButton,
     WkInput,
     WkHeroCard,
   },
+  mixins: [
+    vuex,
+  ],
   props: {
-    value: {
-      type: KnishIOClient,
+    disable: {
+      type: Boolean,
       required: false,
-      default: null,
+      default: false,
     },
   },
   data () {
@@ -108,18 +115,16 @@ export default {
   },
   computed: {
     example () {
-      return `\`\`\`javascript
-client.setCellSlug( '${ this.cellSlug }' );
-\`\`\``;
+      return `client.setCellSlug( '${ this.cellSlug ? this.cellSlug : '>>YOUR CELL SLUG<<' }' );`;
     },
   },
   methods: {
     setCell () {
       try {
         this.error = null;
-        this.value.setCellSlug( this.cellSlug );
+        this.demoClient.setCellSlug( this.cellSlug );
         this.cellSlugSet = true;
-        this.$emit('cell', this.cellSlug );
+        this.$emit( 'cell', this.cellSlug );
       } catch ( e ) {
         this.error = e;
         console.error(e);
@@ -129,6 +134,7 @@ client.setCellSlug( '${ this.cellSlug }' );
       this.cellSlug = null;
       this.error = null;
       this.cellSlugSet = false;
+      this.demoClient.setCellSlug( null );
       this.$emit('cell', null );
     },
   },

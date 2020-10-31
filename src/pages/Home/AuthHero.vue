@@ -1,5 +1,7 @@
 <template>
-  <wk-hero-card>
+  <wk-hero-card
+    :disable="disable"
+  >
     <h4
       class="text-center"
     >
@@ -26,7 +28,7 @@
         />
         <wk-button
           v-else
-          :disable="!value || !secret"
+          :disable="!demoClient || !demoSecret"
           :outline="false"
           label="Reset"
           color="negative"
@@ -34,9 +36,8 @@
         />
       </div>
       <sequential-entrance>
-        <VueShowdown
-          v-if="secret"
-          :markdown="example"
+        <wk-code-example
+          :example="example"
         />
         <q-item
           v-if="authToken"
@@ -90,21 +91,26 @@
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
-import { KnishIOClient, } from '@wishknish/knishio-client-js';
+import WkCodeExample from 'components/WkCodeExample';
+import vuex from 'src/mixins/vuex';
 
 export default {
   components: {
+    WkCodeExample,
     WkButton,
     WkInput,
     WkHeroCard,
   },
+  mixins: [
+    vuex,
+  ],
   props: {
-    value: {
-      type: KnishIOClient,
+    disable: {
+      type: Boolean,
       required: false,
-      default: null,
+      default: false,
     },
-    secret: {
+    demoSecret: {
       type: String,
       required: false,
       default: null,
@@ -118,21 +124,18 @@ export default {
   },
   computed: {
     example () {
-      return `\`\`\`javascript
-client.requestAuthToken ( '${ this.secret.substr( 0, 16 ) }...' );
-\`\`\``;
+      return `client.requestAuthToken ( '${ this.demoSecret ? `${ this.demoSecret.substr( 0, 16 ) }...` : '>>YOUR SECRET<<'}' );`;
     },
   },
   methods: {
     async requestAuth () {
       try {
         this.error = null;
-        await this.value.requestAuthToken( this.secret );
-        this.authToken = this.value.getAuthToken();
+        await this.demoClient.requestAuthToken( this.demoSecret );
+        this.authToken = this.demoClient.getAuthToken();
         this.$emit( 'auth', this.authToken );
       } catch ( e ) {
         this.error = e;
-        console.log( this.value );
         console.error( e );
       }
     },

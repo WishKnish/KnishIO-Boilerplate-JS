@@ -1,5 +1,7 @@
 <template>
-  <wk-hero-card>
+  <wk-hero-card
+    :disable="disable"
+  >
     <q-img
       id="bodyLogo"
       :title="$t( 'ux.appTitle' )"
@@ -34,7 +36,13 @@ export default {
   components: {
     WkHeroCard,
   },
-  props: {},
+  props: {
+    disable: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
   data () {
     return {
     };

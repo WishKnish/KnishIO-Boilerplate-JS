@@ -16,4 +16,6 @@ export default {
   thumbnailDialogOpen: false,
   thumbnailDialogCover: null,
   thumbnailDialogVideo: null,
+
+  demoClient: null,
 };

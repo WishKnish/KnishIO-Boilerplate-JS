@@ -37,6 +37,8 @@ const uxFields = [
   'qrDialogOpen',
   'qrWallet',
   'drawerOpen',
+
+  'demoClient',
 ];
 
 const walletFields = [

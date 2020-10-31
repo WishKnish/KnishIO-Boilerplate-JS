@@ -1,5 +1,7 @@
 <template>
-  <wk-hero-card>
+  <wk-hero-card
+    :disable="disable"
+  >
     <h4
       class="text-center"
     >
@@ -19,7 +21,7 @@
         <q-item-section>
           <wk-input
             v-model="nodeUri"
-            :readonly="!!client"
+            :readonly="!!demoClient"
             label="Enter your Knish.IO Node URI:"
             class="fit"
           />
@@ -28,7 +30,7 @@
           side
         >
           <wk-button
-            v-if="!client"
+            v-if="!demoClient"
             :disable="!nodeUri"
             :outline="false"
             label="Create"
@@ -44,9 +46,8 @@
         </q-item-section>
       </q-item>
       <sequential-entrance>
-        <VueShowdown
-          v-if="nodeUri"
-          :markdown="example"
+        <WkCodeExample
+          :example="example"
         />
         <q-banner
           v-if="error"
@@ -86,54 +87,61 @@ import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
 import { KnishIOClient, } from '@wishknish/knishio-client-js';
+import WkCodeExample from 'components/WkCodeExample';
+import application from 'src/mixins/application';
+import vuex from 'src/mixins/vuex';
 
 export default {
   components: {
+    WkCodeExample,
     WkButton,
     WkInput,
     WkHeroCard,
   },
+  mixins: [
+    application,
+    vuex,
+  ],
   props: {
-    value: {
-      type: KnishIOClient,
+    disable: {
+      type: Boolean,
       required: false,
-      default: null,
+      default: false,
     },
   },
   data () {
     return {
       nodeUri: null,
-      client: null,
       error: null,
     };
   },
   computed: {
     example () {
-      return `\`\`\`javascript
-import { KnishIOClient } from '@wishknish/knishio-client-js'
-const client = new KnishIOClient( '${ this.nodeUri }' );
-\`\`\``;
+      return `import { KnishIOClient } from '@wishknish/knishio-client-js'
+const client = new KnishIOClient( '${ this.nodeUri ? this.nodeUri : '>>YOUR URI HERE<<' }' );`;
     },
-  },
-  mounted () {
-    this.client = this.value;
   },
   methods: {
     createClient () {
       try {
         this.error = null;
-        this.client = new KnishIOClient( this.nodeUri );
-        this.$emit( 'input', this.client );
+
+        // Making sure URI is valid
+        if( !this.urlPattern.test( this.nodeUri ) ) {
+          this.error = 'Node URI is not a valid URI path! Please check again.';
+          return;
+        }
+
+        this.demoClient = new KnishIOClient( this.nodeUri );
       } catch ( e ) {
         this.error = e;
         console.error( e );
       }
     },
     resetClient () {
-      this.client = null;
+      this.demoClient = null;
       this.nodeUri = null;
       this.error = null;
-      this.$emit( 'input', null );
     },
   },
 };

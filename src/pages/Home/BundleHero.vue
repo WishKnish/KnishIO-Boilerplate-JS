@@ -5,7 +5,7 @@
     <h4
       class="text-center"
     >
-      3. The Secret
+      5. The Wallet Bundle
     </h4>
     <div
       :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
@@ -14,53 +14,40 @@
         :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
       >
         <VueShowdown
-          markdown="Your `secret` is used to build wallets, sign transactions, and figure out your user ID. It can be derived through any cryptographic methods, so long as you end up with 2048 hexadecimal symbols."
+          markdown="Wallet Bundles (literally, bundles of wallets and other metadata) represent a single, specific party that signs transactions - in other words, a user. They are represented by a 64-character hexadecimal `bundleHash`."
         />
       </div>
-      <q-item>
-        <q-item-section>
-          <wk-input
-            v-model="password"
-            :disable="secretIsSet"
-            label="Enter a Password:"
-            class="fit"
-            type="password"
-          />
-        </q-item-section>
-        <q-item-section
-          side
-        >
-          <wk-button
-            v-if="!secretIsSet"
-            :disable="!password"
-            :outline="false"
-            label="Hash Password"
-            @click="setSecret"
-          />
-          <wk-button
-            v-else
-            :outline="false"
-            label="Reset"
-            color="negative"
-            @click="resetSecret"
-          />
-        </q-item-section>
-      </q-item>
+      <div
+        class="text-center"
+      >
+        <wk-button
+          v-if="!bundleHash"
+          :outline="false"
+          label="Get Bundle Hash"
+          @click="getBundle"
+        />
+        <wk-button
+          v-else
+          :outline="false"
+          label="Reset"
+          color="negative"
+          @click="resetBundle"
+        />
+      </div>
       <sequential-entrance>
         <WkCodeExample
           :example="example"
         />
         <q-item
-          v-if="demoSecret"
+          v-if="bundleHash"
         >
           <q-item-section>
             <q-item-label
               caption
             >
               <wk-input
-                label="Your secret is:"
-                :value="demoSecret"
-                type="textarea"
+                label="Your bundle hash is:"
+                :value="bundleHash"
                 readonly
               />
             </q-item-label>
@@ -84,7 +71,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label>
-                Error creating your secret:
+                Error getting bundle hash:
               </q-item-label>
               <q-item-label
                 caption
@@ -103,8 +90,6 @@
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
-import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/crypto';
-import { KNISHIO_SETTINGS, } from 'src/constants/knishio';
 import WkCodeExample from 'components/WkCodeExample';
 import vuex from 'src/mixins/vuex';
 
@@ -127,35 +112,29 @@ export default {
   },
   data () {
     return {
-      password: null,
-      demoSecret: null,
-      secretIsSet: false,
+      bundleHash: null,
       error: null,
     };
   },
   computed: {
     example () {
-      return `import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/crypto';
-const secret = generateSecret( \`${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ KNISHIO_SETTINGS.salt }\` );`;
+      return 'const bundleHash = client.bundle();';
     },
   },
   methods: {
-    async setSecret () {
+    getBundle() {
+      this.error = null;
       try {
-        this.error = null;
-        this.demoSecret = generateSecret( `${ this.password }:${ KNISHIO_SETTINGS.salt }` );
-        this.secretIsSet = true;
-        this.$emit( 'secret', this.demoSecret );
-      } catch ( e ) {
+        this.bundleHash = this.demoClient.bundle();
+      }
+      catch (e) {
         this.error = e;
-        console.error( e );
+        console.error(e);
       }
     },
-    resetSecret () {
-      this.demoSecret = null;
+    resetBundle() {
       this.error = null;
-      this.secretIsSet = false;
-      this.$emit( 'secret', null );
+      this.bundleHash = null;
     },
   },
 };

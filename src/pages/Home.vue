@@ -7,23 +7,22 @@
       :tag="false"
     >
       <home-hero />
-      <client-hero
-        v-model="client"
-      />
+      <client-hero />
       <cell-hero
-        v-model="client"
-        :class="`${ client ? '' : 'disabled no-pointer-events' }`"
+        v-if="demoClient"
         @cell="setCell"
       />
       <secret-hero
-        v-model="client"
-        :class="`${ cell ? '' : 'disabled no-pointer-events' }`"
+        v-if="demoClient && demoCell"
         @secret="setSecret"
       />
       <auth-hero
-        v-model="client"
-        :secret="secret"
-        :class="`${ secret ? '' : 'disabled no-pointer-events' }`"
+        v-if="demoClient && demoCell && demoSecret"
+        :demo-secret="demoSecret"
+        @auth="setAuth"
+      />
+      <bundle-hero
+        v-if="demoClient && demoCell && demoSecret && demoAuth"
       />
     </sequential-entrance>
   </section>
@@ -35,32 +34,43 @@ import ClientHero from 'pages/Home/ClientHero';
 import CellHero from 'pages/Home/CellHero';
 import SecretHero from 'pages/Home/SecretHero';
 import AuthHero from 'pages/Home/AuthHero';
+import BundleHero from 'pages/Home/BundleHero';
+import vuex from 'src/mixins/vuex';
 
 export default {
   components: {
+    BundleHero,
     AuthHero,
     SecretHero,
     CellHero,
     ClientHero,
     HomeHero,
   },
+  mixins: [
+    vuex,
+  ],
   props: {},
   data () {
     return {
-      client: null,
-      cell: null,
-      secret: null,
+      demoCell: null,
+      demoSecret: null,
+      demoAuth: null,
     };
   },
   computed: {},
   mounted () {
   },
   methods: {
-    setCell( cell ){
-      this.cell = cell;
+    setCell ( cell ) {
+      this.demoCell = cell;
+      console.log( this.demoClient.cellSlug() );
     },
-    setSecret( secret ){
-      this.secret = secret;
+    setSecret ( secret ) {
+      this.demoSecret = secret;
+    },
+    setAuth ( auth ) {
+      this.demoAuth = auth;
+      console.log( this.demoClient.getAuthToken() );
     },
   },
 };
