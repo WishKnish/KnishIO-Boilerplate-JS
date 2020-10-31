@@ -17,7 +17,7 @@
         <q-img
           :ratio="1"
           :src="`statics/branding/icon${ whitelabel ? `-${ whitelabel }` : '' }.svg`"
-          :class="`full-height ${ logoSpin ? 'hover-spin' : '' }`"
+          class="full-height"
           contain
         />
       </q-avatar>

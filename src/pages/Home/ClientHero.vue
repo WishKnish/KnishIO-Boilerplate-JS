@@ -1,5 +1,7 @@
 <template>
-  <section>
+  <section
+    class="relative-position"
+  >
     <div
       class="row flex-center"
     >
@@ -7,7 +9,7 @@
         class="col-xs-12 col-sm-8"
       >
         <div
-          class="col q-pa-md"
+          class="q-pa-md"
         >
           <h4
             class="text-center"
@@ -28,6 +30,7 @@
               <q-item-section>
                 <wk-input
                   v-model="nodeUri"
+                  :readonly="!!client"
                   label="Enter your Knish.IO Node URI:"
                   class="fit"
                 />
@@ -93,12 +96,9 @@
 </template>
 
 <script>
-import { dom, } from 'quasar';
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import { KnishIOClient, } from '@wishknish/knishio-client-js';
-
-const { height, } = dom;
 
 export default {
   components: { WkButton, WkInput, },
@@ -130,6 +130,7 @@ const client = new KnishIOClient( '${ this.nodeUri }' );
   methods: {
     createClient() {
       try {
+        this.error = null;
         this.client = new KnishIOClient( this.nodeUri );
         this.$emit('input', this.client );
       }

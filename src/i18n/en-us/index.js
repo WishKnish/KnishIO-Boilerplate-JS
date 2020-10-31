@@ -84,20 +84,23 @@ export default {
     },
     about: {
       header: {
-        title: 'About Knish.IO',
+        title: 'About WishKnish',
       },
-      content1: 'Broadband is an essential technology for all households. The BetterB brand represents a new and significant change in how connectivity is delivered. We have set out to ensure every home has access to a connection for FREE.',
-      principles: {
-        title: 'Here are the 5 principles that drive BetterB:',
-        items: [
-          'Free Internet',
-          'Highest level of privacy protection',
-          'Access to local merchants',
-          'High Speed',
-          'Member Driven',
-        ],
-      },
-      content2: 'The BetterB network powered by Silicon Harlem is designed to put you first. As a BetterB member, you have access to the world and your community based local merchants. Together the BetterB community drives opportunity, workforce development and economic growth for all.',
+      content: `
+<p><strong>WishKnish</strong> is a technology company based out of the Washington, D.C. area. Founded in 2016, we provide interoperable enterprise solutions for corporations, government agencies and non-profits.</p>
+
+<p>As the TCP/IP protocol is utilized to help transmit information from one computer to another, WishKnish’s distributed ledger technology, <strong>Knish.IO</strong>, gives new and existing applications the freedom to transmit data and financial transactions in a way that is:</p>
+
+<ol>
+<li><strong>Truthful</strong> - Not changed along the way to the ledger</li>
+<li><strong>Trusted</strong> - Agreed upon between multiple parties on the ledger</li>
+<li><strong>Transparent</strong> - All changes to data are historically maintained on the ledger</li>
+</ol>
+
+<p><strong>Knish.IO</strong> empowers a number of unique use cases that rely on trust between parties, especially in verticals like e-commerce, payments, identity, security, transportation, and supply chain.</p>
+
+<p>Stakeholders in the public and private sector are beginning to discover blockchain technology and the concept of decentralization - and that creates an important opportunity to leverage our know-how and experience to build solutions for the evolving business landscape.</p>
+        `,
     },
     profile: {
       buttons: {
@@ -280,6 +283,5 @@ export default {
       },
     },
   },
-  tables: {
-  },
+  tables: {},
 };

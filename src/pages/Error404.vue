@@ -26,7 +26,6 @@
               <img
                 :title="trans('ux.appTitle' )"
                 :style="{ maxHeight: '25vh', }"
-                :class="logoSpin ? 'fa-spin' : null"
                 src="statics/branding/icon-white.svg"
               >
             </div>

@@ -1,19 +1,29 @@
 <template>
-  <section>
-    <home-hero />
-    <sequential-entrance>
+  <section
+    class="column q-col-gutter-xl q-pt-xl q-pb-xl"
+  >
+    <sequential-entrance
+      from-bottom
+      :tag="false"
+    >
+      <home-hero />
       <client-hero
         v-model="client"
-        class="q-pb-xl"
       />
       <cell-hero
         v-model="client"
-        :class="`${ client ? '' : 'disabled no-pointer-events' } q-pb-xl`"
+        :class="`${ client ? '' : 'disabled no-pointer-events' }`"
         @cell="setCell"
       />
       <secret-hero
         v-model="client"
-        :class="`${ cellIsSet ? '' : 'disabled no-pointer-events' } q-pb-xl`"
+        :class="`${ cell ? '' : 'disabled no-pointer-events' }`"
+        @secret="setSecret"
+      />
+      <auth-hero
+        v-model="client"
+        :secret="secret"
+        :class="`${ secret ? '' : 'disabled no-pointer-events' }`"
       />
     </sequential-entrance>
   </section>
@@ -24,9 +34,11 @@ import HomeHero from 'pages/Home/HomeHero';
 import ClientHero from 'pages/Home/ClientHero';
 import CellHero from 'pages/Home/CellHero';
 import SecretHero from 'pages/Home/SecretHero';
+import AuthHero from 'pages/Home/AuthHero';
 
 export default {
   components: {
+    AuthHero,
     SecretHero,
     CellHero,
     ClientHero,
@@ -36,15 +48,19 @@ export default {
   data () {
     return {
       client: null,
-      cellIsSet: false,
+      cell: null,
+      secret: null,
     };
   },
   computed: {},
   mounted () {
   },
   methods: {
-    setCell( cellIsSet ){
-      this.cellIsSet = cellIsSet;
+    setCell( cell ){
+      this.cell = cell;
+    },
+    setSecret( secret ){
+      this.secret = secret;
     },
   },
 };

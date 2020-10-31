@@ -55,7 +55,7 @@
             <sequential-entrance>
               <VueShowdown
                 v-if="password"
-                :markdown="secretExample"
+                :markdown="example"
               />
               <q-item
                 v-if="secret"
@@ -67,26 +67,6 @@
                     <wk-input
                       label="Your secret is:"
                       :value="secret"
-                      type="textarea"
-                      readonly
-                    />
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-              <VueShowdown
-                v-if="bundleHash"
-                :markdown="authExample"
-              />
-              <q-item
-                v-if="secret"
-              >
-                <q-item-section>
-                  <q-item-label
-                    caption
-                  >
-                    <wk-input
-                      label="Your user ID (bundle hash) is:"
-                      :value="bundleHash"
                       type="textarea"
                       readonly
                     />
@@ -130,14 +110,11 @@
 </template>
 
 <script>
-import { dom, } from 'quasar';
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import { KnishIOClient, } from '@wishknish/knishio-client-js';
 import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/crypto';
 import { KNISHIO_SETTINGS, } from 'src/constants/knishio';
-
-const { height, } = dom;
 
 export default {
   components: { WkButton, WkInput, },
@@ -153,33 +130,24 @@ export default {
       password: null,
       secret: null,
       secretIsSet: false,
-      bundleHash: null,
       error: null,
     };
   },
   computed: {
-    secretExample () {
+    example () {
       return `\`\`\`javascript
 import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/crypto';
 const secret = generateSecret( \`${ this.password }:${ KNISHIO_SETTINGS.salt }\` );
-\`\`\``;
-    },
-    authExample () {
-      return `\`\`\`javascript
-client.requestAuthToken ( secret );
-const bundle = client.bundle ();
 \`\`\``;
     },
   },
   methods: {
     async setSecret () {
       try {
+        this.error = null;
         this.secret = generateSecret( `${ this.password }:${ KNISHIO_SETTINGS.salt }` );
-        const result = await this.value.requestAuthToken( this.secret );
-        console.log(result);
-        this.bundleHash = this.value.bundle();
         this.secretIsSet = true;
-        this.$emit('secret', true );
+        this.$emit('secret', this.secret );
       } catch ( e ) {
         this.error = e;
         console.log(this.value);
@@ -189,9 +157,8 @@ const bundle = client.bundle ();
     resetSecret () {
       this.secret = null;
       this.error = null;
-      this.bundleHash = null;
       this.secretIsSet = false;
-      this.$emit('secret', false );
+      this.$emit('secret', null );
     },
   },
 };

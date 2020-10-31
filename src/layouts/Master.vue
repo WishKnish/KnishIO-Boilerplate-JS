@@ -69,7 +69,7 @@
         <q-img
           :ratio="1"
           :src="`statics/branding/icon-knishio.svg`"
-          :class="logoSpin ? 'fa-spin' : 'animated pulse infinite'"
+          class="animated pulse infinite"
           style="max-width: 50%; max-height: 50%;"
           contain
         />

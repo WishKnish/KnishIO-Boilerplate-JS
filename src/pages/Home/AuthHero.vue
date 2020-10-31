@@ -12,7 +12,7 @@
           <h4
             class="text-center"
           >
-            2. The Cell
+            4. The Auth Token
           </h4>
           <div
             :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
@@ -21,41 +21,47 @@
               :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
             >
               <VueShowdown
-                markdown="Your Cell represents your Knish.IO dApp. You should have received a `cellSlug` to use."
+                markdown="Authorization tokens are temporarily given by Knish.IO nodes and are provided in the `X-Auth-Token` HTTP header. The Knish.IO client will manage these for you automatically."
               />
             </div>
-            <q-item>
-              <q-item-section>
-                <wk-input
-                  v-model="cellSlug"
-                  label="Enter your Cell Slug:"
-                  class="fit"
-                />
-              </q-item-section>
-              <q-item-section
-                side
-              >
-                <wk-button
-                  v-if="!cellSlugSet"
-                  :disable="!cellSlug"
-                  :outline="false"
-                  label="Set Cell"
-                  @click="setCell"
-                />
-                <wk-button
-                  v-else
-                  :outline="false"
-                  label="Reset"
-                  color="negative"
-                  @click="resetCell"
-                />
-              </q-item-section>
-            </q-item>
+            <div
+              class="text-center"
+            >
+              <wk-button
+                v-if="!authToken"
+                :outline="false"
+                label="Request Authorization Token"
+                @click="requestAuth"
+              />
+              <wk-button
+                v-else
+                :disable="!value || !secret"
+                :outline="false"
+                label="Reset"
+                color="negative"
+                @click="resetAuth"
+              />
+            </div>
             <sequential-entrance>
               <VueShowdown
-                v-if="cellSlug"
+                v-if="secret"
                 :markdown="example"
               />
+              <q-item
+                v-if="authToken"
+              >
+                <q-item-section>
+                  <q-item-label
+                    caption
+                  >
+                    <wk-input
+                      label="Your authorization token is:"
+                      :value="authToken"
+                      readonly
+                    />
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
               <q-banner
                 v-if="error"
                 class="bg-negative"
@@ -74,7 +80,7 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label>
-                      Error setting your Cell slug:
+                      Error requsting an authorization token:
                     </q-item-label>
                     <q-item-label
                       caption
@@ -105,38 +111,42 @@ export default {
       required: false,
       default: null,
     },
+    secret: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
   data () {
     return {
-      cellSlug: null,
-      cellSlugSet: false,
+      authToken: null,
       error: null,
     };
   },
   computed: {
     example () {
       return `\`\`\`javascript
-client.setCellSlug( '${ this.cellSlug }' );
+client.requestAuthToken ( '${ this.secret.substr(0, 16 )}...' );
 \`\`\``;
     },
   },
   methods: {
-    setCell () {
+    async requestAuth () {
       try {
         this.error = null;
-        this.value.setCellSlug( this.cellSlug );
-        this.cellSlugSet = true;
-        this.$emit('cell', this.cellSlug );
+        await this.value.requestAuthToken( this.secret );
+        this.authToken = this.value.getAuthToken();
+        this.$emit( 'auth', this.authToken );
       } catch ( e ) {
         this.error = e;
-        console.error(e);
+        console.log( this.value );
+        console.error( e );
       }
     },
-    resetCell () {
-      this.cellSlug = null;
+    resetAuth () {
+      this.authToken = null;
       this.error = null;
-      this.cellSlugSet = false;
-      this.$emit('cell', null );
+      this.$emit( 'auth', null );
     },
   },
 };

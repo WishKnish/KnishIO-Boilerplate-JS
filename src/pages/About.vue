@@ -4,39 +4,8 @@
       :title="trans( 'pages.about.header.title' )"
       icon="fal fa-question-circle"
     >
-      <p
-        v-html="trans( 'pages.about.content1' )"
-      />
-      <p
-        class="text-bold"
-        v-html="trans( 'pages.about.principles.title' )"
-      />
-      <q-list
-        class="q-pb-md"
-      >
-        <q-item
-          v-for="(item, itemCount) in trans( 'pages.about.principles.items' )"
-          :key="itemCount"
-        >
-          <q-item-section
-            side
-          >
-            <q-avatar
-              color="primary"
-              text-color="white"
-            >
-              {{ itemCount + 1 }}
-            </q-avatar>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label
-              v-html="item"
-            />
-          </q-item-section>
-        </q-item>
-      </q-list>
-      <p
-        v-html="trans( 'pages.about.content2' )"
+      <div
+        v-html="trans( 'pages.about.content' )"
       />
     </wk-page-content>
   </section>
@@ -59,7 +28,7 @@ export default {
   props: {},
   data () {
     return {
-      pageTitle: this.trans( 'pages.about.intro.title' ),
+      pageTitle: this.trans( 'pages.about.header.title' ),
     };
   },
   computed: {},
