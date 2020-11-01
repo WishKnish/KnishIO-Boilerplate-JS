@@ -283,5 +283,57 @@ export default {
       },
     },
   },
-  tables: {},
+  tables: {
+    wallets: {
+      header: {
+        empty: 'There are no wallets to display.',
+      },
+      columns: {
+        rank: 'Rank',
+        address: 'Address',
+        bundle: 'Bundle',
+        token: 'Token',
+        position: 'Position',
+        amount: 'Amount',
+        created: 'Creation Timestamp',
+      },
+    },
+    metas: {
+      header: {
+        title: 'Metadata for [ {metaType} : {metaId} ]',
+        empty: 'There is no metadata to display.',
+      },
+      columns: {
+        parameter: 'Parameter',
+        value: 'Value',
+        created: 'Creation Timestamp',
+        molecule: 'Molecule',
+      },
+    },
+    bundle: {
+      header: {
+        empty: 'No matching wallet bundle found.',
+      },
+      columns: {
+        parameter: 'Parameter',
+        value: 'Value',
+        bundle: 'Bundle',
+        wallets: 'Wallets',
+        molecules: 'Molecules',
+        meta: 'Bundle Metadata',
+        created: 'Creation Timestamp',
+      },
+    },
+    molecules: {
+      header: {
+        empty: 'There are no molecules to display.',
+      },
+      columns: {
+        molecule: 'Molecule',
+        cell: 'Cell',
+        atoms: 'Atoms',
+        created: 'Creation Timestamp',
+      },
+    },
+  },
 };

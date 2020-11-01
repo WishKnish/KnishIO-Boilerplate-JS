@@ -10,19 +10,23 @@
       <client-hero />
       <cell-hero
         v-if="demoClient"
-        @cell="setCell"
+        @input="setCell"
       />
       <secret-hero
         v-if="demoClient && demoCell"
-        @secret="setSecret"
+        @input="setSecret"
       />
       <auth-hero
         v-if="demoClient && demoCell && demoSecret"
         :demo-secret="demoSecret"
-        @auth="setAuth"
+        @input="setAuth"
       />
       <bundle-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth"
+        @input="setBundle"
+      />
+      <bundle-query-hero
+        v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle"
       />
     </sequential-entrance>
   </section>
@@ -36,9 +40,11 @@ import SecretHero from 'pages/Home/SecretHero';
 import AuthHero from 'pages/Home/AuthHero';
 import BundleHero from 'pages/Home/BundleHero';
 import vuex from 'src/mixins/vuex';
+import BundleQueryHero from 'pages/Home/BundleQueryHero';
 
 export default {
   components: {
+    BundleQueryHero,
     BundleHero,
     AuthHero,
     SecretHero,
@@ -55,6 +61,7 @@ export default {
       demoCell: null,
       demoSecret: null,
       demoAuth: null,
+      demoBundle: null,
     };
   },
   computed: {},
@@ -71,6 +78,10 @@ export default {
     setAuth ( auth ) {
       this.demoAuth = auth;
       console.log( this.demoClient.getAuthToken() );
+    },
+    setBundle( bundle ) {
+      this.demoBundle = bundle;
+      console.log( this.demoClient.bundle() );
     },
   },
 };

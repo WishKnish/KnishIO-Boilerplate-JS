@@ -54,34 +54,11 @@
             </q-item-label>
           </q-item-section>
         </q-item>
-        <q-banner
+        <wk-banner
           v-if="error"
-          class="bg-negative"
-        >
-          <q-item
-            dark
-          >
-            <q-item-section
-              avatar
-            >
-              <q-avatar>
-                <q-icon
-                  name="fa fa-exclamation"
-                />
-              </q-avatar>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>
-                Error requsting an authorization token:
-              </q-item-label>
-              <q-item-label
-                caption
-              >
-                {{ error }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-banner>
+          :caption="error"
+          label="Error requesting an authorization token:"
+        />
       </sequential-entrance>
     </div>
   </wk-hero-card>
@@ -93,9 +70,11 @@ import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
 import WkCodeExample from 'components/WkCodeExample';
 import vuex from 'src/mixins/vuex';
+import WkBanner from 'components/WkBanner';
 
 export default {
   components: {
+    WkBanner,
     WkCodeExample,
     WkButton,
     WkInput,
@@ -133,7 +112,7 @@ export default {
         this.error = null;
         await this.demoClient.requestAuthToken( this.demoSecret );
         this.authToken = this.demoClient.getAuthToken();
-        this.$emit( 'auth', this.authToken );
+        this.$emit( 'input', this.authToken );
       } catch ( e ) {
         this.error = e;
         console.error( e );
@@ -142,7 +121,7 @@ export default {
     resetAuth () {
       this.authToken = null;
       this.error = null;
-      this.$emit( 'auth', null );
+      this.$emit( 'input', null );
     },
   },
 };

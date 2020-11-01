@@ -49,34 +49,11 @@
         <WkCodeExample
           :example="example"
         />
-        <q-banner
+        <wk-banner
           v-if="error"
-          class="bg-negative"
-        >
-          <q-item
-            dark
-          >
-            <q-item-section
-              avatar
-            >
-              <q-avatar>
-                <q-icon
-                  name="fa fa-exclamation"
-                />
-              </q-avatar>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>
-                Error setting your Cell slug:
-              </q-item-label>
-              <q-item-label
-                caption
-              >
-                {{ error }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-banner>
+          :caption="error"
+          label="Error setting your Cell slug:"
+        />
       </sequential-entrance>
     </div>
   </wk-hero-card>
@@ -88,9 +65,11 @@ import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
 import WkCodeExample from 'components/WkCodeExample';
 import vuex from 'src/mixins/vuex';
+import WkBanner from 'components/WkBanner';
 
 export default {
   components: {
+    WkBanner,
     WkCodeExample,
     WkButton,
     WkInput,
@@ -124,7 +103,7 @@ export default {
         this.error = null;
         this.demoClient.setCellSlug( this.cellSlug );
         this.cellSlugSet = true;
-        this.$emit( 'cell', this.cellSlug );
+        this.$emit( 'input', this.cellSlug );
       } catch ( e ) {
         this.error = e;
         console.error(e);
@@ -135,7 +114,7 @@ export default {
       this.error = null;
       this.cellSlugSet = false;
       this.demoClient.setCellSlug( null );
-      this.$emit('cell', null );
+      this.$emit('input', null );
     },
   },
 };

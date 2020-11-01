@@ -49,34 +49,11 @@
         <WkCodeExample
           :example="example"
         />
-        <q-banner
+        <wk-banner
           v-if="error"
-          class="bg-negative"
-        >
-          <q-item
-            dark
-          >
-            <q-item-section
-              avatar
-            >
-              <q-avatar>
-                <q-icon
-                  name="fa fa-exclamation"
-                />
-              </q-avatar>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>
-                Error creating a KnishIOClient instance:
-              </q-item-label>
-              <q-item-label
-                caption
-              >
-                {{ error }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-banner>
+          :caption="error"
+          label="Error creating KnishIOClient instance:"
+        />
       </sequential-entrance>
     </div>
   </wk-hero-card>
@@ -90,9 +67,11 @@ import { KnishIOClient, } from '@wishknish/knishio-client-js';
 import WkCodeExample from 'components/WkCodeExample';
 import application from 'src/mixins/application';
 import vuex from 'src/mixins/vuex';
+import WkBanner from 'components/WkBanner';
 
 export default {
   components: {
+    WkBanner,
     WkCodeExample,
     WkButton,
     WkInput,

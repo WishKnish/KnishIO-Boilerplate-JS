@@ -66,34 +66,11 @@
             </q-item-label>
           </q-item-section>
         </q-item>
-        <q-banner
+        <wk-banner
           v-if="error"
-          class="bg-negative"
-        >
-          <q-item
-            dark
-          >
-            <q-item-section
-              avatar
-            >
-              <q-avatar>
-                <q-icon
-                  name="fa fa-exclamation"
-                />
-              </q-avatar>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>
-                Error creating your secret:
-              </q-item-label>
-              <q-item-label
-                caption
-              >
-                {{ error }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-banner>
+          :caption="error"
+          label="Error creating your secret:"
+        />
       </sequential-entrance>
     </div>
   </wk-hero-card>
@@ -107,9 +84,11 @@ import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/cryp
 import { KNISHIO_SETTINGS, } from 'src/constants/knishio';
 import WkCodeExample from 'components/WkCodeExample';
 import vuex from 'src/mixins/vuex';
+import WkBanner from 'components/WkBanner';
 
 export default {
   components: {
+    WkBanner,
     WkCodeExample,
     WkButton,
     WkInput,
@@ -145,7 +124,7 @@ const secret = generateSecret( \`${ this.password ? this.password : '>>YOUR PASS
         this.error = null;
         this.demoSecret = generateSecret( `${ this.password }:${ KNISHIO_SETTINGS.salt }` );
         this.secretIsSet = true;
-        this.$emit( 'secret', this.demoSecret );
+        this.$emit( 'input', this.demoSecret );
       } catch ( e ) {
         this.error = e;
         console.error( e );
@@ -155,7 +134,7 @@ const secret = generateSecret( \`${ this.password ? this.password : '>>YOUR PASS
       this.demoSecret = null;
       this.error = null;
       this.secretIsSet = false;
-      this.$emit( 'secret', null );
+      this.$emit( 'input', null );
     },
   },
 };
