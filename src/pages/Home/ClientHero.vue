@@ -22,6 +22,8 @@
           <wk-input
             v-model="nodeUri"
             :readonly="!!demoClient"
+            prefix="https://"
+            suffix="/graphql"
             label="Enter your Knish.IO Node URI:"
             class="fit"
           />
@@ -97,7 +99,10 @@ export default {
   computed: {
     example () {
       return `import { KnishIOClient } from '@wishknish/knishio-client-js'
-const client = new KnishIOClient( '${ this.nodeUri ? this.nodeUri : '>>YOUR URI HERE<<' }' );`;
+const client = new KnishIOClient( '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }' );`;
+    },
+    fullNodeUri () {
+      return `https://${ this.nodeUri }/graphql`;
     },
   },
   methods: {
@@ -106,12 +111,12 @@ const client = new KnishIOClient( '${ this.nodeUri ? this.nodeUri : '>>YOUR URI 
         this.error = null;
 
         // Making sure URI is valid
-        if ( !this.urlPattern.test( this.nodeUri ) ) {
+        if ( !this.urlPattern.test( this.fullNodeUri ) ) {
           this.error = 'Node URI is not a valid URI path! Please check again.';
           return;
         }
 
-        this.demoClient = new KnishIOClient( this.nodeUri );
+        this.demoClient = new KnishIOClient( this.fullNodeUri );
         this.$emit( 'input', this.demoClient );
       } catch ( e ) {
         this.error = e;

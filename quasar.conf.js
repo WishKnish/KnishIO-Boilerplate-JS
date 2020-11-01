@@ -32,6 +32,7 @@ module.exports = function ( ctx ) {
       'moment',
       'quasar-lang-pack',
       'sequential-entrance',
+      'tree-view',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

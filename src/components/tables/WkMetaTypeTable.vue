@@ -46,20 +46,16 @@
         </template>
       </q-input>
     </template>
-    <template v-slot:body-cell-value="props">
+    <template v-slot:body-cell-name="props">
       <q-td
         :align="props.col.align"
       >
-        <q-icon
-          v-if="!props.row.value"
-          name="fa fa-times-circle"
-          color="danger"
-        />
-        <span
-          v-else
+        <div
+          class="ellipsis"
+          style="max-width: 200px;"
         >
-          {{ props.row.value }}
-        </span>
+          {{ props.value }}
+        </div>
       </q-td>
     </template>
     <template v-slot:body-cell-id="props">
@@ -67,6 +63,24 @@
         :align="props.col.align"
       >
         {{ props.row.metaId }}
+      </q-td>
+    </template>
+    <template v-slot:body-cell-metas="props">
+      <q-td
+        :align="props.col.align"
+      >
+        <wk-meta-table
+          v-if="props.value && Object.keys( props.value ).length"
+          :metas="props.value"
+          :show-molecule="false"
+          :show-search="false"
+          :show-timestamp="false"
+        />
+        <q-icon
+          v-else
+          name="fa fa-times-circle"
+          color="danger"
+        />
       </q-td>
     </template>
     <template v-slot:body-cell-created="props">
@@ -91,9 +105,10 @@
 <script>
 import { PAGINATION_DEFAULTS, } from 'src/constants/defaults';
 import application from 'src/mixins/application';
+import WkMetaTable from 'components/tables/WkMetaTable';
 
 export default {
-  components: {},
+  components: { WkMetaTable, },
   mixins: [
     application,
   ],
@@ -146,15 +161,15 @@ export default {
         {
           name: 'id',
           label: this.$t( 'tables.type.columns.id' ),
-          field: 'metaId',
+          field: row => row.metaId,
           align: 'center',
           sortable: true,
           required: true,
         },
         {
-          name: 'count',
-          label: this.$t( 'tables.type.columns.count' ),
-          field: row => Object.keys( row.metas ).length,
+          name: 'metas',
+          label: this.$t( 'tables.type.columns.metas' ),
+          field: row => row.metas,
           align: 'center',
           sortable: true,
           required: true,

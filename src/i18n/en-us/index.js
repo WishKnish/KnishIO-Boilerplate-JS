@@ -345,6 +345,7 @@ export default {
         type: 'Meta Type',
         id: 'Identifier',
         count: 'Number of Records',
+        metas: 'Metadata',
         molecules: 'Contributing Molecules',
         created: 'Creation Timestamp',
       },

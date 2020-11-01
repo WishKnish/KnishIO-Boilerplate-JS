@@ -83,13 +83,19 @@
         <wk-code-example
           :example="example"
         />
-        <wk-meta-type-table
+        <div
           v-if="!loading && results"
-          :meta-type="demoMetaType"
-          :instances="results ? results : []"
-          :show-search="false"
-          :show-molecule="false"
-        />
+        >
+          <wk-meta-table
+            v-for="metaInstance in results"
+            :key="metaInstance.metaKey"
+            :metas="metaInstance.metas"
+            :show-search="false"
+            :show-molecule="false"
+            :show-timestamp="false"
+          />
+        </div>
+
         <wk-input
           v-if="!loading && results"
           label="Raw Metadata:"
@@ -119,11 +125,11 @@ import vuex from 'src/mixins/vuex';
 import WkBanner from 'components/WkBanner';
 import WkInput from 'components/forms/fields/WkInput';
 import WkInnerLoading from 'components/layout/WkInnerLoading';
-import WkMetaTypeTable from 'components/tables/WkMetaTypeTable';
+import WkMetaTable from 'components/tables/WkMetaTable';
 
 export default {
   components: {
-    WkMetaTypeTable,
+    WkMetaTable,
     WkInnerLoading,
     WkInput,
     WkBanner,

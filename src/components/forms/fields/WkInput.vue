@@ -9,6 +9,7 @@
     :reverse-fill-mask="reverseFillMask"
     :unmasked-value="unmaskedValue"
     :prefix="prefix"
+    :suffix="suffix"
     :maxlength="maxlength"
     :hint="hint"
     :dark="dark"
@@ -71,6 +72,11 @@ export default {
       default: null,
     },
     prefix: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    suffix: {
       type: String,
       required: false,
       default: null,

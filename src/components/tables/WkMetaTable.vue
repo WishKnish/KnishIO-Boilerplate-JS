@@ -68,9 +68,10 @@
                   lines="3"
                 >
                   <div
-                    style="max-width: 50vw;"
+                    class="ellipsis"
+                    style="max-width: 300px;"
                   >
-                    {{ maskValue( props.row.key, props.value ) }}
+                    {{ props.value }}
                   </div>
                 </q-item-label>
               </q-item-section>
