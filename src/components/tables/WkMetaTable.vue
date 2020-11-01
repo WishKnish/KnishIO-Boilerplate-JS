@@ -5,8 +5,8 @@
     :pagination.sync="pagination"
     :loading="loading"
     :hide-bottom="normalizedMetas && normalizedMetas.length > 0 && normalizedMetas.length <= pagination.rowsPerPage"
-    :filter="filter"
-    :filter-method="filterMethod"
+    :filter="showSearch ? filter : null"
+    :filter-method="showSearch ? filterMethod : null"
     :no-data-label="$t( 'tables.metas.header.empty' )"
     :dense="$q.screen.lt.md"
     :wrap-cells="$q.screen.lt.md"
@@ -169,7 +169,7 @@ export default {
   },
   data () {
     return {
-      normalizedMetas: null,
+      normalizedMetas: [],
       treeViewOptions: {
         maxDepth: 1,
         rootObjectKey: 'root',

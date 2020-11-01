@@ -106,12 +106,13 @@ const client = new KnishIOClient( '${ this.nodeUri ? this.nodeUri : '>>YOUR URI 
         this.error = null;
 
         // Making sure URI is valid
-        if( !this.urlPattern.test( this.nodeUri ) ) {
+        if ( !this.urlPattern.test( this.nodeUri ) ) {
           this.error = 'Node URI is not a valid URI path! Please check again.';
           return;
         }
 
         this.demoClient = new KnishIOClient( this.nodeUri );
+        this.$emit( 'input', this.demoClient );
       } catch ( e ) {
         this.error = e;
         console.error( e );
@@ -119,7 +120,6 @@ const client = new KnishIOClient( '${ this.nodeUri ? this.nodeUri : '>>YOUR URI 
     },
     resetClient () {
       this.demoClient = null;
-      this.nodeUri = null;
       this.error = null;
     },
   },

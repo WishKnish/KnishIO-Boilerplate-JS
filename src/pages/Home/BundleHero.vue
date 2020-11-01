@@ -113,7 +113,6 @@ export default {
     },
     resetBundle () {
       this.error = null;
-      this.bundleHash = null;
       this.$emit( 'input', null );
     },
   },

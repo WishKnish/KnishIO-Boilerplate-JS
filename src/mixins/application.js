@@ -167,7 +167,7 @@ export default {
      * @param targetId
      * @param timeout
      */
-    scrollToTimeout ( targetId, timeout ) {
+    scrollToTimeout ( targetId, timeout = 300 ) {
       setTimeout( this.scrollTo, Number( timeout ), targetId );
     },
 

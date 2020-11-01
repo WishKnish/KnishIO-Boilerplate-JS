@@ -335,5 +335,19 @@ export default {
         created: 'Creation Timestamp',
       },
     },
+    type: {
+      header: {
+        title: 'Instances of [ {metaType} ] Meta Type',
+        empty: 'There are no meta instances to display.',
+      },
+      columns: {
+        rank: 'Rank',
+        type: 'Meta Type',
+        id: 'Identifier',
+        count: 'Number of Records',
+        molecules: 'Contributing Molecules',
+        created: 'Creation Timestamp',
+      },
+    },
   },
 };

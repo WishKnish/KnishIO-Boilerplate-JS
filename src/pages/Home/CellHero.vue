@@ -110,7 +110,6 @@ export default {
       }
     },
     resetCell () {
-      this.cellSlug = null;
       this.error = null;
       this.cellSlugSet = false;
       this.demoClient.setCellSlug( null );

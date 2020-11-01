@@ -21,7 +21,7 @@
         <q-item-section>
           <wk-input
             v-model="demoBundle"
-            label="Enter a Bundle Hash:"
+            label="Enter a Bundle Hash (empty = query own bundle):"
             class="fit"
           />
         </q-item-section>
@@ -31,7 +31,7 @@
           <wk-button
             :outline="false"
             label="Query Bundle Metadata"
-            @click="queryBundle"
+            @click="query"
           />
         </q-item-section>
       </q-item>
@@ -105,14 +105,14 @@ export default {
   },
   computed: {
     example () {
-      return `client.queryBundle ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );`;
+      return `const result = await client.queryBundle ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );`;
     },
   },
   mounted () {
     this.bundleHash = this.demoClient.bundle();
   },
   methods: {
-    async queryBundle () {
+    async query () {
       this.loading = true;
       try {
         this.error = null;
@@ -130,11 +130,6 @@ export default {
         console.error( e );
         this.loading = false;
       }
-    },
-    resetQuery () {
-      this.bundleMeta = null;
-      this.error = null;
-      this.$emit( 'input', null );
     },
   },
 };
