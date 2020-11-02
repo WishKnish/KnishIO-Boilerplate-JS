@@ -5,7 +5,7 @@
     <h4
       class="text-center"
     >
-      7. Querying Meta Assets
+      7. The Meta Assets
     </h4>
     <div
       :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
@@ -72,12 +72,20 @@
         <q-item-section
           side
         >
-          <wk-button
-            :outline="false"
-            :disable="!demoMetaType"
-            label="Query MetaType"
-            @click="query"
-          />
+          <q-btn-group>
+            <wk-button
+              :outline="false"
+              :disable="!demoMetaType"
+              label="Query MetaType"
+              @click="query"
+            />
+            <wk-button
+              :outline="false"
+              label="Skip"
+              color="info"
+              @click="skip"
+            />
+          </q-btn-group>
         </q-item-section>
       </q-item>
       <sequential-entrance>
@@ -186,11 +194,10 @@ export default {
       this.loading = true;
       try {
         this.error = null;
-        const result = await this.demoClient.queryMeta( this.demoMetaType > '' ? this.demoMetaType : null,this.demoMetaId > '' ? this.demoMetaId : null, this.demoKey > '' ? this.demoKey : null, this.demoValue > '' ? this.demoValue : null, this.demoLatest );
+        const result = await this.demoClient.queryMeta( this.demoMetaType > '' ? this.demoMetaType : null, this.demoMetaId > '' ? this.demoMetaId : null, this.demoKey > '' ? this.demoKey : null, this.demoValue > '' ? this.demoValue : null, this.demoLatest );
         if ( !result ) {
           this.error = `No "${ this.demoMetaType }" meta type instances were found!`;
-        }
-        else {
+        } else {
           this.results = result;
           this.$emit( 'input', this.results );
         }
@@ -200,6 +207,9 @@ export default {
         console.error( e );
         this.loading = false;
       }
+    },
+    skip () {
+      this.$emit( 'input', true );
     },
   },
 };

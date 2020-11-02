@@ -5,7 +5,7 @@
     <h4
       class="text-center"
     >
-      6. Querying Bundle Data
+      9. The Wallet(s)
     </h4>
     <div
       :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
@@ -14,7 +14,7 @@
         :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
       >
         <VueShowdown
-          markdown="Your `bundleHash` is a pointer via which you can retrieve any metadata and wallets associated with a Wallet Bundle."
+          markdown="Your `bundleHash` may be associated with an arbitrary number of one-time-use Wallets, only one of which may be active for each Token, with others permanently disabled."
         />
       </div>
       <q-item>
@@ -31,7 +31,7 @@
           <q-btn-group>
             <wk-button
               :outline="false"
-              label="Query Bundle"
+              label="Query Wallets"
               @click="query"
             />
             <wk-button
@@ -47,14 +47,14 @@
         <wk-code-example
           :example="example"
         />
-        <wk-bundle-table
-          v-if="!loading && bundleMeta"
-          :bundle="bundleMeta"
+        <wk-wallets-table
+          v-if="!loading && result"
+          :wallets="result"
           :show-search="false"
         />
         <wk-input
-          v-if="!loading && bundleMeta"
-          label="Raw Metadata:"
+          v-if="!loading && result"
+          label="Raw Response:"
           :value="JSON.stringify( decycle( result ) )"
           type="textarea"
           class="q-mt-md"
@@ -63,7 +63,7 @@
         <wk-banner
           v-if="error"
           :caption="error"
-          label="Error querying wallet bundle metadata:"
+          label="Error querying wallet data:"
         />
       </sequential-entrance>
     </div>
@@ -78,18 +78,18 @@ import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
 import WkCodeExample from 'components/WkCodeExample';
 import vuex from 'src/mixins/vuex';
-import WkBundleTable from 'components/tables/WkBundleTable';
 import WkBanner from 'components/WkBanner';
 import WkInput from 'components/forms/fields/WkInput';
 import WkInnerLoading from 'components/layout/WkInnerLoading';
 import { decycle, } from 'src/libraries/strings';
+import WkWalletsTable from 'components/tables/WkWalletsTable';
 
 export default {
   components: {
+    WkWalletsTable,
     WkInnerLoading,
     WkInput,
     WkBanner,
-    WkBundleTable,
     WkCodeExample,
     WkButton,
     WkHeroCard,
@@ -106,20 +106,19 @@ export default {
   },
   data () {
     return {
-      loading: false,
       demoBundle: null,
-      bundleMeta: null,
+      loading: false,
       result: null,
       error: null,
     };
   },
   computed: {
     example () {
-      return `const result = await client.queryBundle ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );`;
+      return `const result = await client.queryWallets ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );`;
     },
   },
   mounted () {
-    this.bundleHash = this.demoClient.bundle();
+    this.demoBundle = this.demoClient.bundle();
   },
   methods: {
     decycle,
@@ -128,13 +127,12 @@ export default {
       try {
         this.error = null;
         this.result = null;
-        const result = await this.demoClient.queryBundle( this.demoBundle > '' ? this.demoBundle : null );
+        const result = await this.demoClient.queryWallets( this.demoBundle > '' ? this.demoBundle : null );
         if ( !result ) {
-          this.error = `No bundles with hash "${ this.demoBundle }" were found!`;
+          this.error = `No wallets for Bundle Hash hash "${ this.demoBundle }" were found!`;
         } else {
           this.result = result;
-          this.bundleMeta = Object.values( result ).pop();
-          this.$emit( 'input', this.bundleMeta );
+          this.$emit( 'input', result );
         }
         this.loading = false;
       } catch ( e ) {

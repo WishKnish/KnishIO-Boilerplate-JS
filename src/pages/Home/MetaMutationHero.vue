@@ -5,7 +5,7 @@
     <h4
       class="text-center"
     >
-      8. Mutating Meta Assets
+      8. Writing New Metadata
     </h4>
     <div
       :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
@@ -64,12 +64,20 @@
       <div
         class="text-center"
       >
-        <wk-button
-          :outline="false"
-          :disable="!demoMetaType || !demoMetaId"
-          label="Write New Metadata"
-          @click="mutate"
-        />
+        <q-btn-group>
+          <wk-button
+            :outline="false"
+            :disable="!demoMetaType || !demoMetaId"
+            label="Write New Metadata"
+            @click="mutate"
+          />
+          <wk-button
+            :outline="false"
+            label="Skip"
+            color="info"
+            @click="skip"
+          />
+        </q-btn-group>
       </div>
       <sequential-entrance>
         <wk-code-example
@@ -137,8 +145,8 @@ export default {
       loading: false,
       demoMetaType: 'WalletBundle',
       demoMetaId: null,
-      demoKey: null,
-      demoValue: null,
+      demoKey: 'foo',
+      demoValue: 'bar',
       demoLatest: true,
       results: null,
       error: null,
@@ -190,6 +198,9 @@ console.log( result.data() ); // Raw response
         console.error( e );
         this.loading = false;
       }
+    },
+    skip () {
+      this.$emit( 'input', true );
     },
   },
 };

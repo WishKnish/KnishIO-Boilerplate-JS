@@ -36,33 +36,15 @@
         </template>
       </q-input>
     </template>
-    <template v-slot:body-cell-token="props">
-      <q-td
-        :align="props.col.align"
-      >
-        <router-link
-          v-if="props.value"
-          :to="{ name: 'token', params: { slug: props.value.slug }}"
-        >
-          {{ props.value.name }} (<a>{{ props.value.slug }}</a>)
-        </router-link>
-        <q-icon
-          v-else
-          name="fa fa-times-circle"
-          color="danger"
-        />
-      </q-td>
-    </template>
     <template v-slot:body-cell-address="props">
       <q-td
         :align="props.col.align"
       >
-        <router-link
+        <span
           v-if="props.value"
-          :to="{ name: 'wallet', params: { walletAddress: props.value }}"
         >
-          <a>{{ props.value | truncateMiddle }}</a>
-        </router-link>
+          {{ props.value | truncateMiddle }}
+        </span>
         <span
           v-else
         >
@@ -78,11 +60,7 @@
       <q-td
         :align="props.col.align"
       >
-        <router-link
-          :to="{ name: 'bundle', params: { bundleHash: props.row.bundleHash }}"
-        >
-          <a>{{ props.row.bundleHash | truncateMiddle }}</a>
-        </router-link>
+        {{ props.row.bundle | truncateMiddle }}
       </q-td>
     </template>
     <template v-slot:body-cell-position="props">
@@ -255,7 +233,7 @@ export default {
         {
           name: 'amount',
           label: this.$t( 'tables.wallets.columns.amount' ),
-          field: 'amount',
+          field: 'balance',
           align: 'center',
           sortable: true,
           sort: ( a, b, rowA, rowB ) => parseInt( a, 10 ) - parseInt( b, 10 ),

@@ -45,6 +45,11 @@
       <meta-mutation-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle && demoBundleMeta && demoAssetMeta"
         id="metaMutationHero"
+        @input="setMetaMutationResult"
+      />
+      <wallet-query-hero
+        v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle && demoBundleMeta && demoAssetMeta && demoMetaMutationResult"
+        id="walletQueryHero"
       />
     </sequential-entrance>
   </section>
@@ -62,9 +67,11 @@ import BundleQueryHero from 'pages/Home/BundleQueryHero';
 import MetaTypeHero from 'pages/Home/MetaTypeHero';
 import application from 'src/mixins/application';
 import MetaMutationHero from 'pages/Home/MetaMutationHero';
+import WalletQueryHero from 'pages/Home/WalletQueryHero';
 
 export default {
   components: {
+    WalletQueryHero,
     MetaMutationHero,
     MetaTypeHero,
     BundleQueryHero,
@@ -88,6 +95,7 @@ export default {
       demoBundle: null,
       demoBundleMeta: null,
       demoAssetMeta: null,
+      demoMetaMutationResult: null,
     };
   },
   computed: {},
@@ -134,6 +142,12 @@ export default {
       this.demoAssetMeta = meta;
       if(meta) {
         this.scrollToTimeout( 'metaMutationHero' );
+      }
+    },
+    setMetaMutationResult ( result ) {
+      this.demoMetaMutationResult = result;
+      if(result) {
+        this.scrollToTimeout( 'walletQueryHero' );
       }
     },
   },
