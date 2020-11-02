@@ -28,19 +28,11 @@
         <q-item-section
           side
         >
-          <q-btn-group>
-            <wk-button
-              :outline="false"
-              label="Query Wallets"
-              @click="query"
-            />
-            <wk-button
-              :outline="false"
-              label="Skip"
-              color="info"
-              @click="skip"
-            />
-          </q-btn-group>
+          <wk-button
+            :outline="false"
+            label="Query Wallets"
+            @click="query"
+          />
         </q-item-section>
       </q-item>
       <sequential-entrance>
@@ -140,9 +132,6 @@ export default {
         console.error( e );
         this.loading = false;
       }
-    },
-    skip () {
-      this.$emit( 'input', true );
     },
   },
 };

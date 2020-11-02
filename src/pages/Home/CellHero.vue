@@ -22,8 +22,11 @@
           <wk-input
             v-model="cellSlug"
             :disable="cellSlugSet"
+            type="text"
             label="Enter your Cell Slug:"
+            mask="X"
             class="fit"
+            reverse-fill-mask
           />
         </q-item-section>
         <q-item-section

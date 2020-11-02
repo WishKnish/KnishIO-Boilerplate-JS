@@ -64,29 +64,21 @@
       <div
         class="text-center"
       >
-        <q-btn-group>
-          <wk-button
-            :outline="false"
-            :disable="!demoMetaType || !demoMetaId"
-            label="Write New Metadata"
-            @click="mutate"
-          />
-          <wk-button
-            :outline="false"
-            label="Skip"
-            color="info"
-            @click="skip"
-          />
-        </q-btn-group>
+        <wk-button
+          :outline="false"
+          :disable="!demoMetaType || !demoMetaId"
+          label="Write New Metadata"
+          @click="mutate"
+        />
       </div>
       <sequential-entrance>
         <wk-code-example
           :example="example"
         />
         <wk-input
-          v-if="!loading && results"
+          v-if="!loading && result"
           label="Raw Response:"
-          :value="JSON.stringify( decycle( results ) )"
+          :value="JSON.stringify( decycle( result ) )"
           type="textarea"
           class="q-mt-md"
           readonly
@@ -148,7 +140,7 @@ export default {
       demoKey: 'foo',
       demoValue: 'bar',
       demoLatest: true,
-      results: null,
+      result: null,
       error: null,
       successMessage: null,
     };
@@ -188,9 +180,9 @@ console.log( result.data() ); // Raw response
         if ( !result.success() ) {
           this.error = result.reason();
         } else {
-          this.results = result.data();
+          this.result = result.data();
           this.successMessage = `The "${ this.demoMetaType }" instance was successfully updated!`;
-          this.$emit( 'input', this.results );
+          this.$emit( 'input', this.result );
         }
         this.loading = false;
       } catch ( e ) {
@@ -198,9 +190,6 @@ console.log( result.data() ); // Raw response
         console.error( e );
         this.loading = false;
       }
-    },
-    skip () {
-      this.$emit( 'input', true );
     },
   },
 };
