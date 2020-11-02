@@ -1,4 +1,4 @@
-import { KnishIOClient, } from '@wishknish/knishio-client-js/src';
+import { KnishIOClient, } from '@wishknish/knishio-client-js';
 import { KNISHIO_SETTINGS, } from 'src/constants/knishio';
 
 export default async ( { Vue, } ) => {
