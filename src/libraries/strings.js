@@ -61,6 +61,22 @@ export function humanNumber ( number, threshold = 1000 ) {
   return `${ numberWithCommas( number.toString( 10 ) ) } ${ units[ u ] }`;
 }
 
+export function decycle ( obj, stack = [] ) {
+  if ( !obj || typeof obj !== 'object' )
+    return obj;
+
+  if ( stack.includes( obj ) )
+    return null;
+
+  let s = stack.concat( [ obj, ] );
+
+  return Array.isArray( obj )
+    ? obj.map( x => decycle( x, s ) )
+    : Object.fromEntries(
+      Object.entries( obj )
+        .map( ( [ k, v, ] ) => [ k, decycle( v, s ), ] ) );
+}
+
 /**
  * Generates a random name
  *

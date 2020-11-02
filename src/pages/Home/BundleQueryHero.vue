@@ -47,7 +47,7 @@
         <wk-input
           v-if="!loading && bundleMeta"
           label="Raw Metadata:"
-          :value="JSON.stringify( bundleMeta )"
+          :value="JSON.stringify( decycle( result ) )"
           type="textarea"
           class="q-mt-md"
           readonly
@@ -74,6 +74,7 @@ import WkBundleTable from 'components/tables/WkBundleTable';
 import WkBanner from 'components/WkBanner';
 import WkInput from 'components/forms/fields/WkInput';
 import WkInnerLoading from 'components/layout/WkInnerLoading';
+import { decycle, } from 'src/libraries/strings';
 
 export default {
   components: {
@@ -100,6 +101,7 @@ export default {
       loading: false,
       demoBundle: null,
       bundleMeta: null,
+      result: null,
       error: null,
     };
   },
@@ -112,15 +114,18 @@ export default {
     this.bundleHash = this.demoClient.bundle();
   },
   methods: {
+    decycle,
     async query () {
       this.loading = true;
       try {
         this.error = null;
+        this.result = null;
         const result = await this.demoClient.queryBundle( this.demoBundle > '' ? this.demoBundle : null );
         if ( !result ) {
           this.error = `No bundles with hash "${ this.demoBundle }" were found!`;
         }
         else {
+          this.result = result;
           this.bundleMeta = Object.values( result ).pop();
           this.$emit( 'input', this.bundleMeta );
         }

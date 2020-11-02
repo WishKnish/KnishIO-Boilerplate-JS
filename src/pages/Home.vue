@@ -40,6 +40,11 @@
       <meta-type-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle && demoBundleMeta"
         id="metaTypeHero"
+        @input="setAssetMeta"
+      />
+      <meta-mutation-hero
+        v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle && demoBundleMeta && demoAssetMeta"
+        id="metaMutationHero"
       />
     </sequential-entrance>
   </section>
@@ -56,9 +61,11 @@ import vuex from 'src/mixins/vuex';
 import BundleQueryHero from 'pages/Home/BundleQueryHero';
 import MetaTypeHero from 'pages/Home/MetaTypeHero';
 import application from 'src/mixins/application';
+import MetaMutationHero from 'pages/Home/MetaMutationHero';
 
 export default {
   components: {
+    MetaMutationHero,
     MetaTypeHero,
     BundleQueryHero,
     BundleHero,
@@ -80,6 +87,7 @@ export default {
       demoAuth: null,
       demoBundle: null,
       demoBundleMeta: null,
+      demoAssetMeta: null,
     };
   },
   computed: {},
@@ -120,6 +128,12 @@ export default {
       this.demoBundleMeta = meta;
       if(meta) {
         this.scrollToTimeout( 'metaTypeHero' );
+      }
+    },
+    setAssetMeta ( meta ) {
+      this.demoAssetMeta = meta;
+      if(meta) {
+        this.scrollToTimeout( 'metaMutationHero' );
       }
     },
   },

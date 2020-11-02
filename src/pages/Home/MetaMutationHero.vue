@@ -5,7 +5,7 @@
     <h4
       class="text-center"
     >
-      7. Querying Meta Assets
+      8. Mutating Meta Assets
     </h4>
     <div
       :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
@@ -14,7 +14,7 @@
         :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
       >
         <VueShowdown
-          markdown="Knish.IO provides for dynamic, virtual data structures called **Meta Assets**. Specific Meta Assets are identified via a combination of `metaType` and `metaId` fields, and can have an arbitrary amount of `metas` storing key/value pairs of properties."
+          markdown="Meta Assets can be changed by committing new metadata via the `KnishIOClient.createMeta` method. Though new metadata may get written to the same virtual field, its old metadata never goes away."
         />
       </div>
       <q-item>
@@ -36,7 +36,7 @@
             >
               <wk-input
                 v-model="demoMetaId"
-                label="(optional) Meta ID:"
+                label="Meta ID:"
                 class="fit"
               />
             </div>
@@ -45,7 +45,7 @@
             >
               <wk-input
                 v-model="demoKey"
-                label="(optional) Key:"
+                label="Key:"
                 class="fit"
               />
             </div>
@@ -54,52 +54,30 @@
             >
               <wk-input
                 v-model="demoValue"
-                label="(optional) Value:"
+                label="New Value:"
                 class="fit"
               />
             </div>
           </div>
         </q-item-section>
       </q-item>
-      <q-item>
-        <q-item-section>
-          <q-checkbox
-            v-model="demoLatest"
-          >
-            Limit results to the latest meta value per key?
-          </q-checkbox>
-        </q-item-section>
-        <q-item-section
-          side
-        >
-          <wk-button
-            :outline="false"
-            :disable="!demoMetaType"
-            label="Query MetaType"
-            @click="query"
-          />
-        </q-item-section>
-      </q-item>
+      <div
+        class="text-center"
+      >
+        <wk-button
+          :outline="false"
+          :disable="!demoMetaType || !demoMetaId"
+          label="Write New Metadata"
+          @click="mutate"
+        />
+      </div>
       <sequential-entrance>
         <wk-code-example
           :example="example"
         />
-        <div
-          v-if="!loading && results"
-        >
-          <wk-meta-table
-            v-for="metaInstance in results"
-            :key="metaInstance.metaKey"
-            :metas="metaInstance.metas"
-            :show-search="false"
-            :show-molecule="false"
-            :show-timestamp="false"
-          />
-        </div>
-
         <wk-input
           v-if="!loading && results"
-          label="Raw Metadata:"
+          label="Raw Response:"
           :value="JSON.stringify( decycle( results ) )"
           type="textarea"
           class="q-mt-md"
@@ -108,7 +86,14 @@
         <wk-banner
           v-if="error"
           :caption="error"
-          label="Error querying meta type data:"
+          label="Error writing new metadata:"
+        />
+        <wk-banner
+          v-if="successMessage"
+          :caption="successMessage"
+          label="Metadata has been updated:"
+          color="bg-positive"
+          icon="fa fa-check"
         />
       </sequential-entrance>
     </div>
@@ -126,12 +111,10 @@ import vuex from 'src/mixins/vuex';
 import WkBanner from 'components/WkBanner';
 import WkInput from 'components/forms/fields/WkInput';
 import WkInnerLoading from 'components/layout/WkInnerLoading';
-import WkMetaTable from 'components/tables/WkMetaTable';
 import { decycle, } from 'src/libraries/strings';
 
 export default {
   components: {
-    WkMetaTable,
     WkInnerLoading,
     WkInput,
     WkBanner,
@@ -159,22 +142,26 @@ export default {
       demoLatest: true,
       results: null,
       error: null,
+      successMessage: null,
     };
   },
   computed: {
     example () {
       const metaType = this.demoMetaType ? `'${ this.demoMetaType }'` : '>>META TYPE<<';
-      const metaId = this.demoMetaId ? `'${ this.demoMetaId }'` : 'null';
-      const key = this.demoKey ? `'${ this.demoKey }'` : 'null';
-      const value = this.demoValue ? `'${ this.demoValue }'` : 'null';
-      const latest = this.demoLatest ? `${ this.demoLatest }` : 'null';
-      return `const result = await client.queryMeta (
+      const metaId = this.demoMetaId ? `'${ this.demoMetaId }'` : '>>META ID<<';
+      const metadata = `{
+    '${ this.demoKey ? this.demoKey : '>>KEY<<' }': '${ this.demoValue ? this.demoValue : '>>VALUE<<' }'
+  }`;
+      return `const result = await client.createMeta (
   ${ metaType }, // MetaType
   ${ metaId }, // Meta ID
-  ${ key }, // Key
-  ${ value } // Value
-  ${ latest } // Limit meta values to latest per key
-)`;
+  ${ metadata } // Metadata JSON
+);
+if( result.success() ) {
+  // Do things!
+}
+console.log( result.data() ); // Raw response
+`;
     },
   },
   mounted () {
@@ -182,16 +169,19 @@ export default {
   },
   methods: {
     decycle,
-    async query () {
+    async mutate () {
       this.loading = true;
       try {
         this.error = null;
-        const result = await this.demoClient.queryMeta( this.demoMetaType > '' ? this.demoMetaType : null,this.demoMetaId > '' ? this.demoMetaId : null, this.demoKey > '' ? this.demoKey : null, this.demoValue > '' ? this.demoValue : null, this.demoLatest );
-        if ( !result ) {
-          this.error = `No "${ this.demoMetaType }" meta type instances were found!`;
-        }
-        else {
-          this.results = result;
+        this.successMessage = null;
+        const metadata = {};
+        metadata[ this.demoKey ] = this.demoValue;
+        const result = await this.demoClient.createMeta( this.demoMetaType, this.demoMetaId, metadata );
+        if ( !result.success() ) {
+          this.error = result.reason();
+        } else {
+          this.results = result.data();
+          this.successMessage = `The "${ this.demoMetaType }" instance was successfully updated!`;
           this.$emit( 'input', this.results );
         }
         this.loading = false;
