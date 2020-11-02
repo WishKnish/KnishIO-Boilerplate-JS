@@ -1,6 +1,6 @@
 export const APP_SETTINGS = {
-  appUri: `${ [ true, 'true', ].includes( process.env.KNISHIO_APP_QR_HTTPS ) ? 'https' : 'http' }://${ process.env.KNISHIO_APP_QR_HOST }`,
-  appHost: `${ process.env.KNISHIO_APP_QR_HOST }`,
+  appUri: `${ [ true, 'true', ].includes( process.env.KNISHIO_APP_HTTPS ) ? 'https' : 'http' }://${ process.env.KNISHIO_APP_HOST }`,
+  appHost: `${ process.env.KNISHIO_APP_HOST }`,
   languages: {
     'en-us': {
       label: 'English',
