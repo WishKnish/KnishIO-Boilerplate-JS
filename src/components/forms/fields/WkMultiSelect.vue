@@ -18,9 +18,6 @@
       :multiple="multiple"
       class="q-pb-md"
       options-selected-class="bg-accent text-white"
-      emit-value
-      map-options
-      rounded
       lazy-rules
       @input="emitValue"
     >
@@ -33,7 +30,7 @@
         />
       </template>
       <template
-        v-slot:selected
+        v-slot:selected-item="scope"
       >
         <div
           v-if="multiple && myValue && myValue.length > 0"
@@ -47,7 +44,7 @@
         </div>
         <div
           v-else-if="!multiple && myValue"
-          v-html="fieldKey ? $t( `${ fieldKey }.options.${ myValue }.label` ) : myValue"
+          v-html="fieldKey ? $t( `${ fieldKey }.options.${ myValue }.label` ) : scope.opt.label"
         />
         <span
           v-else
@@ -63,7 +60,7 @@
         >
           <q-item-section>
             <q-item-label
-              v-html="fieldKey ? $t( `${ fieldKey }.options.${ scope.opt }.label` ) : scope.opt"
+              v-html="fieldKey ? $t( `${ fieldKey }.options.${ scope.opt }.label` ) : scope.opt.label"
             />
           </q-item-section>
         </q-item>
@@ -82,7 +79,7 @@ export default {
       default: null,
     },
     value: {
-      type: Array,
+      type: [String, Array, Object,],
       required: false,
       default: Array,
     },

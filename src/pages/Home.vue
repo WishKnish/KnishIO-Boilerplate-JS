@@ -33,23 +33,29 @@
         @input="setBundle"
       />
       <bundle-query-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle"
+        v-if="demoClient && demoCell && demoSecret && demoAuth"
         id="bundleQueryHero"
         @input="setBundleMeta"
       />
       <meta-type-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle && demoBundleMeta"
+        v-if="demoClient && demoCell && demoSecret && demoAuth"
         id="metaTypeHero"
         @input="setAssetMeta"
       />
       <meta-mutation-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle && demoBundleMeta && demoAssetMeta"
+        v-if="demoClient && demoCell && demoSecret && demoAuth"
         id="metaMutationHero"
         @input="setMetaMutationResult"
       />
       <wallet-query-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth && demoBundle && demoBundleMeta && demoAssetMeta && demoMetaMutationResult"
+        v-if="demoClient && demoCell && demoSecret && demoAuth"
         id="walletQueryHero"
+        @input="setWalletResult"
+      />
+      <token-hero
+        v-if="demoClient && demoCell && demoSecret && demoAuth"
+        id="tokenHero"
+        @input="setTokenResult"
       />
     </sequential-entrance>
   </section>
@@ -68,9 +74,11 @@ import MetaTypeHero from 'pages/Home/MetaTypeHero';
 import application from 'src/mixins/application';
 import MetaMutationHero from 'pages/Home/MetaMutationHero';
 import WalletQueryHero from 'pages/Home/WalletQueryHero';
+import TokenHero from 'pages/Home/TokenHero';
 
 export default {
   components: {
+    TokenHero,
     WalletQueryHero,
     MetaMutationHero,
     MetaTypeHero,
@@ -96,6 +104,8 @@ export default {
       demoBundleMeta: null,
       demoAssetMeta: null,
       demoMetaMutationResult: null,
+      demoWalletResult: null,
+      demoTokenResult: null,
     };
   },
   computed: {},
@@ -148,6 +158,18 @@ export default {
       this.demoMetaMutationResult = result;
       if(result) {
         this.scrollToTimeout( 'walletQueryHero' );
+      }
+    },
+    setWalletResult ( result ) {
+      this.demoWalletResult = result;
+      if(result) {
+        this.scrollToTimeout( 'tokenHero' );
+      }
+    },
+    setTokenResult ( result ) {
+      this.demoTokenResult = result;
+      if(result) {
+        // this.scrollToTimeout( 'tokenHero' );
       }
     },
   },
