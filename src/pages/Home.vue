@@ -29,33 +29,21 @@
       />
       <bundle-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth"
-        id="bundleHero"
-        @input="setBundle"
       />
       <bundle-query-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth"
-        id="bundleQueryHero"
-        @input="setBundleMeta"
       />
       <meta-type-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth"
-        id="metaTypeHero"
-        @input="setAssetMeta"
       />
       <meta-mutation-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth"
-        id="metaMutationHero"
-        @input="setMetaMutationResult"
       />
       <wallet-query-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth"
-        id="walletQueryHero"
-        @input="setWalletResult"
       />
       <token-hero
         v-if="demoClient && demoCell && demoSecret && demoAuth"
-        id="tokenHero"
-        @input="setTokenResult"
       />
     </sequential-entrance>
   </section>
@@ -100,12 +88,6 @@ export default {
       demoCell: null,
       demoSecret: null,
       demoAuth: null,
-      demoBundle: null,
-      demoBundleMeta: null,
-      demoAssetMeta: null,
-      demoMetaMutationResult: null,
-      demoWalletResult: null,
-      demoTokenResult: null,
     };
   },
   computed: {},
@@ -133,43 +115,6 @@ export default {
       console.log( this.demoClient.getAuthToken() );
       if( auth ) {
         this.scrollToTimeout( 'bundleHero' );
-      }
-    },
-    setBundle( bundle ) {
-      this.demoBundle = bundle;
-      console.log( this.demoClient.bundle() );
-      if( bundle ) {
-        this.scrollToTimeout( 'bundleQueryHero' );
-      }
-    },
-    setBundleMeta ( meta ) {
-      this.demoBundleMeta = meta;
-      if(meta) {
-        this.scrollToTimeout( 'metaTypeHero' );
-      }
-    },
-    setAssetMeta ( meta ) {
-      this.demoAssetMeta = meta;
-      if(meta) {
-        this.scrollToTimeout( 'metaMutationHero' );
-      }
-    },
-    setMetaMutationResult ( result ) {
-      this.demoMetaMutationResult = result;
-      if(result) {
-        this.scrollToTimeout( 'walletQueryHero' );
-      }
-    },
-    setWalletResult ( result ) {
-      this.demoWalletResult = result;
-      if(result) {
-        this.scrollToTimeout( 'tokenHero' );
-      }
-    },
-    setTokenResult ( result ) {
-      this.demoTokenResult = result;
-      if(result) {
-        // this.scrollToTimeout( 'tokenHero' );
       }
     },
   },

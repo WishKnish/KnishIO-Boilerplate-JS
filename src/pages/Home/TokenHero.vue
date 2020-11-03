@@ -219,7 +219,7 @@ export default {
       const tokenAmount = this.demoAmount ? this.demoAmount : '>>INITIAL AMOUNT<<';
       return `const tokenMeta = {
   name: '${ tokenName }', // Public name for the token
-  fungiblity: '${ tokenFungibility }', // Fungibility style
+  fungibility: '${ tokenFungibility }', // Fungibility style
   supply: '${ tokenSupply }', // Supply style
   decimals: '${ tokenDecimals }', // Decimal places
 };
@@ -244,7 +244,7 @@ console.log( result.data() ); // Raw response
         this.result = null;
         const tokenMeta = {
           name: this.demoToken, // Public name for the token
-          fungiblity: this.demoFungibility, // Fungibility style
+          fungibility: this.demoFungibility, // Fungibility style
           supply: this.demoSupply, // Supply style
           decimals: this.demoDecimals, // Decimal places
       };
