@@ -14,8 +14,21 @@
           <div
             class="q-pa-md"
           >
-            <slot />
+            <h4
+              v-if="title"
+              class="text-center"
+            >
+              {{ title }}
+            </h4>
+            <div
+              :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
+            >
+              <slot />
+            </div>
           </div>
+          <wk-inner-loading
+            :loading="loading"
+          />
         </q-card>
       </div>
     </div>
@@ -55,12 +68,26 @@
 </template>
 
 <script>
+import WkInnerLoading from 'components/layout/WkInnerLoading';
 export default {
+  components: {
+    WkInnerLoading,
+  },
   props: {
     disable: {
       type: Boolean,
       required: false,
       default: false,
+    },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    title: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

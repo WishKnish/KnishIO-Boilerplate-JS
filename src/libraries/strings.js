@@ -61,6 +61,13 @@ export function humanNumber ( number, threshold = 1000 ) {
   return `${ numberWithCommas( number.toString( 10 ) ) } ${ units[ u ] }`;
 }
 
+/**
+ * Removes cycles from JSON objects for stable stringification
+ *
+ * @param obj
+ * @param stack
+ * @returns {null|*|{[p: string]: null}}
+ */
 export function decycle ( obj, stack = [] ) {
   if ( !obj || typeof obj !== 'object' )
     return obj;

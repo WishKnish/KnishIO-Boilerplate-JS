@@ -23,6 +23,7 @@
     :loading="loading"
     :rounded="rounded"
     outlined
+    hide-bottom-space
     lazy-rules
     @input="emitValue"
     @blur="emitValue(value)"
@@ -35,10 +36,14 @@
         :name="icon"
       />
     </template>
-    <template v-slot:append>
+    <template
+      v-slot:append
+    >
       <slot />
     </template>
-    <template v-slot:control="{ id, floatingLabel, value, emitValue, }">
+    <template
+      v-slot:control="{ id, floatingLabel, value, emitValue, }"
+    >
       <input
         v-show="floatingLabel"
         :id="id"

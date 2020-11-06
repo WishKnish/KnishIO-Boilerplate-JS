@@ -212,10 +212,11 @@ export async function UPDATE ( context, { vm, } ) {
             }
 
           } );
+
           context.commit( 'SET_METAS', bundle.metas );
         }
         else {
-          console.warn( 'User::update() - No metadata retrieved...' );
+          console.warn( 'User::update() - No remote metadata found...' );
         }
 
         if ( !context.getters.GET_COVER ) {

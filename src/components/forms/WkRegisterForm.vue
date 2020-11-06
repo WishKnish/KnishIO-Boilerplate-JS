@@ -293,6 +293,9 @@ export default {
     tempSecret () {
       return generateSecret( `${ this.auth.username }:${ this.auth.password }:${ KNISHIO_SETTINGS.salt }` );
     },
+    /**
+     * Generating a wallet for USER token for signing basic transactions
+    */
     tempMasterWallet () {
       return new Wallet( this.tempSecret, 'USER' );
     },
@@ -358,15 +361,20 @@ export default {
               // Success! Switching to step 3
               this.submitStatus = 'SUCCESS';
               this.step = 3;
-              this.notify( this.$q.notify, this.$t( 'forms.messaging.confirmation.success' ), 'success' );
-              this.$emit( 'success' );
+
+              this.notify( this.$q.notify, this.$t( 'forms.register.confirmation.success', { publicName: this.auth.publicName, } ), 'success' );
+
+              // Reinitializing user
+              await this.$store.dispatch( 'user/INIT', { vm: this, } );
+
+              this.$emit( 'onboard' );
 
             } else {
 
               // The molecule was rejected on the server
               this.submitStatus = 'ERROR';
               this.error = response.error();
-              this.notify( this.$q.notify, this.$t( 'forms.messaging.confirmation.failure' ), 'failure' );
+              this.notify( this.$q.notify, this.$t( 'forms.register.confirmation.failure' ), 'failure' );
               await this.$store.dispatch( 'user/LOGOUT', { vm: this, } );
               this.$emit( 'error' );
 
@@ -377,8 +385,10 @@ export default {
             // Something happened with signature or verification
             this.error = knishIoException.message;
             this.submitStatus = 'ERROR';
+            this.notify( this.$q.notify, this.$t( 'ux.common.signature' ), 'failure' );
             console.log( knishIoException );
             await this.$store.dispatch( 'user/LOGOUT', { vm: this, } );
+            this.$emit( 'error' );
 
           }
 
@@ -406,3 +416,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.q-stepper__step-inner {
+  padding-top: 0 !important;
+}
+</style>

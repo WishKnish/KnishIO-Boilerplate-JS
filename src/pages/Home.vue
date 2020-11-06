@@ -7,43 +7,45 @@
       :tag="false"
     >
       <home-hero />
+      <installation-hero />
       <client-hero
         id="clientHero"
         @input="setClient"
       />
-      <cell-hero
-        v-if="demoClient"
-        id="cellHero"
-        @input="setCell"
-      />
       <secret-hero
-        v-if="demoClient && demoCell"
+        v-if="hasClient"
         id="secretHero"
-        @input="setSecret"
-      />
-      <auth-hero
-        v-if="demoClient && demoCell && demoSecret"
-        id="authHero"
-        :demo-secret="demoSecret"
         @input="setAuth"
       />
+      <no-client-hero
+        v-else
+        disable
+      />
       <bundle-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth"
+        v-if="hasAuth"
+        id="bundleHero"
+      />
+      <no-secret-hero
+        v-else-if="hasClient"
+        disable
       />
       <bundle-query-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth"
+        v-if="hasAuth"
       />
       <meta-type-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth"
+        v-if="hasAuth"
       />
       <meta-mutation-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth"
+        v-if="hasAuth"
       />
       <wallet-query-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth"
+        v-if="hasAuth"
       />
       <token-hero
-        v-if="demoClient && demoCell && demoSecret && demoAuth"
+        v-if="hasAuth"
+      />
+      <transfer-hero
+        v-if="hasAuth"
       />
     </sequential-entrance>
   </section>
@@ -52,9 +54,7 @@
 <script>
 import HomeHero from 'pages/Home/HomeHero';
 import ClientHero from 'pages/Home/ClientHero';
-import CellHero from 'pages/Home/CellHero';
 import SecretHero from 'pages/Home/SecretHero';
-import AuthHero from 'pages/Home/AuthHero';
 import BundleHero from 'pages/Home/BundleHero';
 import vuex from 'src/mixins/vuex';
 import BundleQueryHero from 'pages/Home/BundleQueryHero';
@@ -63,18 +63,24 @@ import application from 'src/mixins/application';
 import MetaMutationHero from 'pages/Home/MetaMutationHero';
 import WalletQueryHero from 'pages/Home/WalletQueryHero';
 import TokenHero from 'pages/Home/TokenHero';
+import InstallationHero from 'pages/Home/InstallationHero';
+import NoClientHero from 'pages/Home/NoClientHero';
+import NoSecretHero from 'pages/Home/NoSecretHero';
+import TransferHero from 'pages/Home/TransferHero';
 
 export default {
   components: {
+    TransferHero,
+    NoSecretHero,
+    NoClientHero,
+    InstallationHero,
     TokenHero,
     WalletQueryHero,
     MetaMutationHero,
     MetaTypeHero,
     BundleQueryHero,
     BundleHero,
-    AuthHero,
     SecretHero,
-    CellHero,
     ClientHero,
     HomeHero,
   },
@@ -86,34 +92,27 @@ export default {
   data () {
     return {
       demoCell: null,
-      demoSecret: null,
       demoAuth: null,
     };
   },
-  computed: {},
+  computed: {
+    hasClient () {
+      return !!this.demoClient;
+    },
+    hasAuth () {
+      return this.hasClient && this.demoAuth;
+    },
+  },
   mounted () {
   },
   methods: {
-    setClient ( client ) {
-      this.scrollToTimeout('cellHero');
-    },
-    setCell ( cell ) {
-      this.demoCell = cell;
-      console.log( this.demoClient.cellSlug() );
-      if(cell) {
-        this.scrollToTimeout( 'secretHero' );
-      }
-    },
-    setSecret ( secret ) {
-      this.demoSecret = secret;
-      if( secret ) {
-        this.scrollToTimeout( 'authHero' );
-      }
+    setClient () {
+      this.scrollToTimeout( 'secretHero' );
     },
     setAuth ( auth ) {
       this.demoAuth = auth;
       console.log( this.demoClient.getAuthToken() );
-      if( auth ) {
+      if ( auth ) {
         this.scrollToTimeout( 'bundleHero' );
       }
     },

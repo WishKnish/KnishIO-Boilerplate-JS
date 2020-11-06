@@ -1,63 +1,77 @@
 <template>
   <wk-hero-card
     :disable="disable"
+    title="2. The Knish.IO Client"
   >
-    <h4
-      class="text-center"
-    >
-      1. The Knish.IO Client
-    </h4>
     <div
-      :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
+      :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
     >
-      <div
-        :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
-      >
-        <VueShowdown
-          markdown="The first step is to instantiate a `KnishIOClient` instance:"
-        />
-      </div>
-      <q-item>
-        <q-item-section>
-          <wk-input
-            v-model="nodeUri"
-            :readonly="!!demoClient"
-            prefix="https://"
-            suffix="/graphql"
-            label="Enter your Knish.IO Node URI:"
-            class="fit"
-          />
-        </q-item-section>
-        <q-item-section
-          side
-        >
-          <wk-button
-            v-if="!demoClient"
-            :disable="!nodeUri"
-            :outline="false"
-            label="Create"
-            @click="createClient"
-          />
-          <wk-button
-            v-else
-            :outline="false"
-            label="Reset"
-            color="negative"
-            @click="resetClient"
-          />
-        </q-item-section>
-      </q-item>
-      <sequential-entrance>
-        <WkCodeExample
-          :example="example"
-        />
-        <wk-banner
-          v-if="error"
-          :caption="error"
-          label="Error creating KnishIOClient instance:"
-        />
-      </sequential-entrance>
+      <VueShowdown
+        markdown="The first step is to instantiate a `KnishIOClient` instance and assign a Cell. Your Cell represents your specific Knish.IO dApp. You should have received a `cellSlug` to use."
+      />
     </div>
+    <q-item>
+      <q-item-section>
+        <div
+          class="row q-col-gutter-sm"
+        >
+          <div
+            class="col-6"
+          >
+            <wk-input
+              v-model="nodeUri"
+              :readonly="!!demoClient"
+              prefix="https://"
+              suffix="/graphql"
+              label="Knish.IO Node URI:"
+              class="fit"
+            />
+          </div>
+          <div
+            class="col-6"
+          >
+            <wk-input
+              v-model="cellSlug"
+              :readonly="!!demoClient"
+              type="text"
+              label="Cell Slug:"
+              mask="X"
+              class="fit"
+              reverse-fill-mask
+            />
+          </div>
+        </div>
+      </q-item-section>
+      <q-item-section
+        side
+      >
+        <wk-button
+          v-if="!demoClient"
+          :disable="!nodeUri || !cellSlug"
+          :outline="false"
+          label="Start Client"
+          @click="createClient"
+        />
+        <wk-button
+          v-else
+          :outline="false"
+          label="Reset"
+          color="negative"
+          @click="resetClient"
+        />
+      </q-item-section>
+    </q-item>
+    <sequential-entrance>
+      <wk-code-example
+        :example="example"
+      />
+      <wk-banner
+        v-if="error"
+        :caption="error"
+        label="Error creating KnishIOClient instance:"
+        class="q-mt-lg"
+      />
+    </sequential-entrance>
   </wk-hero-card>
 </template>
 
@@ -93,13 +107,19 @@ export default {
   data () {
     return {
       nodeUri: null,
+      cellSlug: null,
       error: null,
     };
   },
   computed: {
     example () {
       return `import { KnishIOClient } from '@wishknish/knishio-client-js'
-const client = new KnishIOClient( '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }' );`;
+
+// Instantiate a new Knish.IO client instance
+const client = new KnishIOClient( '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }' );
+
+// Assign a Cell slug
+client.setCellSlug( '${ this.cellSlug ? this.cellSlug : '>>YOUR CELL SLUG<<' }' );`;
     },
     fullNodeUri () {
       return `https://${ this.nodeUri }/graphql`;
@@ -117,6 +137,7 @@ const client = new KnishIOClient( '${ this.nodeUri ? this.fullNodeUri : '>>YOUR 
         }
 
         this.demoClient = new KnishIOClient( this.fullNodeUri );
+        this.demoClient.setCellSlug( this.cellSlug );
         this.$emit( 'input', this.demoClient );
       } catch ( e ) {
         this.error = e;

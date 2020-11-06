@@ -2,69 +2,70 @@
   <wk-hero-card
     :disable="disable"
     :loading="loading"
-    title="7. Writing New Metadata"
+    title="10. Transferring Tokens"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
     >
       <VueShowdown
-        markdown="Meta Assets can be changed by committing new metadata via the `KnishIOClient.createMeta` method. Though new metadata may get written to the same virtual field, its old metadata never goes away."
+        markdown="Moving Tokens between Wallets is as simple as finding out your recipient's `bundleHash` and issuing a single command."
       />
     </div>
     <q-item>
       <q-item-section>
         <div
-          class="row q-col-gutter-sm"
+          class="row q-col-gutter-sm items-center"
         >
           <div
             class="col-6"
           >
             <wk-input
-              v-model="demoMetaType"
-              label="Meta Type:"
+              v-model="demoSlug"
+              :maxlength="16"
+              :value="demoSlug"
+              type="text"
+              label="Token Slug:"
+              mask="X"
               class="fit"
+              reverse-fill-mask
             />
           </div>
           <div
             class="col-6"
           >
             <wk-input
-              v-model="demoMetaId"
-              label="Meta ID:"
+              v-model="demoAmount"
+              :maxlength="46"
+              type="number"
+              label="Amount to Move:"
+              mask="###############################################"
               class="fit"
             />
           </div>
           <div
-            class="col-6"
+            class="col-grow"
           >
             <wk-input
-              v-model="demoKey"
-              label="Key:"
+              v-model="demoBundle"
+              :maxlength="64"
+              label="Recipient Bundle Hash:"
               class="fit"
+              type="text"
             />
           </div>
           <div
-            class="col-6"
+            class="col-shrink"
           >
-            <wk-input
-              v-model="demoValue"
-              label="New Value:"
-              class="fit"
+            <wk-button
+              :outline="false"
+              :disable="!demoBundle || !demoSlug || !demoAmount"
+              label="Transfer Tokens"
+              @click="mutate"
             />
           </div>
         </div>
       </q-item-section>
     </q-item>
-    <div
-      class="text-center q-mb-lg"
-    >
-      <wk-button
-        :outline="false"
-        :disable="!demoMetaType || !demoMetaId"
-        label="Write New Metadata"
-        @click="mutate"
-      />
-    </div>
     <sequential-entrance>
       <wk-code-example
         :example="example"
@@ -80,13 +81,13 @@
       <wk-banner
         v-if="error"
         :caption="error"
-        label="Error writing new metadata:"
+        label="Error issuing tokens:"
         class="q-mt-lg"
       />
       <wk-banner
         v-if="successMessage"
         :caption="successMessage"
-        label="Metadata has been updated:"
+        label="Token successfully created:"
         color="bg-positive"
         icon="fa fa-check"
         class="q-mt-lg"
@@ -124,12 +125,10 @@ export default {
   },
   data () {
     return {
+      demoSlug: null,
+      demoAmount: null,
+      demoBundle: null,
       loading: false,
-      demoMetaType: 'WalletBundle',
-      demoMetaId: null,
-      demoKey: 'foo',
-      demoValue: 'bar',
-      demoLatest: true,
       result: null,
       error: null,
       successMessage: null,
@@ -137,15 +136,13 @@ export default {
   },
   computed: {
     example () {
-      const metaType = this.demoMetaType ? `'${ this.demoMetaType }'` : '>>META TYPE<<';
-      const metaId = this.demoMetaId ? `'${ this.demoMetaId }'` : '>>META ID<<';
-      const metadata = `{
-    '${ this.demoKey ? this.demoKey : '>>KEY<<' }': '${ this.demoValue ? this.demoValue : '>>VALUE<<' }'
-  }`;
-      return `const result = await client.createMeta (
-  ${ metaType }, // MetaType
-  ${ metaId }, // Meta ID
-  ${ metadata } // Metadata JSON
+      const transferBundle = this.demoBundle ? this.demoBundle : '>>BUNDLE HASH<<';
+      const transferSlug = this.demoSlug ? this.demoSlug : '>>TOKEN SLUG<<';
+      const transferAmount = this.demoAmount ? this.demoAmount : '>>INITIAL AMOUNT<<';
+      return `const result = await client.transferToken (
+  '${ transferBundle }',
+  '${ transferSlug }',
+  '${ transferAmount }'
 );
 
 if( result.success() ) {
@@ -156,24 +153,19 @@ console.log( result.data() ); // Raw response
 `;
     },
   },
-  mounted () {
-    this.demoMetaId = this.demoClient.bundle();
-  },
   methods: {
     decycle,
     async mutate () {
       this.loading = true;
       try {
         this.error = null;
-        this.successMessage = null;
-        const metadata = {};
-        metadata[ this.demoKey ] = this.demoValue;
-        const result = await this.demoClient.createMeta( this.demoMetaType, this.demoMetaId, metadata );
+        this.result = null;
+        const result = await this.demoClient.transferToken( this.demoBundle, this.demoSlug, this.demoAmount );
         if ( !result.success() ) {
           this.error = result.reason();
         } else {
           this.result = result.data();
-          this.successMessage = `The "${ this.demoMetaType }" instance was successfully updated!`;
+          this.successMessage = `The ${ this.demoAmount } "${ this.demoSlug }" tokens were successfully transferred!`;
           this.$emit( 'input', this.result );
         }
         this.loading = false;

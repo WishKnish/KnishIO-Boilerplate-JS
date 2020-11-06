@@ -1,67 +1,59 @@
 <template>
   <wk-hero-card
     :disable="disable"
+    :loading="loading"
+    title="5. Querying Bundle Data"
   >
-    <h4
-      class="text-center"
-    >
-      6. Querying Bundle Data
-    </h4>
     <div
-      :class="`${ $q.screen.gt.md ? 'q-pa-lg' : 'q-pa-md' }`"
+      :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
     >
-      <div
-        :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
-      >
-        <VueShowdown
-          markdown="Your `bundleHash` is a pointer via which you can retrieve any metadata and wallets associated with a Wallet Bundle."
-        />
-      </div>
-      <q-item>
-        <q-item-section>
-          <wk-input
-            v-model="demoBundle"
-            label="Enter a Bundle Hash (empty = query own bundle):"
-            class="fit"
-          />
-        </q-item-section>
-        <q-item-section
-          side
-        >
-          <wk-button
-            :outline="false"
-            label="Query Bundle"
-            @click="query"
-          />
-        </q-item-section>
-      </q-item>
-      <sequential-entrance>
-        <wk-code-example
-          :example="example"
-        />
-        <wk-bundle-table
-          v-if="!loading && bundleMeta"
-          :bundle="bundleMeta"
-          :show-search="false"
-        />
-        <wk-input
-          v-if="!loading && bundleMeta"
-          label="Raw Metadata:"
-          :value="JSON.stringify( decycle( result ) )"
-          type="textarea"
-          class="q-mt-md"
-          readonly
-        />
-        <wk-banner
-          v-if="error"
-          :caption="error"
-          label="Error querying wallet bundle metadata:"
-        />
-      </sequential-entrance>
+      <VueShowdown
+        markdown="Your `bundleHash` is a pointer via which you can retrieve any metadata and wallets associated with a Wallet Bundle."
+      />
     </div>
-    <wk-inner-loading
-      :loading="loading"
-    />
+    <q-item>
+      <q-item-section>
+        <wk-input
+          v-model="demoBundle"
+          label="Enter a Bundle Hash (empty = query own bundle):"
+          class="fit"
+        />
+      </q-item-section>
+      <q-item-section
+        side
+      >
+        <wk-button
+          :outline="false"
+          label="Query Bundle"
+          @click="query"
+        />
+      </q-item-section>
+    </q-item>
+    <sequential-entrance>
+      <wk-code-example
+        :example="example"
+      />
+      <wk-bundle-table
+        v-if="!loading && bundleMeta"
+        :bundle="bundleMeta"
+        :show-search="false"
+        class="q-mt-lg"
+      />
+      <wk-input
+        v-if="!loading && bundleMeta"
+        label="Raw Metadata:"
+        :value="JSON.stringify( decycle( result ) )"
+        type="textarea"
+        class="q-mt-md"
+        readonly
+      />
+      <wk-banner
+        v-if="error"
+        :caption="error"
+        label="Error querying wallet bundle metadata:"
+        class="q-mt-lg"
+      />
+    </sequential-entrance>
   </wk-hero-card>
 </template>
 
@@ -73,12 +65,10 @@ import vuex from 'src/mixins/vuex';
 import WkBundleTable from 'components/tables/WkBundleTable';
 import WkBanner from 'components/WkBanner';
 import WkInput from 'components/forms/fields/WkInput';
-import WkInnerLoading from 'components/layout/WkInnerLoading';
 import { decycle, } from 'src/libraries/strings';
 
 export default {
   components: {
-    WkInnerLoading,
     WkInput,
     WkBanner,
     WkBundleTable,
@@ -107,7 +97,10 @@ export default {
   },
   computed: {
     example () {
-      return `const result = await client.queryBundle ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );`;
+      return `const result = await client.queryBundle ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );
+
+// Raw Metadata
+console.log( result );`;
     },
   },
   mounted () {

@@ -1,28 +1,41 @@
 <template>
-  <q-item
-    v-clipboard="example"
-    clickable
-    @click="clipAction"
+  <q-card
+    class="bg-tiling-dark inset-shadow"
+    bordered
   >
-    <q-item-section
-      avatar
+    <q-item
+      v-clipboard="example"
+      clickable
+      dark
+      @click="clipAction"
     >
-      <q-avatar
-        color="primary"
-        text-color="white"
+      <q-item-section
+        avatar
       >
-        <q-icon
-          name="fa fa-paperclip"
+        <q-avatar
+          color="primary"
+          text-color="white"
+        >
+          <q-icon
+            name="fa fa-paperclip"
+          />
+        </q-avatar>
+      </q-item-section>
+      <q-item-section
+        class="overflow-auto"
+      >
+        <q-item-label
+          overline
+        >
+          Example Code:
+        </q-item-label>
+        <VueShowdown
+          :markdown="markdownExample"
+          flavor="github"
         />
-      </q-avatar>
-    </q-item-section>
-    <q-item-section>
-      <VueShowdown
-        :markdown="markdownExample"
-        flavor="github"
-      />
-    </q-item-section>
-  </q-item>
+      </q-item-section>
+    </q-item>
+  </q-card>
 </template>
 
 <script>
