@@ -4,7 +4,6 @@
     bordered
   >
     <q-item
-      v-clipboard="example"
       clickable
       dark
       @click="clipAction"
@@ -60,6 +59,7 @@ ${ this.example }
   },
   methods: {
     clipAction () {
+      this.$clipboard( this.example );
       this.notify( this.$q.notify, this.$t( 'ux.notifications.clipboard' ) );
     },
   },
