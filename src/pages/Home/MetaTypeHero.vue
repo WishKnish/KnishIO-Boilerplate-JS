@@ -180,6 +180,7 @@ console.log( result );`;
     async query () {
       this.loading = true;
       try {
+        this.results = null;
         this.error = null;
         const result = await this.demoClient.queryMeta( this.demoMetaType > '' ? this.demoMetaType : null, this.demoMetaId > '' ? this.demoMetaId : null, this.demoKey > '' ? this.demoKey : null, this.demoValue > '' ? this.demoValue : null, this.demoLatest );
         if ( !result ) {
