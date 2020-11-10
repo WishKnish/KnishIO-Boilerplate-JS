@@ -1,6 +1,7 @@
 <template>
   <wk-hero-card
     :disable="disable"
+    :prefix="prefix"
   >
     <q-img
       id="bodyLogo"
@@ -41,6 +42,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

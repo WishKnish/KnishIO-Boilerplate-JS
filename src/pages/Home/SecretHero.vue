@@ -1,7 +1,8 @@
 <template>
   <wk-hero-card
     :disable="disable"
-    title="3. The Secret and Authorization"
+    :prefix="prefix"
+    title="The Secret and Authorization"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -104,6 +105,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

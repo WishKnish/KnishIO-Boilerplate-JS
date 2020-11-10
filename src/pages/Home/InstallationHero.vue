@@ -1,7 +1,8 @@
 <template>
   <wk-hero-card
     :disable="disable"
-    title="1. Client SDK Installation"
+    :prefix="prefix"
+    title="Client SDK Installation"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -57,6 +58,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

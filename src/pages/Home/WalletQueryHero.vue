@@ -2,7 +2,8 @@
   <wk-hero-card
     :disable="disable"
     :loading="loading"
-    title="8. The Wallet(s)"
+    :prefix="prefix"
+    title="The Wallet(s)"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -18,6 +19,17 @@
           label="Enter a Bundle Hash (empty = query own bundle):"
           class="fit"
         />
+      </q-item-section>
+    </q-item>
+    <q-item
+      class="q-pb-lg"
+    >
+      <q-item-section>
+        <q-checkbox
+          v-model="demoUnspent"
+        >
+          Limit results to unspent wallets?
+        </q-checkbox>
       </q-item-section>
       <q-item-section
         side
@@ -85,10 +97,16 @@ export default {
       required: false,
       default: false,
     },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
   data () {
     return {
       demoBundle: null,
+      demoUnspent: true,
       loading: false,
       result: null,
       error: null,
@@ -96,7 +114,14 @@ export default {
   },
   computed: {
     example () {
-      return `const result = await client.queryWallets ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );`;
+      const bundle = this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<';
+      const unspent = this.demoUnspent ? 'true' : 'false';
+      return `const result = await client.queryWallets (
+'${ bundle }', // which bundle's wallets we're querying
+${ unspent } // limit results to unspent wallets?
+);
+
+console.log( results ); // Raw response`;
     },
   },
   mounted () {
@@ -109,7 +134,7 @@ export default {
       try {
         this.error = null;
         this.result = null;
-        const result = await this.demoClient.queryWallets( this.demoBundle > '' ? this.demoBundle : null );
+        const result = await this.demoClient.queryWallets( this.demoBundle > '' ? this.demoBundle : null, this.demoUnspent );
         if ( !result ) {
           this.error = `No wallets for Bundle Hash hash "${ this.demoBundle }" were found!`;
         } else {

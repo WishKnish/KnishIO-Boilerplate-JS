@@ -7,14 +7,18 @@
       :tag="false"
     >
       <home-hero />
-      <installation-hero />
+      <installation-hero
+        prefix="1."
+      />
       <client-hero
         id="clientHero"
+        prefix="2."
         @input="setClient"
       />
       <secret-hero
         v-if="hasClient"
         id="secretHero"
+        prefix="3."
         @input="setAuth"
       />
       <no-client-hero
@@ -24,6 +28,7 @@
       <bundle-hero
         v-if="hasAuth"
         id="bundleHero"
+        prefix="4."
       />
       <no-secret-hero
         v-else-if="hasClient"
@@ -31,21 +36,31 @@
       />
       <bundle-query-hero
         v-if="hasAuth"
+        prefix="5."
       />
-      <meta-type-hero
+      <meta-query-hero
         v-if="hasAuth"
+        prefix="6."
       />
       <meta-mutation-hero
         v-if="hasAuth"
+        prefix="7."
       />
       <wallet-query-hero
         v-if="hasAuth"
+        prefix="8."
+      />
+      <wallet-mutation-hero
+        v-if="hasAuth"
+        prefix="9."
       />
       <token-hero
         v-if="hasAuth"
+        prefix="10."
       />
       <transfer-hero
         v-if="hasAuth"
+        prefix="11."
       />
     </sequential-entrance>
   </section>
@@ -58,7 +73,7 @@ import SecretHero from 'pages/Home/SecretHero';
 import BundleHero from 'pages/Home/BundleHero';
 import vuex from 'src/mixins/vuex';
 import BundleQueryHero from 'pages/Home/BundleQueryHero';
-import MetaTypeHero from 'pages/Home/MetaTypeHero';
+import MetaQueryHero from 'pages/Home/MetaQueryHero';
 import application from 'src/mixins/application';
 import MetaMutationHero from 'pages/Home/MetaMutationHero';
 import WalletQueryHero from 'pages/Home/WalletQueryHero';
@@ -67,9 +82,11 @@ import InstallationHero from 'pages/Home/InstallationHero';
 import NoClientHero from 'pages/Home/NoClientHero';
 import NoSecretHero from 'pages/Home/NoSecretHero';
 import TransferHero from 'pages/Home/TransferHero';
+import WalletMutationHero from 'pages/Home/WalletMutationHero';
 
 export default {
   components: {
+    WalletMutationHero,
     TransferHero,
     NoSecretHero,
     NoClientHero,
@@ -77,7 +94,7 @@ export default {
     TokenHero,
     WalletQueryHero,
     MetaMutationHero,
-    MetaTypeHero,
+    MetaQueryHero,
     BundleQueryHero,
     BundleHero,
     SecretHero,

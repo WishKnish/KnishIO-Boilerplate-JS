@@ -1,8 +1,9 @@
 <template>
   <wk-hero-card
     :disable="disable"
+    :prefix="prefix"
     :loading="loading"
-    title="5. Querying Bundle Data"
+    title="Querying Bundle Data"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -85,6 +86,11 @@ export default {
       required: false,
       default: false,
     },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
   data () {
     return {
@@ -113,6 +119,7 @@ console.log( result );`;
       try {
         this.error = null;
         this.result = null;
+        this.bundleMeta = null;
         const result = await this.demoClient.queryBundle( this.demoBundle > '' ? this.demoBundle : null );
         if ( !result ) {
           this.error = `No bundles with hash "${ this.demoBundle }" were found!`;

@@ -1,6 +1,7 @@
 <template>
   <wk-hero-card
     :disable="disable"
+    :prefix="prefix"
     title="Hold your horses!"
   >
     <div
@@ -29,6 +30,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

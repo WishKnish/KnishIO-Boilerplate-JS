@@ -3,13 +3,13 @@
     :disable="disable"
     :loading="loading"
     :prefix="prefix"
-    title="Transferring Tokens"
+    title="Creating Wallets"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
     >
       <VueShowdown
-        markdown="Moving Tokens between Wallets is as simple as finding out your recipient's `bundleHash` and issuing a single command."
+        markdown="Wallets can be pre-defined for a particular `tokenSlug` on the ledger prior to receiving tokens. If tokens are transferred to a `bundleHash` that does not have an appropriate wallet available, a Shadow Wallet will be created as a placeholder to hold these tokens. A Shadow Wallet can then be claimed by simply creating a new Wallet for its `tokenSlug`."
       />
     </div>
     <q-item>
@@ -18,7 +18,7 @@
           class="row q-col-gutter-sm items-center"
         >
           <div
-            class="col-6"
+            class="col-grow"
           >
             <wk-input
               v-model="demoSlug"
@@ -32,35 +32,12 @@
             />
           </div>
           <div
-            class="col-6"
-          >
-            <wk-input
-              v-model="demoAmount"
-              :maxlength="46"
-              type="number"
-              label="Amount to Move:"
-              mask="###############################################"
-              class="fit"
-            />
-          </div>
-          <div
-            class="col-grow"
-          >
-            <wk-input
-              v-model="demoBundle"
-              :maxlength="64"
-              label="Recipient Bundle Hash:"
-              class="fit"
-              type="text"
-            />
-          </div>
-          <div
             class="col-shrink"
           >
             <wk-button
               :outline="false"
-              :disable="!demoBundle || !demoSlug || !demoAmount"
-              label="Transfer Tokens"
+              :disable="!demoSlug"
+              label="Create Wallet"
               @click="mutate"
             />
           </div>
@@ -82,13 +59,13 @@
       <wk-banner
         v-if="error"
         :caption="error"
-        label="Error transferring tokens:"
+        label="Error creating wallet:"
         class="q-mt-lg"
       />
       <wk-banner
         v-if="successMessage"
         :caption="successMessage"
-        label="Tokens successfully transferred:"
+        label="Wallet successfully created:"
         color="bg-positive"
         icon="fa fa-check"
         class="q-mt-lg"
@@ -132,8 +109,6 @@ export default {
   data () {
     return {
       demoSlug: null,
-      demoAmount: null,
-      demoBundle: null,
       loading: false,
       result: null,
       error: null,
@@ -142,14 +117,8 @@ export default {
   },
   computed: {
     example () {
-      const transferBundle = this.demoBundle ? this.demoBundle : '>>BUNDLE HASH<<';
-      const transferSlug = this.demoSlug ? this.demoSlug : '>>TOKEN SLUG<<';
-      const transferAmount = this.demoAmount ? this.demoAmount : '>>INITIAL AMOUNT<<';
-      return `const result = await client.transferToken (
-  '${ transferBundle }',
-  '${ transferSlug }',
-  '${ transferAmount }'
-);
+      const slug = this.demoSlug ? this.demoSlug : '>>TOKEN SLUG<<';
+      return `const result = await client.createWallet ( '${ slug }' );
 
 if( result.success() ) {
   // Do things!
@@ -166,12 +135,12 @@ console.log( result.data() ); // Raw response
       try {
         this.error = null;
         this.result = null;
-        const result = await this.demoClient.transferToken( this.demoBundle, this.demoSlug, this.demoAmount );
+        const result = await this.demoClient.createWallet( this.demoSlug );
         if ( !result.success() ) {
           this.error = result.reason();
         } else {
           this.result = result.data();
-          this.successMessage = `The ${ this.demoAmount } "${ this.demoSlug }" tokens were successfully transferred!`;
+          this.successMessage = `A new "${ this.demoSlug }" wallet was successfully created!`;
           this.$emit( 'input', this.result );
         }
         this.loading = false;

@@ -2,7 +2,8 @@
   <wk-hero-card
     :disable="disable"
     :loading="loading"
-    title="6. The Meta Assets"
+    :prefix="prefix"
+    title="The Meta Assets"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -139,6 +140,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

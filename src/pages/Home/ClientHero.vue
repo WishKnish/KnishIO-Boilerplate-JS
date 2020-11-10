@@ -1,7 +1,8 @@
 <template>
   <wk-hero-card
     :disable="disable"
-    title="2. The Knish.IO Client"
+    :prefix="prefix"
+    title="The Knish.IO Client"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -76,10 +77,10 @@
 </template>
 
 <script>
+import { KnishIOClient, } from '@wishknish/knishio-client-js';
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
-import { KnishIOClient, } from '@wishknish/knishio-client-js';
 import WkCodeExample from 'components/WkCodeExample';
 import application from 'src/mixins/application';
 import vuex from 'src/mixins/vuex';
@@ -102,6 +103,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

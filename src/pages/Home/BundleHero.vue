@@ -1,7 +1,8 @@
 <template>
   <wk-hero-card
     :disable="disable"
-    title="4. The Wallet Bundle"
+    :prefix="prefix"
+    title="The Wallet Bundle"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -81,6 +82,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

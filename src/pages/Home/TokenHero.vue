@@ -2,7 +2,8 @@
   <wk-hero-card
     :disable="disable"
     :loading="loading"
-    title="9. The Token"
+    :prefix="prefix"
+    title="The Token"
   >
     <div
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
@@ -155,6 +156,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    prefix: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data () {

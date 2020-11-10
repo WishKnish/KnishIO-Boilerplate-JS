@@ -18,6 +18,10 @@
               v-if="title"
               class="text-center"
             >
+              <span
+                v-if="prefix"
+                v-html="prefix"
+              />
               {{ title }}
             </h4>
             <div
@@ -85,6 +89,11 @@ export default {
       default: false,
     },
     title: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    prefix: {
       type: String,
       required: false,
       default: null,
