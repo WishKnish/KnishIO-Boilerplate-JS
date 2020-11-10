@@ -144,7 +144,7 @@ export default {
     example () {
       const transferBundle = this.demoBundle ? this.demoBundle : '>>BUNDLE HASH<<';
       const transferSlug = this.demoSlug ? this.demoSlug : '>>TOKEN SLUG<<';
-      const transferAmount = this.demoAmount ? this.demoAmount : '>>INITIAL AMOUNT<<';
+      const transferAmount = this.demoAmount ? this.demoAmount : '>>TRANSFER AMOUNT<<';
       return `const result = await client.transferToken (
   '${ transferBundle }',
   '${ transferSlug }',

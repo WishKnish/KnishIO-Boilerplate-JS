@@ -170,7 +170,7 @@ export default {
   ${ metaType }, // MetaType
   ${ metaId }, // Meta ID
   ${ key }, // Key
-  ${ value } // Value
+  ${ value }, // Value
   ${ latest } // Limit meta values to latest per key
 );
 
