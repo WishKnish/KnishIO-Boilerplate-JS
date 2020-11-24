@@ -113,7 +113,7 @@ export default {
   data () {
     return {
       nodeUri: null,
-      cellSlug: null,
+      cellSlug: 'TESTCELL',
       error: null,
     };
   },

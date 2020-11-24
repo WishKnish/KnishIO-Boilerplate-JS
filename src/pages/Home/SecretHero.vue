@@ -128,7 +128,7 @@ export default {
 const secret = generateSecret( \`${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ KNISHIO_SETTINGS.salt }\` );
 
 // Using our secret to get an authorization token from the node
-const result = client.requestAuthToken ( secret );
+const result = await client.requestAuthToken ( secret );
 
 // Raw result payload
 console.log( result.payload() );
