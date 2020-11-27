@@ -43,6 +43,18 @@
           </div>
         </div>
       </q-item-section>
+    </q-item>
+    <q-item
+      class="q-pb-lg"
+    >
+      <q-item-section>
+        <q-checkbox
+          v-model="legacy"
+          :disable="!nodeUri || !cellSlug"
+        >
+          Use the legacy (V2) API?
+        </q-checkbox>
+      </q-item-section>
       <q-item-section
         side
       >
@@ -115,6 +127,7 @@ export default {
       nodeUri: null,
       cellSlug: 'TESTCELL',
       error: null,
+      legacy: false,
     };
   },
   computed: {
@@ -122,7 +135,7 @@ export default {
       return `import { KnishIOClient } from '@wishknish/knishio-client-js'
 
 // Instantiate a new Knish.IO client instance
-const client = new KnishIOClient( '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }' );
+const client = new KnishIOClient( '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }'${ this.legacy ? ', null, 2' : '' } );
 
 // Assign a Cell slug
 client.setCellSlug( '${ this.cellSlug ? this.cellSlug : '>>YOUR CELL SLUG<<' }' );`;
@@ -142,7 +155,7 @@ client.setCellSlug( '${ this.cellSlug ? this.cellSlug : '>>YOUR CELL SLUG<<' }' 
           return;
         }
 
-        this.demoClient = new KnishIOClient( this.fullNodeUri );
+        this.demoClient = new KnishIOClient( this.fullNodeUri, null, this.legacy ? 2 : null );
         this.demoClient.setCellSlug( this.cellSlug );
         this.$emit( 'input', this.demoClient );
       } catch ( e ) {

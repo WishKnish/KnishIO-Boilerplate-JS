@@ -1,6 +1,7 @@
 <template>
   <q-card
     class="bg-tiling-dark inset-shadow"
+    style="max-width: 100vw"
     bordered
   >
     <q-item

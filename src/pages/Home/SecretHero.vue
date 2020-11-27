@@ -13,6 +13,29 @@
     </div>
     <q-item>
       <q-item-section>
+        <div
+          class="row q-col-gutter-md items-center"
+        >
+          <div>
+            Auth method:
+          </div>
+          <q-radio
+            v-model="method"
+            val="password"
+            label="Password + Salt"
+          />
+          <q-radio
+            v-model="method"
+            val="secret"
+            label="User Secret"
+          />
+        </div>
+      </q-item-section>
+    </q-item>
+    <q-item
+      v-if="method === 'password'"
+    >
+      <q-item-section>
         <wk-input
           v-model="password"
           :readonly="!!authToken"
@@ -21,12 +44,53 @@
           type="password"
         />
       </q-item-section>
+      <q-item-section>
+        <wk-input
+          v-model="salt"
+          :readonly="!!authToken"
+          label="Enter a Salt:"
+          class="fit"
+          type="text"
+        />
+      </q-item-section>
       <q-item-section
         side
       >
         <wk-button
           v-if="!authToken"
           :disable="!password"
+          :outline="false"
+          label="Request Authorization Token"
+          @click="requestAuth"
+        />
+        <wk-button
+          v-else
+          :outline="false"
+          label="Reset"
+          color="negative"
+          @click="resetAuth"
+        />
+      </q-item-section>
+    </q-item>
+    <q-item
+      v-else
+    >
+      <q-item-section>
+        <wk-input
+          v-model="demoSecret"
+          :readonly="!!authToken"
+          :maxlength="2048"
+          label="Enter a 2048-character user secret:"
+          class="fit"
+          type="textarea"
+        />
+      </q-item-section>
+      <q-item-section
+        side
+      >
+        <wk-button
+          v-if="!authToken"
+          :disable="!demoSecret"
           :outline="false"
           label="Request Authorization Token"
           @click="requestAuth"
@@ -114,7 +178,9 @@ export default {
   },
   data () {
     return {
+      method: 'password',
       password: null,
+      salt: KNISHIO_SETTINGS.salt,
       demoSecret: null,
       authToken: null,
       error: null,
@@ -124,8 +190,8 @@ export default {
     example () {
       return `import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/crypto';
 
-// Hashing password with salt to get a 2048-char secret
-const secret = generateSecret( \`${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ KNISHIO_SETTINGS.salt }\` );
+${ this.method === 'password' ? `// Hashing password with salt to get a 2048-char secret
+const secret = generateSecret( \`${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ this.salt }\` );` : `const secret = '${ this.demoSecret }';` }
 
 // Using our secret to get an authorization token from the node
 const result = await client.requestAuthToken ( secret );
@@ -142,18 +208,31 @@ console.log( client.getAuthToken() );`;
       try {
         this.error = null;
 
-        // Hashing password with salt to get a 2048-char secret
-        this.demoSecret = generateSecret( `${ this.password }:${ KNISHIO_SETTINGS.salt }` );
+        if(this.method === 'password') {
 
-        // Using our secret to get an authorization token from the node
-        const result = await this.demoClient.requestAuthToken( this.demoSecret );
+          // Hashing password with salt to get a 2048-char secret
+          this.demoSecret = generateSecret( `${ this.password }:${ this.salt }` );
 
-        // Raw result payload
-        console.log( result.payload() );
+        }
 
-        // What's our auth token?
-        this.authToken = this.demoClient.getAuthToken();
+        if( this.demoClient.getServerSdkVersion() > 2 ) {
 
+          // Using our secret to get an authorization token from the node
+          const result = await this.demoClient.requestAuthToken( this.demoSecret );
+
+          // Raw result payload
+          console.log( result.payload() );
+
+          // What's our auth token?
+          this.authToken = this.demoClient.getAuthToken();
+
+        }
+        else {
+
+          await this.demoClient.requestAuthToken( this.demoSecret );
+          this.authToken = 'No auth token needed for legacy API!';
+
+        }
         this.$emit( 'input', this.authToken );
       } catch ( e ) {
         this.error = e;
