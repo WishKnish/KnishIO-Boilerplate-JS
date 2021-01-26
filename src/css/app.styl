@@ -46,38 +46,5 @@
   .hover-spin
     transform: rotate(720deg)
 
-.clip-bottom-container, .clip-top-container
-  position: relative
-
-  &:after
-    display: block
-    width: 100%
-    transform: skewY(-2.34deg)
-    -webkit-backface-visibility: hidden
-    height: 20px
-    position: absolute
-    pointer-events: none
-    content: ''
-
-.clip-bottom-container
-  &:after
-    box-shadow: 0 8px 9px -5px rgba(0, 0, 0, 0.2), 0 15px 22px 2px rgba(0, 0, 0, 0.14), 0 6px 28px 5px rgba(0, 0, 0, 0.12)
-    bottom: 0
-    transform-origin: 0 0
-
-.clip-bottom
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0% 100%)
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0% 100%)
-
-.clip-top-container
-  &:after
-    box-shadow: 0 -8px 9px -5px rgba(0, 0, 0, 0.2), 0 -15px 22px 2px rgba(0, 0, 0, 0.14), 0 -6px 28px 5px rgba(0, 0, 0, 0.12)
-    top: 0
-    transform-origin: 100% 100%
-
-.clip-top
-  clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0% 100%)
-  -webkit-clip-path: polygon(0 4vw, 100% 0, 100% 100%, 0% 100%)
-
 .overflow-hidden-x
   overflow-x: hidden !important
