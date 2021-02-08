@@ -14,7 +14,7 @@
     "@quasar/app": "^2.1.14",
     "@quasar/cli": "^1.1.3",
     "@quasar/extras": "^1.9.15",
-    "@wishknish/knishio-client-js": "^0.4.0-staging",
+    "@wishknish/knishio-client-js": "^0.4.1-staging",
     "@wishknish/qrcode.vue": "^1.7.1",
     "big-integer": "^1.6.48",
     "cors": "^2.8.5",

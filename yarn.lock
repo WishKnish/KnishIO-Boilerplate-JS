@@ -1542,10 +1542,10 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@wishknish/knishio-client-js@^0.4.0-staging":
-  version "0.4.0-staging"
-  resolved "https://registry.yarnpkg.com/@wishknish/knishio-client-js/-/knishio-client-js-0.4.0-staging.tgz#3389a9a67fd0acba9dc8b0337995f7fb9594a6f5"
-  integrity sha512-DxlLPOcB0+7vDjzd3Yi2AZixtN70NdW456B4Rz39/IMQteEyio62bSs5zVbpWOrAv7ruteyPPne1cmy7XCpDcg==
+"@wishknish/knishio-client-js@^0.4.1-staging":
+  version "0.4.1-staging"
+  resolved "https://registry.yarnpkg.com/@wishknish/knishio-client-js/-/knishio-client-js-0.4.1-staging.tgz#5f055330baa138b9f66a0abfa63f36ba93302202"
+  integrity sha512-Kcbp9NWDBtagzUfLfEjvkkPOMBOiooJNnspT9rKbbK0s10hqG76oi1JwoT/xXZ32V5Of3UW8yLKuSWpntBVDhw==
   dependencies:
     "@stablelib/base64" "^1.0.0"
     "@stablelib/utf8" "^1.0.0"
