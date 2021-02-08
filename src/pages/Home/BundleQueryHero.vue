@@ -1,8 +1,8 @@
 <template>
   <wk-hero-card
     :disable="disable"
-    :prefix="prefix"
     :loading="loading"
+    :prefix="prefix"
     title="Querying Bundle Data"
   >
     <div
@@ -19,6 +19,17 @@
           label="Enter a Bundle Hash (empty = query own bundle):"
           class="fit"
         />
+      </q-item-section>
+    </q-item>
+    <q-item
+      class="q-pb-lg"
+    >
+      <q-item-section>
+        <q-checkbox
+          v-model="demoRaw"
+        >
+          Raw results?
+        </q-checkbox>
       </q-item-section>
       <q-item-section
         side
@@ -38,6 +49,7 @@
         v-if="!loading && bundleMeta"
         :bundle="bundleMeta"
         :show-search="false"
+        :show-timestamp="demoRaw"
         class="q-mt-lg"
       />
       <wk-input
@@ -96,6 +108,7 @@ export default {
     return {
       loading: false,
       demoBundle: null,
+      demoRaw: false,
       bundleMeta: null,
       result: null,
       error: null,
@@ -103,14 +116,17 @@ export default {
   },
   computed: {
     example () {
-      return `const result = await client.queryBundle ( '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }' );
+      return `const result = await client.queryBundle ( {
+  bundleHash: '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }'${ this.demoRaw ? `,
+  raw: ${ this.demoRaw }` : '' }
+} );
 
 // Raw Metadata
 console.log( result );`;
     },
   },
   mounted () {
-    this.bundleHash = this.demoClient.bundle();
+    this.bundleHash = this.demoClient.getBundle();
   },
   methods: {
     decycle,
@@ -120,12 +136,15 @@ console.log( result );`;
         this.error = null;
         this.result = null;
         this.bundleMeta = null;
-        const result = await this.demoClient.queryBundle( this.demoBundle > '' ? this.demoBundle : null );
+        const result = await this.demoClient.queryBundle( {
+          bundleHash: this.demoBundle > '' ? this.demoBundle : null,
+          raw: this.demoRaw,
+        } );
         if ( !result ) {
           this.error = `No bundles with hash "${ this.demoBundle }" were found!`;
         } else {
           this.result = result;
-          this.bundleMeta = Object.values( result ).pop();
+          this.bundleMeta = this.demoRaw ? result.data().pop() : Object.values( result ).pop();
           this.$emit( 'input', this.bundleMeta );
         }
         this.loading = false;

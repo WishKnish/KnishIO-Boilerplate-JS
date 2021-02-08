@@ -97,14 +97,14 @@ export default {
   },
   computed: {
     example () {
-      return 'const bundleHash = client.bundle();';
+      return 'console.log( client.getBundle() );';
     },
   },
   methods: {
     getBundle () {
       this.error = null;
       try {
-        this.bundleHash = this.demoClient.bundle();
+        this.bundleHash = this.demoClient.getBundle();
         this.$emit( 'input', this.bundleHash );
       } catch ( e ) {
         this.error = e;

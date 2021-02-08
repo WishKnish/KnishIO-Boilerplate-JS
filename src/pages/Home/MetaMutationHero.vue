@@ -18,7 +18,7 @@
           class="row q-col-gutter-sm"
         >
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoMetaType"
@@ -27,7 +27,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoMetaId"
@@ -36,7 +36,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoKey"
@@ -45,7 +45,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoValue"
@@ -148,11 +148,11 @@ export default {
       const metadata = `{
     '${ this.demoKey ? this.demoKey : '>>KEY<<' }': '${ this.demoValue ? this.demoValue : '>>VALUE<<' }'
   }`;
-      return `const result = await client.createMeta (
-  ${ metaType }, // MetaType
-  ${ metaId }, // Meta ID
-  ${ metadata } // Metadata JSON
-);
+      return `const result = await client.createMeta ( {
+  ${ metaType ? `metaType: ${ metaType }` : '' }${ metaId ? `,
+  metaId: ${ metaId }` : '' },
+  meta: ${ metadata }
+} );
 
 if( result.success() ) {
   // Do things!
@@ -163,7 +163,7 @@ console.log( result.data() ); // Raw response
     },
   },
   mounted () {
-    this.demoMetaId = this.demoClient.bundle();
+    this.demoMetaId = this.demoClient.getBundle();
   },
   methods: {
     decycle,
@@ -174,7 +174,11 @@ console.log( result.data() ); // Raw response
         this.successMessage = null;
         const metadata = {};
         metadata[ this.demoKey ] = this.demoValue;
-        const result = await this.demoClient.createMeta( this.demoMetaType, this.demoMetaId, metadata );
+        const result = await this.demoClient.createMeta( {
+          metaType: this.demoMetaType,
+          metaId: this.demoMetaId,
+          meta: metadata,
+        } );
         if ( !result.success() ) {
           this.error = result.reason();
         } else {

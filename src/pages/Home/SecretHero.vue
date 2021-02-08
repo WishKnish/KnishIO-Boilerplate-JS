@@ -150,7 +150,6 @@ import WkHeroCard from 'components/layout/WkHeroCard';
 import WkCodeExample from 'components/WkCodeExample';
 import WkBanner from 'components/WkBanner';
 import vuex from 'src/mixins/vuex';
-import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/crypto';
 import { KNISHIO_SETTINGS, } from 'src/constants/knishio';
 
 export default {
@@ -179,7 +178,7 @@ export default {
   data () {
     return {
       method: 'password',
-      password: null,
+      password: '12345',
       salt: KNISHIO_SETTINGS.salt,
       demoSecret: null,
       authToken: null,
@@ -188,19 +187,20 @@ export default {
   },
   computed: {
     example () {
-      return `import { generateSecret, } from '@wishknish/knishio-client-js/src/libraries/crypto';
-
-${ this.method === 'password' ? `// Hashing password with salt to get a 2048-char secret
-const secret = generateSecret( \`${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ this.salt }\` );` : `const secret = '${ this.demoSecret }';` }
-
+      return `
 // Using our secret to get an authorization token from the node
-const result = await client.requestAuthToken ( secret );
+const result = await client.requestAuthToken ( {
+  ${ this.method === 'password' ? `seed: '${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ this.salt }` : `secret: '${ this.demoSecret ? this.demoSecret : '>>YOUR SECRET<<' }` }
+} );
 
 // Raw result payload
 console.log( result.payload() );
 
 // What's our auth token?
-console.log( client.getAuthToken() );`;
+console.log( client.getAuthToken() );
+
+// What's our secret?
+console.log( client.getSecret() );`;
     },
   },
   methods: {
@@ -208,17 +208,13 @@ console.log( client.getAuthToken() );`;
       try {
         this.error = null;
 
-        if(this.method === 'password') {
+        // Using our secret to get an authorization token from the node
+        const result = await this.demoClient.requestAuthToken( {
+          seed: this.method === 'password' ? `${ this.password }:${ this.salt }` : null,
+          secret: this.method !== 'password' ? this.demoSecret : null,
+        } );
 
-          // Hashing password with salt to get a 2048-char secret
-          this.demoSecret = generateSecret( `${ this.password }:${ this.salt }` );
-
-        }
-
-        if( this.demoClient.getServerSdkVersion() > 2 ) {
-
-          // Using our secret to get an authorization token from the node
-          const result = await this.demoClient.requestAuthToken( this.demoSecret );
+        if ( this.demoClient.getServerSdkVersion() > 2 ) {
 
           // Raw result payload
           console.log( result.payload() );
@@ -226,10 +222,11 @@ console.log( client.getAuthToken() );`;
           // What's our auth token?
           this.authToken = this.demoClient.getAuthToken();
 
-        }
-        else {
+          // What's our secret?
+          this.demoSecret = this.demoClient.getSecret();
 
-          await this.demoClient.requestAuthToken( this.demoSecret );
+        } else {
+
           this.authToken = 'No auth token needed for legacy API!';
 
         }

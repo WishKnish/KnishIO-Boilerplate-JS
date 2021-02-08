@@ -91,7 +91,7 @@
           :metas="metaInstance.metas"
           :show-search="false"
           :show-molecule="false"
-          :show-timestamp="false"
+          :show-timestamp="true"
         />
       </div>
 
@@ -162,24 +162,24 @@ export default {
   computed: {
     example () {
       const metaType = this.demoMetaType ? `'${ this.demoMetaType }'` : '>>META TYPE<<';
-      const metaId = this.demoMetaId ? `'${ this.demoMetaId }'` : 'null';
-      const key = this.demoKey ? `'${ this.demoKey }'` : 'null';
-      const value = this.demoValue ? `'${ this.demoValue }'` : 'null';
-      const latest = this.demoLatest ? `${ this.demoLatest }` : 'null';
-      return `const result = await client.queryMeta (
-  ${ metaType }, // MetaType
-  ${ metaId }, // Meta ID
-  ${ key }, // Key
-  ${ value }, // Value
-  ${ latest } // Limit meta values to latest per key
-);
+      const metaId = this.demoMetaId ? `'${ this.demoMetaId }'` : null;
+      const key = this.demoKey ? `'${ this.demoKey }'` : null;
+      const value = this.demoValue ? `'${ this.demoValue }'` : null;
+      const latest = this.demoLatest ? `${ this.demoLatest }` : null;
+      return `const result = await client.queryMeta ( {
+  ${ metaType ? `metaType: ${ metaType }` : '' }${ metaId ? `,
+  metaId: ${ metaId }` : '' }${ key ? `,
+  key: ${ key }` : '' }${ value ? `,
+  value: ${ value }` : '' }${ latest ? `,
+  latest: ${ latest}` : '' }
+} );
 
 // Raw Metadata
 console.log( result );`;
     },
   },
   mounted () {
-    this.demoMetaId = this.demoClient.bundle();
+    this.demoMetaId = this.demoClient.getBundle();
   },
   methods: {
     decycle,
@@ -188,7 +188,13 @@ console.log( result );`;
       try {
         this.results = null;
         this.error = null;
-        const result = await this.demoClient.queryMeta( this.demoMetaType > '' ? this.demoMetaType : null, this.demoMetaId > '' ? this.demoMetaId : null, this.demoKey > '' ? this.demoKey : null, this.demoValue > '' ? this.demoValue : null, this.demoLatest );
+        const result = await this.demoClient.queryMeta( {
+          metaType: this.demoMetaType > '' ? this.demoMetaType : null,
+          metaId: this.demoMetaId > '' ? this.demoMetaId : null,
+          key: this.demoKey > '' ? this.demoKey : null,
+          value: this.demoValue > '' ? this.demoValue : null,
+          latest: this.demoLatest,
+        } );
         if ( !result ) {
           this.error = `No "${ this.demoMetaType }" meta type instances were found!`;
         } else {

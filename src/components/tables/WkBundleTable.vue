@@ -41,30 +41,13 @@
         :align="props.col.align"
       >
         <div
-          v-if="props.row.id === 'wallets'"
+          v-if="props.row.id === 'created'"
         >
-          <wk-wallets-table
-            v-if="props.value && props.value.length"
-            :wallets="props.value"
-            :show-bundle="false"
-          />
-          <q-icon
-            v-else
-            name="fa fa-times-circle"
-            color="danger"
-          />
-        </div>
-        <div
-          v-else-if="props.row.id === 'molecules'"
-        >
-          <div
-            v-if="props.value && props.value.length"
+          <span
+            v-if="props.value"
           >
-            <wk-molecules-table
-              :molecules="props.value"
-              :show-search="false"
-            />
-          </div>
+            {{ Number( props.value ) | moment(timestampFormat) }}
+          </span>
           <q-icon
             v-else
             name="fa fa-times-circle"
@@ -79,7 +62,7 @@
             :metas="props.value"
             :show-molecule="false"
             :show-search="false"
-            :show-timestamp="false"
+            :show-timestamp="showTimestamp"
           />
           <q-icon
             v-else
@@ -127,20 +110,20 @@
 <script>
 import WkAtomChip from 'components/chips/WkAtomChip';
 import WkMetaTable from './WkMetaTable';
-import WkWalletsTable from './WkWalletsTable';
-import WkMoleculesTable from './WkMoleculesTable';
 import { PAGINATION_DEFAULTS, } from 'src/constants/defaults';
+import application from 'src/mixins/application';
 
 export default {
   components: {
-    WkMoleculesTable,
-    WkWalletsTable,
     WkMetaTable,
     WkAtomChip,
   },
+  mixins: [
+    application,
+  ],
   props: {
     bundle: {
-      type: Object,
+      type: [ Object, Array, ],
       required: true,
     },
     dark: {
@@ -157,6 +140,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    showTimestamp: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
     showSearch: {
       type: Boolean,
@@ -179,14 +167,9 @@ export default {
           value: this.bundle.bundleHash,
         },
         {
-          id: 'wallets',
-          name: this.$t( 'tables.bundle.columns.wallets' ),
-          value: this.bundle.wallets,
-        },
-        {
-          id: 'molecules',
-          name: this.$t( 'tables.bundle.columns.molecules' ),
-          value: this.bundle.molecules,
+          id: 'created',
+          name: this.$t( 'tables.bundle.columns.created' ),
+          value: this.bundle.createdAt,
         },
         {
           id: 'meta',
