@@ -140,7 +140,7 @@ export async function INIT ( context, { newSecret = null, vm = null, } ) {
 
     // Getting everything the ledger knows about this bundle
     console.log( 'User::init() - Retrieving wallet bundle metadata...' );
-    await context.commit( 'SET_BUNDLE', vm.$knishio.bundle() );
+    await context.commit( 'SET_BUNDLE', vm.$knishio.getBundle() );
     await context.dispatch( 'UPDATE', { vm: vm, } );
     await context.commit( 'SET_LOGGED_IN', true );
 

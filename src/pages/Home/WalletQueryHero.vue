@@ -115,17 +115,13 @@ export default {
   computed: {
     example () {
       const bundle = this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<';
-      const unspent = this.demoUnspent ? 'true' : 'false';
-      return `const result = await client.queryWallets (
-'${ bundle }', // which bundle's wallets we're querying
-${ unspent } // limit results to unspent wallets?
-);
+      return `const result = await client.queryWallets ( {
+  bundleHash: '${ bundle }'${ this.demoUnspent ? `,
+  unspent: ${ this.demoUnspent }` : '' }
+} );
 
 console.log( results ); // Raw response`;
     },
-  },
-  mounted () {
-    this.demoBundle = this.demoClient.bundle();
   },
   methods: {
     decycle,
@@ -134,7 +130,10 @@ console.log( results ); // Raw response`;
       try {
         this.error = null;
         this.result = null;
-        const result = await this.demoClient.queryWallets( this.demoBundle > '' ? this.demoBundle : null, this.demoUnspent );
+        const result = await this.demoClient.queryWallets( {
+          bundleHash: this.demoBundle > '' ? this.demoBundle : null,
+          unspent: this.demoUnspent,
+        } );
         if ( !result ) {
           this.error = `No wallets for Bundle Hash hash "${ this.demoBundle }" were found!`;
         } else {

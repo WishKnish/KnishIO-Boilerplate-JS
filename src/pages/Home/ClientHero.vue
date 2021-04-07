@@ -17,7 +17,7 @@
           class="row q-col-gutter-sm"
         >
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="nodeUri"
@@ -29,7 +29,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="cellSlug"
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { KnishIOClient, } from '@wishknish/knishio-client-js';
+import { KnishIOClient, } from '@wishknish/knishio-client-js/src/index';
 import WkInput from 'components/forms/fields/WkInput';
 import WkButton from 'components/WkButton';
 import WkHeroCard from 'components/layout/WkHeroCard';
@@ -124,7 +124,7 @@ export default {
   },
   data () {
     return {
-      nodeUri: null,
+      nodeUri: 'frontrow.knish.io',
       cellSlug: 'TESTCELL',
       error: null,
       legacy: false,
@@ -135,7 +135,10 @@ export default {
       return `import { KnishIOClient } from '@wishknish/knishio-client-js'
 
 // Instantiate a new Knish.IO client instance
-const client = new KnishIOClient( '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }'${ this.legacy ? ', null, 2' : '' } );
+const client = new KnishIOClient( {
+ url: '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }'${ this.legacy ? `,
+ serverSdkVersion: 2` : '' }
+} );
 
 // Assign a Cell slug
 client.setCellSlug( '${ this.cellSlug ? this.cellSlug : '>>YOUR CELL SLUG<<' }' );`;
@@ -155,7 +158,11 @@ client.setCellSlug( '${ this.cellSlug ? this.cellSlug : '>>YOUR CELL SLUG<<' }' 
           return;
         }
 
-        this.demoClient = new KnishIOClient( this.fullNodeUri, null, this.legacy ? 2 : null );
+        this.demoClient = new KnishIOClient( {
+          uri: this.fullNodeUri,
+          serverSdkVersion: this.legacy ? 2 : 3,
+          logging: true,
+        } );
         this.demoClient.setCellSlug( this.cellSlug );
         this.$emit( 'input', this.demoClient );
       } catch ( e ) {

@@ -378,14 +378,14 @@ export default {
   },
   computed: {
     shortBundle () {
-      return this.$knishio.bundle().substr( -4, 4 ).toUpperCase();
+      return this.$knishio.getBundle().substr( -4, 4 ).toUpperCase();
     },
   },
   methods: {
     showQrDialog ( wallet ) {
       if ( !wallet ) {
         wallet = {
-          bundle: this.$knishio.bundle(),
+          bundle: this.$knishio.getBundle(),
         };
       }
       this.qrWallet = wallet;

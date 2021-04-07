@@ -18,7 +18,7 @@
           class="row q-col-gutter-sm"
         >
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoSlug"
@@ -32,7 +32,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoToken"
@@ -43,7 +43,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoDecimals"
@@ -55,7 +55,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoAmount"
@@ -67,7 +67,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-multi-select
               :options="Object.values(fungibilityOptions)"
@@ -77,7 +77,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-multi-select
               :options="Object.values(supplyOptions)"
@@ -213,18 +213,16 @@ export default {
       const tokenDecimals = this.demoDecimals ? this.demoDecimals : '>>DECIMAL PLACES<<';
       const tokenSlug = this.demoSlug ? this.demoSlug : '>>TOKEN SLUG<<';
       const tokenAmount = this.demoAmount ? this.demoAmount : '>>INITIAL AMOUNT<<';
-      return `const tokenMeta = {
-  name: '${ tokenName }', // Public name for the token
-  fungibility: '${ tokenFungibility }', // Fungibility style
-  supply: '${ tokenSupply }', // Supply style
-  decimals: '${ tokenDecimals }', // Decimal places
-};
-
-const result = await client.createToken (
-  '${ tokenSlug }',
-  '${ tokenAmount }',
-  tokenMeta // Metadata JSON
-);
+      return `const result = await client.createToken ( {
+  token: '${ tokenSlug }',
+  amount: '${ tokenAmount }',
+  meta: {
+    name: '${ tokenName }',
+    fungibility: '${ tokenFungibility }',
+    supply: '${ tokenSupply }',
+    decimals: '${ tokenDecimals }',
+  },
+} );
 
 if( result.success() ) {
   // Do things!
@@ -247,7 +245,11 @@ console.log( result.data() ); // Raw response
           supply: this.demoSupply, // Supply style
           decimals: this.demoDecimals, // Decimal places
         };
-        const result = await this.demoClient.createToken( this.demoSlug, this.demoAmount, tokenMeta );
+        const result = await this.demoClient.createToken( {
+          token: this.demoSlug,
+          amount: this.demoAmount,
+          meta: tokenMeta,
+        } );
         if ( !result.success() ) {
           this.error = result.reason();
         } else {

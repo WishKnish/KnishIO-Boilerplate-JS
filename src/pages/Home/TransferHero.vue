@@ -18,7 +18,7 @@
           class="row q-col-gutter-sm items-center"
         >
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoSlug"
@@ -32,7 +32,7 @@
             />
           </div>
           <div
-            class="col-6"
+            class="col-xs-12 col-sm-6"
           >
             <wk-input
               v-model="demoAmount"
@@ -145,11 +145,11 @@ export default {
       const transferBundle = this.demoBundle ? this.demoBundle : '>>BUNDLE HASH<<';
       const transferSlug = this.demoSlug ? this.demoSlug : '>>TOKEN SLUG<<';
       const transferAmount = this.demoAmount ? this.demoAmount : '>>TRANSFER AMOUNT<<';
-      return `const result = await client.transferToken (
-  '${ transferBundle }',
-  '${ transferSlug }',
-  '${ transferAmount }'
-);
+      return `const result = await client.transferToken ( {
+  recipient: '${ transferBundle }',
+  token: '${ transferSlug }',
+  amount: '${ transferAmount }'
+} );
 
 if( result.success() ) {
   // Do things!
@@ -166,7 +166,11 @@ console.log( result.data() ); // Raw response
       try {
         this.error = null;
         this.result = null;
-        const result = await this.demoClient.transferToken( this.demoBundle, this.demoSlug, this.demoAmount );
+        const result = await this.demoClient.transferToken( {
+          recipient: this.demoBundle,
+          token: this.demoSlug,
+          amount: this.demoAmount,
+        } );
         if ( !result.success() ) {
           this.error = result.reason();
         } else {

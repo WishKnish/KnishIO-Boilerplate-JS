@@ -198,7 +198,6 @@ export default {
     getColumns () {
       const columns = [];
 
-
       if ( this.showMolecule ) {
         columns.push(
           {
