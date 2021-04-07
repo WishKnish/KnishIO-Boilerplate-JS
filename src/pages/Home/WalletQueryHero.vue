@@ -123,9 +123,6 @@ export default {
 console.log( results ); // Raw response`;
     },
   },
-  mounted () {
-    this.demoBundle = this.demoClient.getBundle();
-  },
   methods: {
     decycle,
     async query () {

@@ -198,7 +198,7 @@ console.log( result );`;
         if ( !result ) {
           this.error = `No "${ this.demoMetaType }" meta type instances were found!`;
         } else {
-          this.results = result;
+          this.results = result.instances;
           this.$emit( 'input', this.results );
         }
         this.loading = false;
