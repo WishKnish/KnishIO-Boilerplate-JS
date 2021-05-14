@@ -4385,11 +4385,6 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-faker@^5.0.0:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/faker/-/faker-5.3.1.tgz#67f8f5c170b97a76b875389e0e8b9155da7b4853"
-  integrity sha512-sVdoApX/awJHO9DZHZsHVaJBNFiJW0n3lPs0q/nFxp/Mtya1dr2sCMktST3mdxNMHjkvKTTMAW488E+jH1eSbg==
-
 fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
@@ -9935,11 +9930,6 @@ unbzip2-stream@^1.0.9:
     buffer "^5.2.1"
     through "^2.3.8"
 
-underscore@^1.8.3:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.12.0.tgz#4814940551fc80587cef7840d1ebb0f16453be97"
-  integrity sha512-21rQzss/XPMjolTiIezSu3JAjgagXKROtNrYFEOWK109qY1Uv2tVjPTZ1ci2HgvQDA16gHYSthQIJfB+XId/rQ==
-
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz#2619800c4c825800efdd8343af7dd9933cbe2818"
@@ -10237,14 +10227,6 @@ vue-eslint-parser@^5.0.0:
     espree "^4.1.0"
     esquery "^1.0.1"
     lodash "^4.17.11"
-
-vue-faker@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/vue-faker/-/vue-faker-3.0.0.tgz#86cf2ae484db8c099876905b02d29457ae7ab1a0"
-  integrity sha512-rMPjMdrq6P9bDYm/fGb7ZJHZhRv2YW3iDkuCHYts7Nx/uVVPBxh0cHE7umpFIQsteiiCs0wPP2xwvkzeLPWLRA==
-  dependencies:
-    faker "^5.0.0"
-    underscore "^1.8.3"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
