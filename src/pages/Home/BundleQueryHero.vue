@@ -137,7 +137,7 @@ console.log( result );`;
         this.result = null;
         this.bundleMeta = null;
         const result = await this.demoClient.queryBundle( {
-          bundleHash: this.demoBundle > '' ? this.demoBundle : null,
+          bundleHash: this.demoBundle ? this.demoBundle : null,
           raw: this.demoRaw,
         } );
         if ( !result ) {
