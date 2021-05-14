@@ -186,15 +186,6 @@ export default {
       bar: 'Send Token',
       header: 'Send Token(s) to Another Peer',
     },
-    generator: {
-      bar: 'QR Generator',
-      header: 'Wallet Code',
-      token: 'Token:',
-      balance: 'Balance:',
-      bundle: 'Bundle:',
-      address: 'Address:',
-      position: 'Position:',
-    },
   },
   forms: {
     login: {

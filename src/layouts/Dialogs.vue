@@ -46,18 +46,6 @@
     </q-dialog>
 
     <q-dialog
-      v-model="qrDialogOpen"
-      :maximized="$q.screen.lt.sm"
-      :transition-show="transitions.in"
-      :transition-hide="transitions.out"
-    >
-      <wk-generator-dialog
-        v-if="qrWallet"
-        :wallet="qrWallet"
-      />
-    </q-dialog>
-
-    <q-dialog
       v-model="thumbnailDialogOpen"
       :maximized="$q.screen.lt.sm"
       :transition-show="transitions.in"
@@ -85,7 +73,6 @@
 <script>
 import WkBackupDialog from 'components/dialogs/WkBackupDialog';
 import WkLogoutDialog from 'components/dialogs/WkLogoutDialog';
-import WkGeneratorDialog from 'components/dialogs/WkGeneratorDialog';
 import WkRestoreDialog from 'components/dialogs/WkRestoreDialog';
 import WkRegisterDialog from 'components/dialogs/WkRegisterDialog';
 import WkLoginDialog from 'components/dialogs/WkLoginDialog';
@@ -97,7 +84,6 @@ export default {
     WkLoginDialog,
     WkRegisterDialog,
     WkRestoreDialog,
-    WkGeneratorDialog,
     WkLogoutDialog,
     WkBackupDialog,
   },
