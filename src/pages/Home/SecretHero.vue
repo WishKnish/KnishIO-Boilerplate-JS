@@ -190,7 +190,7 @@ export default {
       return `
 // Using our secret to get an authorization token from the node
 const result = await client.requestAuthToken ( {
-  ${ this.method === 'password' ? `seed: '${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ this.salt }` : `secret: '${ this.demoSecret ? this.demoSecret : '>>YOUR SECRET<<' }` }
+  ${ this.method === 'password' ? `seed: '${ this.password ? this.password : '>>YOUR PASSWORD<<' }:${ this.salt }` : `secret: '${ this.demoSecret ? this.demoSecret : '>>YOUR SECRET<<' }` }'
 } );
 
 // Raw result payload
