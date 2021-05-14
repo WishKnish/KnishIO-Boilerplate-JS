@@ -219,15 +219,6 @@ export async function UPDATE ( context, { vm, } ) {
           console.warn( 'User::update() - No remote metadata found...' );
         }
 
-        if ( !context.getters.GET_COVER ) {
-
-          // Generate a random cover
-          const GeoPattern = require( 'geopattern' );
-          context.commit( 'SET_COVER', GeoPattern.generate( bundle.bundleHash )
-            .toDataUrl() );
-
-        }
-
         if ( !context.getters.GET_AVATAR ) {
 
           // Generate a random avatar
