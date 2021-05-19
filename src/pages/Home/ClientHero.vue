@@ -136,7 +136,7 @@ export default {
 
 // Instantiate a new Knish.IO client instance
 const client = new KnishIOClient( {
- url: '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }'${ this.legacy ? `,
+ uri: '${ this.nodeUri ? this.fullNodeUri : '>>YOUR URI HERE<<' }'${ this.legacy ? `,
  serverSdkVersion: 2` : '' }
 } );
 

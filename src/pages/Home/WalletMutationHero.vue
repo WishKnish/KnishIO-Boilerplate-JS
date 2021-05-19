@@ -118,7 +118,9 @@ export default {
   computed: {
     example () {
       const slug = this.demoSlug ? this.demoSlug : '>>TOKEN SLUG<<';
-      return `const result = await client.createWallet ( '${ slug }' );
+      return `const result = await client.createWallet ( {
+  token: '${ slug }'
+} );
 
 if( result.success() ) {
   // Do things!
@@ -135,7 +137,9 @@ console.log( result.data() ); // Raw response
       try {
         this.error = null;
         this.result = null;
-        const result = await this.demoClient.createWallet( this.demoSlug );
+        const result = await this.demoClient.createWallet( {
+          token: this.demoSlug,
+        } );
         if ( !result.success() ) {
           this.error = result.reason();
         } else {
