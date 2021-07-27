@@ -79,6 +79,7 @@ import WkBundleTable from 'components/tables/WkBundleTable';
 import WkBanner from 'components/WkBanner';
 import WkInput from 'components/forms/fields/WkInput';
 import { decycle, } from 'src/libraries/strings';
+import Meta from '@wishknish/knishio-client-js/src/Meta';
 
 export default {
   components: {
@@ -89,9 +90,7 @@ export default {
     WkButton,
     WkHeroCard,
   },
-  mixins: [
-    vuex,
-  ],
+  mixins: [ vuex, ],
   props: {
     disable: {
       type: Boolean,
@@ -145,6 +144,7 @@ console.log( result );`;
         } else {
           this.result = result;
           this.bundleMeta = this.demoRaw ? result.data().pop() : Object.values( result ).pop();
+          this.bundleMeta.metas = Meta.normalizeMeta( this.bundleMeta.metas );
           this.$emit( 'input', this.bundleMeta );
         }
         this.loading = false;
