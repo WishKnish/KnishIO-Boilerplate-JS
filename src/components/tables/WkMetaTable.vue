@@ -1,10 +1,10 @@
 <template>
   <q-table
-    :data="normalizedMetas"
+    :data="metas"
     :columns="getColumns()"
     :pagination.sync="pagination"
     :loading="loading"
-    :hide-bottom="normalizedMetas && normalizedMetas.length > 0 && normalizedMetas.length <= pagination.rowsPerPage"
+    :hide-bottom="metas && metas.length > 0 && metas.length <= pagination.rowsPerPage"
     :filter="showSearch ? filter : null"
     :filter-method="showSearch ? filterMethod : null"
     :no-data-label="$t( 'tables.metas.header.empty' )"
@@ -170,7 +170,6 @@ export default {
   },
   data () {
     return {
-      normalizedMetas: [],
       treeViewOptions: {
         maxDepth: 1,
         rootObjectKey: 'root',
@@ -178,9 +177,6 @@ export default {
       pagination: PAGINATION_DEFAULTS,
       filter: '',
     };
-  },
-  mounted () {
-    this.normalizedMetas = Meta.normalizeMeta( this.metas );
   },
   methods: {
     filterMethod ( rows, terms ) {
