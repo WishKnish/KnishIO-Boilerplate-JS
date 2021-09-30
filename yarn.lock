@@ -1133,9 +1133,9 @@
     validate-npm-package-name "3.0.0"
 
 "@quasar/extras@^1.10.2":
-  version "1.10.9"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.10.9.tgz#e31a13a4b3e500d6f1ef7f9b53a403c543f69b04"
-  integrity sha512-EgtO8QyoA+vWTuiZPaSUXJe33nwKsDZDO5wHONQ2EwKBcn8paZtfQqU3hkWXPJOIGfRHrY3hvK8ArGW3rwNRTQ==
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.11.1.tgz#c04035a38eedf6ed6e40dbe629a6b9cd3c4a29f4"
+  integrity sha512-/h6EH4+7peanrgT1ErTSG2KwHuVrpnvS3lkmtuErCXrdpiV0z0DpGxdfIjsbhKqAPkAb6h5Zsdh72nBdKp1tsg==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
@@ -1307,10 +1307,15 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.5.tgz#1001cc5e6a3704b83c236027e77f2f58ea010f40"
   integrity sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==
 
-"@types/node@*", "@types/node@>=6":
+"@types/node@*":
   version "16.4.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.3.tgz#c01c1a215721f6dec71b47d88b4687463601ba48"
   integrity sha512-GKM4FLMkWDc0sfx7tXqPWkM6NBow1kge0fgQh0bOnlqo4iT1kvTvMEKE0c1RtUGnbLlGRXiAA8SumE//90uKAg==
+
+"@types/node@>=6":
+  version "16.10.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.2.tgz#5764ca9aa94470adb4e1185fe2e9f19458992b2e"
+  integrity sha512-zCclL4/rx+W5SQTzFs9wyvvyCwoK9QtBpratqz2IYJ3O8Umrn0m3nsTv0wQBk9sRGpvUe9CwPDrQFB10f1FIjQ==
 
 "@types/q@^1.5.1":
   version "1.5.5"
@@ -1588,9 +1593,9 @@
     "@xtuc/long" "4.2.2"
 
 "@wishknish/knishio-client-js@^0.4.24":
-  version "0.4.24"
-  resolved "https://registry.yarnpkg.com/@wishknish/knishio-client-js/-/knishio-client-js-0.4.24.tgz#0cd1ea5dac19d9225c0eb8f84f6c67f7320685df"
-  integrity sha512-90eNJHdd8hUKtnN0pX+c5vz6gIZOEWiCjflA/Ksh+Vvexphoagfvgsi+5sV0qy/lOJKKjHFnMw2iU9reQE6z9A==
+  version "0.4.27"
+  resolved "https://registry.yarnpkg.com/@wishknish/knishio-client-js/-/knishio-client-js-0.4.27.tgz#804d8ca47b8c797a751ad5dab6814c793b567e5c"
+  integrity sha512-TESdVI0I7NBvQZetR9hs+2frYxMwGdez7eXcva4ysue/OwmkRb7tlPcTQak3+xm/At8Pfn821eyXMdQLOl1jVw==
   dependencies:
     "@stablelib/base64" "^1.0.0"
     "@stablelib/utf8" "^1.0.0"
@@ -1704,9 +1709,9 @@ ajv@6.8.1, ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.4, ajv@^6.12.5, ajv@^6.9.1, ajv@^8
     uri-js "^4.2.2"
 
 ajv@^8.5.0:
-  version "8.6.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.6.2.tgz#2fb45e0e5fcbc0813326c1c3da535d1881bb0571"
-  integrity sha512-9807RlWAgT564wT+DjeyU5OFMPjmzxVobvDFmNAhY+5zD6A2ly3jDp6sgnfyDtlIQ+7H97oc/DGCzzfu9rjw9w==
+  version "8.6.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.6.3.tgz#11a66527761dc3e9a3845ea775d2d3c0414e8764"
+  integrity sha512-SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -2217,9 +2222,9 @@ batch@0.6.1:
   integrity sha1-3DQxT05nkxgJP8dgJyUl+UvyXBY=
 
 big-integer@^1.6.48:
-  version "1.6.48"
-  resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.48.tgz#8fd88bd1632cba4a1c8c3e3d7159f08bb95b4b9e"
-  integrity sha512-j51egjPa7/i+RdiRuJbPdJ2FIUYYPhvYLjzoYbcMMm62ooO6F94fETG4MTs46zPAF9Brs04OajboA/qTGuz78w==
+  version "1.6.49"
+  resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.49.tgz#f6817d3ea5d4f3fb19e24df9f4b1b4471a8328ce"
+  integrity sha512-KJ7VhqH+f/BOt9a3yMwJNmcZjG53ijWMTjSAGMveQWyLwqIiwkjNP5PFgDob3Snnx86SjDj6I89fIbv0dkQeNw==
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -5183,9 +5188,9 @@ graphql-tag@^2.11.0:
     tslib "^2.1.0"
 
 graphql@^15.5.0:
-  version "15.5.1"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.1.tgz#f2f84415d8985e7b84731e7f3536f8bb9d383aad"
-  integrity sha512-FeTRX67T3LoE3LWAxxOlW2K3Bz+rMYAC18rRguK4wgXaTZMiJwSUwDmPFo3UadAKbzirKIg5Qy+sNJXbpPRnQw==
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.6.0.tgz#e69323c6a9780a1a4b9ddf7e35ca8904bb04df02"
+  integrity sha512-WJR872Zlc9hckiEPhXgyUftXH48jp2EjO5tgBBOyNMRJZ9fviL2mJBD6CAysk6N5S0r9BTs09Qk39nnJBkvOXQ==
 
 gray-matter@^2.0.0:
   version "2.1.1"
@@ -6376,9 +6381,9 @@ klona@^2.0.4:
   integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
 
 laravel-echo@^1.10.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/laravel-echo/-/laravel-echo-1.11.0.tgz#3ca5160317cd7b1417256fdfb9ae9210d27369f4"
-  integrity sha512-0IThWqI+UNjrwIu/JI3/MGYXLT15LPrwNymP80cgZckYDyY57+Pf2WXKXa+ViX9qh+1WU34vBjMsJAj8wA5iVQ==
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/laravel-echo/-/laravel-echo-1.11.2.tgz#64b62f114b98bcc30b96df0addf586022ae827ea"
+  integrity sha512-LiMTeWDLgI/bCTXJ8r96NcwE2sjWhzt3cIPDFri27EfMt9fcc1D/DBfXU5urOHaWrFwDQEHrdNzS16ewEQaWtA==
 
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
@@ -7106,9 +7111,11 @@ no-case@^3.0.4:
     tslib "^2.0.3"
 
 node-fetch@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
-  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.5.tgz#42735537d7f080a7e5f78b6c549b7146be1742fd"
+  integrity sha512-mmlIVHJEu5rnIxgEgez6b9GgWXbkZj5YZ7fx+2r94a2E+Uirsp6HsPTPlomfdHtpt/B0cdKviwkoaM6pyvUOpQ==
+  dependencies:
+    whatwg-url "^5.0.0"
 
 node-forge@^0.10.0:
   version "0.10.0"
@@ -8379,9 +8386,9 @@ quasar-app-extension-ide-helper@^1.0.0:
     xml-escape "^1.1.0"
 
 quasar@^1.15.10:
-  version "1.15.23"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.15.23.tgz#51e6cd343b82734ee9669987a12e6c5b91bd913d"
-  integrity sha512-dAC39JQh1H441DL5f8cFa5Po4WB+Haz2E30RKMrh5bXmeiZoCGpll+RwtTW567J2tRIUzls2l9WzCDzLwx7s2Q==
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.16.0.tgz#b3eeba6c03860279fa6d423aeb0b83c884517481"
+  integrity sha512-w+XajlXYi1dRYHHD/oRydTv1G3G2edtZ+tWJjnPk4vYUlllUiVsredqrBwqoOogn8qRhpLVS6Og6pona+zIg5A==
 
 query-string@^4.1.0:
   version "4.3.4"
@@ -9915,6 +9922,11 @@ totalist@^1.0.0:
   resolved "https://registry.yarnpkg.com/totalist/-/totalist-1.1.0.tgz#a4d65a3e546517701e3e5c37a47a70ac97fe56df"
   integrity sha512-gduQwd1rOdDMGxFG1gEvhV88Oirdo2p+KjoYFU7k2g+i7n6AFFbDQ5kMPUsW0pNbfQsB/cwXvT1i4Bue0s9g5g==
 
+tr46@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
+  integrity sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=
+
 trim-repeated@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/trim-repeated/-/trim-repeated-1.0.0.tgz#e3646a2ea4e891312bf7eace6cfb05380bc01c21"
@@ -10357,9 +10369,9 @@ vue-hot-reload-api@^2.3.0:
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
 vue-i18n@^8.24.2:
-  version "8.25.0"
-  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.25.0.tgz#1037d9295fa2845a230b771de473481edb2cfc4c"
-  integrity sha512-ynhcL+PmTxuuSE1T10htiSXzjBozxYIE3ffbM1RfgAkVbr/v1SP+9Mi/7/uv8ZVV1yGuKjFAYp9BXq+X7op6MQ==
+  version "8.26.2"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.26.2.tgz#86a1ab9330bae7a56f58f23a52355f68aad00222"
+  integrity sha512-koaC7gEYcedlzq9M8usTbD/v3DdLZ8suvwuanrs6aBIiM/sVqq2nQPbeuNPrpHaXgpR/pff2+/R+lFGKl7S1cQ==
 
 vue-json-tree-view@^2.1.6:
   version "2.1.6"
@@ -10497,6 +10509,11 @@ wcwidth@^1.0.1:
   integrity sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=
   dependencies:
     defaults "^1.0.3"
+
+webidl-conversions@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
+  integrity sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE=
 
 webpack-bundle-analyzer@4.4.2:
   version "4.4.2"
@@ -10646,6 +10663,14 @@ whatwg-fetch@^3.4.1:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
   integrity sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==
+
+whatwg-url@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-5.0.0.tgz#966454e8765462e37644d3626f6742ce8b70965d"
+  integrity sha1-lmRU6HZUYuN2RNNib2dCzotwll0=
+  dependencies:
+    tr46 "~0.0.3"
+    webidl-conversions "^3.0.0"
 
 when@~3.6.x:
   version "3.6.4"
