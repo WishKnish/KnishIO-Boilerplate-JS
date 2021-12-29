@@ -124,7 +124,7 @@ export default {
   },
   data () {
     return {
-      nodeUri: 'frontrow.knish.io',
+      nodeUri: 'testnet.knish.io',
       cellSlug: 'TESTCELL',
       error: null,
       legacy: false,
