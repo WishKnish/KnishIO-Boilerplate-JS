@@ -123,10 +123,10 @@
                 type="textarea"
                 readonly
               />
-
               <wk-input
                 label="Your authorization token is:"
                 :value="authToken"
+                type="textarea"
                 readonly
               />
             </q-item-label>
@@ -220,7 +220,7 @@ console.log( client.getSecret() );`;
           console.log( result.payload() );
 
           // What's our auth token?
-          this.authToken = this.demoClient.getAuthToken();
+          this.authToken = JSON.stringify( this.demoClient.getAuthToken() );
 
           // What's our secret?
           this.demoSecret = this.demoClient.getSecret();
