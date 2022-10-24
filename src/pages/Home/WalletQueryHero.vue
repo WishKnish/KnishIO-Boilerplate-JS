@@ -116,7 +116,7 @@ export default {
     example () {
       const bundle = this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<';
       return `const result = await client.queryWallets ( {
-  bundleHash: '${ bundle }'${ this.demoUnspent ? `,
+  bundle: '${ bundle }'${ this.demoUnspent ? `,
   unspent: ${ this.demoUnspent }` : '' }
 } );
 
@@ -130,10 +130,11 @@ console.log( results ); // Raw response`;
       try {
         this.error = null;
         this.result = null;
-        const result = await this.demoClient.queryWallets( {
-          bundleHash: this.demoBundle > '' ? this.demoBundle : null,
+        const params = {
+          bundle: this.demoBundle > '' ? this.demoBundle : null,
           unspent: this.demoUnspent,
-        } );
+        };
+        const result = await this.demoClient.queryWallets( params );
         if ( !result ) {
           this.error = `No wallets for Bundle Hash hash "${ this.demoBundle }" were found!`;
         } else {

@@ -8,7 +8,7 @@
       :class="`${ $q.screen.gt.xs ? 'text-h5' : 'text-h6' } text-center`"
     >
       <VueShowdown
-        markdown="The first step is to instantiate a `KnishIOClient` instance and assign a Cell. Your Cell represents your specific Knish.IO dApp. You should have received a `cellSlug` to use."
+        markdown="The first step is to instantiate a `KnishIOClient` instance and assign a Cell. Your Cell represents your specific Knish.IO dApp. You should have received a `cellSlug` for production use."
       />
     </div>
     <q-item>
