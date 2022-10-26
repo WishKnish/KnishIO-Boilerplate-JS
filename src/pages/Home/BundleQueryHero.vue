@@ -116,7 +116,7 @@ export default {
   computed: {
     example () {
       return `const result = await client.queryBundle ( {
-  bundleHash: '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }'${ this.demoRaw ? `,
+  bundle: '${ this.demoBundle ? this.demoBundle : '>>BUNDLE HASH (or null)<<' }'${ this.demoRaw ? `,
   raw: ${ this.demoRaw }` : '' }
 } );
 
@@ -136,7 +136,7 @@ console.log( result );`;
         this.result = null;
         this.bundleMeta = null;
         const result = await this.demoClient.queryBundle( {
-          bundleHash: this.demoBundle ? this.demoBundle : null,
+          bundle: this.demoBundle ? this.demoBundle : null,
           raw: this.demoRaw,
         } );
         if ( !result ) {
