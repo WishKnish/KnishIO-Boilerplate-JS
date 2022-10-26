@@ -84,13 +84,29 @@
         :align="props.col.align"
       >
         <span
-          v-if="props.value > 0"
+          v-if="props.row.tokenUnits.length"
+        >
+          <q-chip
+            v-for="(tokenUnit, tokenUnitCount) in props.row.tokenUnits"
+            :key="tokenUnitCount"
+            size="xs"
+          >
+            {{ tokenUnit.id }}
+            <q-tooltip>
+              <strong>Name:</strong> {{ tokenUnit.name }}<br>
+              <strong>Metas:</strong> <code>{{ JSON.stringify( tokenUnit.metas ) }}</code>
+            </q-tooltip>
+          </q-chip>
+        </span>
+        <span
+          v-else-if="props.value > 0"
         >
           {{ Number( props.value ) | numberWithCommas }}
         </span>
         <span
           v-else
         >
+          {{ props.tokenUnits }}
           0
         </span>
       </q-td>
@@ -241,6 +257,17 @@ export default {
         }
       );
 
+      columns.push(
+        {
+          name: 'molecules',
+          label: this.$t( 'tables.wallets.columns.molecules' ),
+          field: row => row.molecules.length,
+          align: 'center',
+          sortable: true,
+          sort: ( a, b, rowA, rowB ) => parseInt( a, 10 ) - parseInt( b, 10 ),
+        }
+      );
+
       if ( this.showTimestamp ) {
         columns.push(
           {
@@ -249,7 +276,6 @@ export default {
             field: row => Number( row.createdAt ),
             align: 'center',
             sortable: true,
-            required: true,
           }
         );
       }

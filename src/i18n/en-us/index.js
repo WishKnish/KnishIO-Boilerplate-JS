@@ -280,12 +280,12 @@ export default {
         empty: 'There are no wallets to display.',
       },
       columns: {
-        rank: 'Rank',
         address: 'Address',
         bundle: 'Bundle',
         token: 'Token',
         position: 'Position',
         amount: 'Amount',
+        molecules: 'Molecules',
         created: 'Creation Timestamp',
       },
     },
